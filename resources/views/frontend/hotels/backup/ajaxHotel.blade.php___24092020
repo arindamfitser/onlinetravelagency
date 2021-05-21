@@ -1,0 +1,433 @@
+<?php if(isset($finalArray)) : ?>
+@foreach($finalArray as $key => $hotel)
+    <?php
+    $data = (array) $hotel['hotels'];
+    $images = $hotel['images'];
+    $amenity = $hotel['amenity'];
+    $results = $result[$key];
+    ?>
+    @if(!empty($data))
+        <item class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="holidaysection">
+                <div class="holidayimg">
+                    <div class="holidaybox">
+                        <?php if(getRoomxmlHotelData('hotelAddress',$data['id']) != ''){ ?>
+                        <div class="mapbox">
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="modal_cls" data-address="<?=getRoomxmlHotelData('hotelAddress',$data['id'])?>" data-lat="<?=(isset($hotel->address['latitude']) ? $hotel->address['latitude'] : '')?>" data-lng="<?=(isset($hotel->address['longitude']) ? $hotel->address['longitude'] : '')?>">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <?php } ?>
+                    <!--  <div class="heartbox" id="116"> <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> </a> </div> -->
+                    </div>
+                    <div id="hotelCarousel{{@$data['id']}}" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <?php
+                            $noimage = URL::to('/').'/public/frontend/images/timthumb.jpg';
+                            if(!empty($images)){
+                                $i = 0;
+                                foreach($images as $img){
+                                    $showImage = 'https://stuba.com'.$img['Url'];
+                                    //$headers = @get_headers($showImage);
+                            ?>
+                                    <div class="item_image item <?=($i == 0 ? 'active' : '')?>">
+                                    {{-- <img src="{{ (stripos($headers[0], "200 OK") ? $showImage : $noimage) }}" alt="{{ @$data['name'] }}" style="height: 360px; width: auto;"> --}}
+                                        <img src="{{ $showImage }}" alt="{{ @$data['name'] }}" style="height: 360px; width: auto;">
+                                    </div>
+                            <?php $i++; } }else{ ?>
+                                    <div class="item_image item active">
+                                        <img src="{{ $noimage }}" alt="{{ @$data['name'] }}" style="height: 360px; width: auto;">
+                                    </div>
+                            <?php } ?>
+                        </div>
+                        <a class="left carousel-control" href="#hotelCarousel{{@$data['id']}}" data-slide="prev">
+                            <span><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+                        </a> 
+                        <a class="right carousel-control" href="#hotelCarousel{{@$data['id']}}" data-slide="next"> 
+                            <span><i class="fa fa-angle-right" aria-hidden="true"></i></span> 
+                        </a> 
+                    </div>
+                </div>
+                <div class="holidaytex">
+                    <div class="Travellerbox1">
+                        <h2>{{ @$data['name'] }} </h2>
+                        <?php if(getRoomxmlHotelData('hotelAddress',$data['id']) != ''){ ?>
+                        <p>
+                            <span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                            <?php echo getRoomxmlHotelData('hotelAddress',$data['id']); ?>
+                        </p>
+                        <?php } ?>
+                        <p>{{ substr(strip_tags($data['Text']),0,80).'...' }} <a href="javascript:void(0);" onclick="document.getElementById('list-form-{{ $data['id'] }}').submit();">more</a></p>
+                        {{-- <a href="javascript:void(0);" class="Curatorbox">Stuba Star Rating : <strong>{{ (@$data['stars'] != '' ? @$data['stars'] : '0') }}</strong></a> --}}
+                        <ul>
+                            @foreach($amenity as $akey => $am)
+                                @if($am['Text'] !="" && $akey < 5)
+                            <li><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; {{ $am['Text'] }}</li>
+                            @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="Travellerbox2">
+                        <div class="starbox">
+                            <?php 
+                            $sr = (@$data['stars'] != '' ? @$data['stars'] : '0');
+                            for($s = 1; $s <= 5; $s++){
+                                if($s <= $sr){
+                                print '<i class="fa fa-star" aria-hidden="true"></i>';
+                                }else{
+                                print '<i class="fa fa-star-o" aria-hidden="true"></i>';
+                                }
+                            ?>
+                            <?php } ?>
+                        </div>
+                        <p>GUESTS STAR RATING</p>
+                        @if($price[$key] != "")
+                            <h6>{{ $currency }} <?php echo number_format(((float) $price[$key] + (float) (($price[$key] * get_option('markup_price')) / 100)   ), 2); ?></h6>
+                            {{-- <p>Per Night (Inc. Tax)</p> --}}
+                            <p>Indicative Room Rate (Inc. Tax)</p>
+                        @endif
+                        <form action="{{route('hotel.hoteldetails', ['id' => $data['id']]) }}" style="display: none;" id="list-form-{{ $data['id'] }}" method="POST">
+                        {{ csrf_field()  }}
+                            <input type="hidden" name="results" value="{{ serialize($results) }}">
+                            <input type="hidden" name="quantity_adults" value="{{ $quantity_adults }}">
+                            <input type="hidden" name="quantity_childs" value="{{ $quantity_childs}}">
+                            <input type="hidden" name="quantity_rooms" value="{{ $quantity_rooms }}">
+                        </form>
+                        <a href="javascript:void(0);" data-hotel-id="{{ $data['id'] }}" class="Viewbox viewHotelDetails">View</a> 
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </item>
+    @endif
+@endforeach
+<?php elseif(isset($hotels)) : ?>
+@foreach($hotels as $key => $hotel)
+    <?php
+    $data = (array) $hotel['hotels'];
+    $images = $hotel['images'];
+    $amenity = $hotel['amenity'];
+    $results = $result[$key];
+    ?>
+    @if(!empty($data))
+        <item class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="holidaysection">
+                <div class="holidayimg">
+                    <div class="holidaybox">
+                        <?php if(getRoomxmlHotelData('hotelAddress',$data['id']) != ''){ ?>
+                        <div class="mapbox">
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="modal_cls" data-address="<?=getRoomxmlHotelData('hotelAddress',$data['id'])?>" data-lat="<?=(isset($hotel->address['latitude']) ? $hotel->address['latitude'] : '')?>" data-lng="<?=(isset($hotel->address['longitude']) ? $hotel->address['longitude'] : '')?>">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <?php } ?>
+                    <!--  <div class="heartbox" id="116"> <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> </a> </div> -->
+                    </div>
+                    <div id="hotelCarousel{{@$data['id']}}" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <?php
+                            $noimage = URL::to('/').'/public/frontend/images/timthumb.jpg';
+                            if(!empty($images)){
+                                $i = 0;
+                                foreach($images as $img){
+                                    $showImage = 'https://stuba.com'.$img->Url;
+                                    //$headers = @get_headers($showImage);
+                            ?>
+                                    <div class="item_image item <?=($i == 0 ? 'active' : '')?>">
+                                    {{-- <img src="{{ (stripos($headers[0], "200 OK") ? $showImage : $noimage) }}" alt="{{ @$data['name'] }}" style="height: 360px; width: auto;"> --}}
+                                        <img src="{{ $showImage }}" alt="{{ @$data['name'] }}" style="height: 360px; width: auto;">
+                                    </div>
+                            <?php $i++; } }else{ ?>
+                                    <div class="item_image item active">
+                                        <img src="{{ $noimage }}" alt="{{ @$data['name'] }}" style="height: 360px; width: auto;">
+                                    </div>
+                            <?php } ?>
+                        </div>
+                        <a class="left carousel-control" href="#hotelCarousel{{@$data['id']}}" data-slide="prev">
+                            <span><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+                        </a> 
+                        <a class="right carousel-control" href="#hotelCarousel{{@$data['id']}}" data-slide="next"> 
+                            <span><i class="fa fa-angle-right" aria-hidden="true"></i></span> 
+                        </a> 
+                    </div>
+                </div>
+                <div class="holidaytex">
+                    <div class="Travellerbox1">
+                        <h2>{{ @$data['name'] }} </h2>
+                        <?php if(getRoomxmlHotelData('hotelAddress',$data['id']) != ''){ ?>
+                        <p>
+                            <span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                            <?php echo getRoomxmlHotelData('hotelAddress',$data['id']); ?>
+                        </p>
+                        <?php } ?>
+                        <p>{{ substr(strip_tags($data['Text']),0,80).'...' }} <a href="javascript:void(0);" onclick="document.getElementById('list-form-{{ $data['id'] }}').submit();">more</a></p>
+                        {{-- <a href="javascript:void(0);" class="Curatorbox">Stuba Star Rating : <strong>{{ (@$data['stars'] != '' ? @$data['stars'] : '0') }}</strong></a> --}}
+                        <ul>
+                            @foreach($amenity as $akey => $am)
+                                @if($am->Text !="" && $akey < 5)
+                            <li><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; {{ $am->Text }}</li>
+                            @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="Travellerbox2">
+                        <div class="starbox">
+                            <?php 
+                            $sr = (@$data['stars'] != '' ? @$data['stars'] : '0');
+                            for($s = 1; $s <= 5; $s++){
+                                if($s <= $sr){
+                                print '<i class="fa fa-star" aria-hidden="true"></i>';
+                                }else{
+                                print '<i class="fa fa-star-o" aria-hidden="true"></i>';
+                                }
+                            ?>
+                            <?php } ?>
+                        </div>
+                        <p>GUESTS STAR RATING</p>
+                        @if($price[$key] != "")
+                            <h6>{{ $currency }} <?php echo number_format(((float) $price[$key] + (float) (($price[$key] * get_option('markup_price')) / 100)   ), 2); ?></h6>
+                            {{-- <p>Per Night (Inc. Tax)</p> --}}
+                            <p>Indicative Room Rate (Inc. Tax)</p>
+                        @endif
+                        <form action="{{route('hotel.hoteldetails', ['id' => $data['id']]) }}" style="display: none;" id="list-form-{{ $data['id'] }}" method="POST">
+                        {{ csrf_field()  }}
+                            <input type="hidden" name="results" value="{{ serialize($results) }}">
+                            <input type="hidden" name="quantity_adults" value="{{ $quantity_adults }}">
+                            <input type="hidden" name="quantity_childs" value="{{ $quantity_childs}}">
+                            <input type="hidden" name="quantity_rooms" value="{{ $quantity_rooms }}">
+                        </form>
+                        <a href="javascript:void(0);" data-hotel-id="{{ $data['id'] }}" class="Viewbox viewHotelDetails">View</a> 
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </item>
+    @endif
+@endforeach
+<?php elseif(isset($directHotels)) : ?>
+@foreach($directHotels as $key => $hotel)
+    @if(!empty($hotel))
+        <item class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="holidaysection">
+                <div class="holidayimg">
+                    <div class="holidaybox">
+                        <?php if($hotel['hoteladdress']->location != '' && $hotel['hoteladdress']->latitude != '' && $hotel['hoteladdress']->longitude != ''): ?>
+                        <div class="mapbox">
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="modal_cls" data-address="<?=$hotel['hoteladdress']->location?>" data-lat="<?=$hotel['hoteladdress']->latitude?>" data-lng="<?=$hotel['hoteladdress']->longitude?>">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                    </div>
+                    <div id="hotelCarousel{{@$hotel['details']->id}}" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <?php
+                            if($hotel['details']->featured_image != "") :
+                                //$image = URL::to('/'). $hotel['details']->featured_image;
+                                $image = URL::to('/').'/public/frontend/images/timthumb.jpg';
+                            else:
+                                $image = URL::to('/').'/public/frontend/images/timthumb.jpg';
+                            endif;
+                            ?>
+                            <div class="item_image item active">
+                                <img src="{{ $image }}" alt="{{ @$hotel['translation']->hotels_name }}" style="height: 360px; width: auto;">
+                            </div>
+                        </div>
+                        {{-- <a class="left carousel-control" href="#hotelCarousel{{@$hotel['details']->id}}" data-slide="prev">
+                            <span><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+                        </a> 
+                        <a class="right carousel-control" href="#hotelCarousel{{@$hotel['details']->id}}" data-slide="next"> 
+                            <span><i class="fa fa-angle-right" aria-hidden="true"></i></span> 
+                        </a>  --}}
+                    </div>
+                </div>
+                <div class="holidaytex">
+                    <div class="Travellerbox1">
+                        <h2>{{ @$hotel['translation']->hotels_name }} </h2>
+                        <?php if($hotel['hoteladdress']->location != '') : ?>
+                        <p>
+                            <span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                            {{ $hotel['hoteladdress']->location }}
+                        </p>
+                        <?php endif; ?>
+                        <p>{{ substr(strip_tags($hotel['translation']->hotels_desc),0,80).'...' }} <a href="<?=URL::to('/').'/hotel/'.$hotel['translation']->hotels_slug?>">more</a></p>
+                        <?php if(!empty($hotel['details']->services_amenities)) :
+                            $aminities = explode(', ', $hotel['details']->services_amenities);
+                        ?>
+                        <ul>
+                            @foreach($aminities as $akey => $am)
+                                <li><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; {{ $am }}</li>
+                            @endforeach
+                        </ul>
+                        <?php endif; ?>
+                    </div>
+                    <div class="Travellerbox2">
+                        <div class="starbox">
+                            <?php
+                            $average = 0;
+                            if(!empty($hotel['hotelreview'])) :
+                                $numberOfReviews = 0;
+                                $totalStars = 0;
+                                foreach($hotel['hotelreview'] as $review) :
+                                    $numberOfReviews++;
+                                    $totalStars += $review->rating;
+                                endforeach;
+                                if($numberOfReviews != 0):
+                                    $average = $totalStars/$numberOfReviews;
+                                endif;
+                            endif;
+                            $average = round($average);
+                            for($s = 1; $s <= 5; $s++) :
+                                if($s <= $average){
+                                print '<i class="fa fa-star" aria-hidden="true"></i>';
+                                }else{
+                                print '<i class="fa fa-star-o" aria-hidden="true"></i>';
+                                }
+                            endfor;
+                            ?>
+                        </div>
+                        <p>GUESTS STAR RATING</p>
+                        <?php
+                        if(!empty($hotel['rooms'])) :
+                            $roomLowestPrice = 0;
+                            foreach($hotel['rooms'] as $prc) :
+                                if($roomLowestPrice == 0):
+                                    $roomLowestPrice = $prc->base_price;
+                                else:
+                                    if($prc->base_price < $roomLowestPrice):
+                                        $roomLowestPrice = $prc->base_price;
+                                    endif;
+                                endif;
+                            endforeach;
+                        ?>
+                            <h6>AUD <?=number_format((float) $roomLowestPrice, 2); ?></h6>
+                        <?php else: ?>
+                        <h6>AUD 0.00</h6>
+                        <?php endif; ?>
+                        <p>Indicative Room Rate (Inc. Tax)</p>
+                        <a href="<?=URL::to('/').'/hotel/'.$hotel['translation']->hotels_slug?>" class="Viewbox viewHotelDetails@">View</a> 
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </item>
+    @endif
+@endforeach
+<?php elseif(isset($directHotelsSort)) : ?>
+@foreach($directHotelsSort as $key => $hotel)
+    @if(!empty($hotel))
+        <item class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="holidaysection">
+                <div class="holidayimg">
+                    <div class="holidaybox">
+                        <?php if($hotel->hoteladdress->location != '' && $hotel->hoteladdress->latitude != '' && $hotel->hoteladdress->longitude != ''): ?>
+                        <div class="mapbox">
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="modal_cls" data-address="<?=$hotel->hoteladdress->location?>" data-lat="<?=$hotel->hoteladdress->latitude?>" data-lng="<?=$hotel->hoteladdress->longitude?>">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                    </div>
+                    <div id="hotelCarousel{{@$hotel->details->id}}" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <?php
+                            if($hotel->details->featured_image != "") :
+                                //$image = URL::to('/'). $hotel->details->featured_image;
+                                $image = URL::to('/').'/public/frontend/images/timthumb.jpg';
+                            else:
+                                $image = URL::to('/').'/public/frontend/images/timthumb.jpg';
+                            endif;
+                            ?>
+                            <div class="item_image item active">
+                                <img src="{{ $image }}" alt="{{ @$hotel->translation->hotels_name }}" style="height: 360px; width: auto;">
+                            </div>
+                        </div>
+                        {{-- <a class="left carousel-control" href="#hotelCarousel{{@$hotel['details']->id}}" data-slide="prev">
+                            <span><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+                        </a> 
+                        <a class="right carousel-control" href="#hotelCarousel{{@$hotel['details']->id}}" data-slide="next"> 
+                            <span><i class="fa fa-angle-right" aria-hidden="true"></i></span> 
+                        </a>  --}}
+                    </div>
+                </div>
+                <div class="holidaytex">
+                    <div class="Travellerbox1">
+                        <h2>{{ @$hotel->translation->hotels_name }} </h2>
+                        <?php if($hotel->hoteladdress->location != '') : ?>
+                        <p>
+                            <span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                            {{ $hotel->hoteladdress->location }}
+                        </p>
+                        <?php endif; ?>
+                        <p>{{ substr(strip_tags($hotel->translation->hotels_desc),0,80).'...' }} <a href="<?=URL::to('/').'/hotel/'.$hotel->translation->hotels_slug?>">more</a></p>
+                        <?php if(!empty($hotel->details->services_amenities)) :
+                            $aminities = explode(', ', $hotel->details->services_amenities);
+                        ?>
+                        <ul>
+                            @foreach($aminities as $akey => $am)
+                                <li><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; {{ $am }}</li>
+                            @endforeach
+                        </ul>
+                        <?php endif; ?>
+                    </div>
+                    <div class="Travellerbox2">
+                        <div class="starbox">
+                            <?php
+                            $average = 0;
+                            if(!empty($hotel->hotelreview)) :
+                                $numberOfReviews = 0;
+                                $totalStars = 0;
+                                foreach($hotel->hotelreview as $review) :
+                                    $numberOfReviews++;
+                                    $totalStars += $review->rating;
+                                endforeach;
+                                if($numberOfReviews != 0):
+                                    $average = $totalStars/$numberOfReviews;
+                                endif;
+                            endif;
+                            $average = round($average);
+                            for($s = 1; $s <= 5; $s++) :
+                                if($s <= $average){
+                                print '<i class="fa fa-star" aria-hidden="true"></i>';
+                                }else{
+                                print '<i class="fa fa-star-o" aria-hidden="true"></i>';
+                                }
+                            endfor;
+                            ?>
+                        </div>
+                        <p>GUESTS STAR RATING</p>
+                            <?php 
+                            if(!empty($hotel->rooms)) :
+                            $roomLowestPrice = 0;
+                            foreach($hotel->rooms as $prc) :
+                                if($roomLowestPrice == 0):
+                                    $roomLowestPrice = $prc->base_price;
+                                else:
+                                    if($prc->base_price < $roomLowestPrice):
+                                        $roomLowestPrice = $prc->base_price;
+                                    endif;
+                                endif;
+                            endforeach;
+                        ?>
+                            <h6>AUD <?=number_format((float) $roomLowestPrice, 2); ?></h6>
+                        <?php else: ?>
+                        <h6>AUD 0.00</h6>
+                        <?php endif; ?>
+                        <p>Indicative Room Rate (Inc. Tax)</p>
+                        <a href="<?=URL::to('/').'/hotel/'.$hotel->translation->hotels_slug?>" class="Viewbox viewHotelDetails@">View</a> 
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </item>
+    @endif
+@endforeach
+<?php endif; ?>

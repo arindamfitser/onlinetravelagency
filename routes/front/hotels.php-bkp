@@ -1,0 +1,21 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+Route::get('/hotels/search', 'SearchController@index')->name('hotels.search');
+Route::get('/hotel/{slug}', 'SearchController@hotelDetails')->name('hotel.details');
+Route::post('/hoteldetails/{id}', 'SearchController@xmlhotelDetails')->name('hotel.hoteldetails');
+Route::get('/destinations/search', 'SearchController@byDestination')->name('destinations.search');
+Route::get('/destinations/en-route/search', 'SearchController@destinationsEnroute')->name('enroute.search');
+Route::post('hotel/add_review/{id}', 'ReviewController@add_review')->name('hotel.add_review');
+Route::post('hotel/add/wishlist', 'Ajax\AjaxController@addWishlist')->name('hotel.add.wishlist');
+Route::post('hotel/wishlist/get', 'Ajax\AjaxController@getWihlistbyUser')->name('hotel.get.wishlist');
+Route::post('hotel/getmap', 'Ajax\AjaxController@getmap')->name('hotel.get.map');

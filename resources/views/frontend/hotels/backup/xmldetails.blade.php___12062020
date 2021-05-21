@@ -1,0 +1,261 @@
+@extends('frontend.layouts.app')
+@section('css')
+<!--new-->
+<link rel="stylesheet" href="{{ asset('frontend/css/flexslider.css') }}" type="text/css" media="screen" />
+<link rel="stylesheet" href="{{ asset('frontend/css/prettyPhoto.css') }}" type="text/css" />
+<!--new-->
+<style type="text/css">
+	.header_search_area{display: none;}
+  </style>
+@endsection
+@section('content')
+<?php
+use App\Filter;
+$hotel_data = $dataArray['hotels'];
+$hotel_images = $dataArray['images'];
+$results = unserialize($dataArray['results']);
+//$hotel_data = $dataArray['hotels'];
+?>
+<section class="innerbannersection">
+	<div class="container">
+		<section class="my_profile_banner">
+		<?php if(count($hotel_images) > 0){?>
+			<div class="my_profile_banner">	
+				<img src="http://stuba.com{{ $hotel_images[0]->Url }}" alt="">
+			</div>
+		<?php }else{ ?>
+			<div class="my_profile_banner" style="text-align:center;">	
+				<img src="{{ URL::to('/').'/public/frontend/images/noImage.png' }}" alt="" style="height: 460px; width: 460px;">
+			</div>
+		<?php } ?>
+		</section>
+	</div>
+</section>
+<section class="hotelsection tab-box" id="header_fixed">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="nav-section" >
+					<nav class="navbar navbar-inverse">
+						<div class="container-fluid">
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+							</div>
+							<div>
+								<div class="collapse navbar-collapse" id="myNavbar">
+									<ul class="nav navbar-nav">
+										<li><a href="#section1">Overview</a></li>
+										<li><a href="#section2">Description</a></li>
+										<li><a href="#section3">Photos</a></li>
+										<li><a href="#section5">Location</a></li>
+										<!-- <li><a href="#section6">Features</a></li>
+										<li><a href="#section7">Fishing</a></li>
+										<li><a href="#section8">Important Informaton</a></li> -->
+										<li><a href="#section4">Rooms</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</nav>
+				</div>
+				<!-- getRoomxmlHotelData($field,$id) -->
+				<div id="section2" class="sect-tab">
+					<div class="container-fluid2">
+						
+						<h1>{{$hotel_data->name}} -IN </h1>
+						<?php echo $hotel_data->Text; ?>
+						
+					</div>
+				</div>
+				<div id="section3" class="sect-tab">
+					<div class="container-fluid2">
+						<h1>Photos</h1>
+						<?php if(count($hotel_images) > 0){?>
+						<div>
+							<div id="slider" class="flexslider">
+								<ul class="slides">
+									<li> <a href="http://stuba.com{{ $hotel_images[0]->Url }}" alt=""></a></li>
+									@foreach($hotel_images as $img)
+									<li> <a href="http://stuba.com{{ $img->Url }}" rel="prettyPhoto[pp_gal]"><img src="http://stuba.com{{ $img->Url }}" alt=""></a></li>
+									@endforeach
+									items mirrored twice, total of 12
+								</ul>
+							</div>
+							<div  class="carousel flexslider">
+								<ul class="slides">
+									<li> <a href="http://stuba.com{{ $hotel_images[0]->Url }}" alt=""></a></li>
+									@foreach($hotel_images as $img)
+									<li> <a href="http://stuba.com{{ $img->Url }}" rel="prettyPhoto[pp_gal]"><img src="http://stuba.com{{ $img->Url }}" alt=""></a></li>
+									@endforeach
+									items mirrored twice, total of 12
+								</ul>
+							</div>
+						</div>
+						<?php } ?>
+					</div>
+				</div>
+				<div id="section4" class="sect-tab">
+					<div class="container-fluid2 xmlroom clearfix">
+						<h1>Rooms</h1>
+						<?php
+						if(isset($results[0])){
+							
+						for ($i=0; $i < count($results) ; $i++) { 
+						$rooms = $results[$i]['Room'];
+						// echo "<pre>";
+						// print_r($results[$i]);
+						// $filter = new Filter;
+						// $xml = $filter->BookingPrepareXML($request);
+						// $url = get_option('stuba_post_url')."/RXLServices/ASMX/XmlService.asmx"; 
+						// $data = $filter->fatchRoomsxml($url,$xml);
+						// die;
+						?>
+						<div class=" col-sm-6 roompage_container">
+							<div class="roombox">
+								<div class="row clearfix">
+									<div class="col-md-12">
+										<div class="room_details">
+											<?php //echo $results[$i]['@attributes']['id'];
+											if(isset($rooms[0])){
+												$Price=0;
+												foreach($rooms as $key=>$rm){
+													if(isset($rm['RoomType'])){
+														$RoomType = $rm['RoomType']['@attributes']['text'];
+													}else{
+														$RoomType ='';	
+													}
+													if(isset($rm['MealType'])){
+														$MealType = $rm['MealType']['@attributes']['text'];
+													}else{
+														$MealType='';
+													}
+													$Price += (float) get_option('markup_price') + (float) $rm['Price']['@attributes']['amt'];
+												}
+												}else{
+													$RoomType = (isset($rooms['RoomType']['@attributes']['text'])?$rooms['RoomType']['@attributes']['text']:'');
+													$MealType = (isset($rooms['MealType']['@attributes']['text'])?$rooms['MealType']['@attributes']['text']:'');
+													$Price = (float) get_option('markup_price') + (float)$rooms['Price']['@attributes']['amt'];
+												}
+											?>
+											<h2><?php echo $RoomType; ?></h2>
+											<p><i class="fa fa-check-circle"></i>  <?php echo $MealType; ?></p>
+											<div class="profile_bannertext2">
+												
+												<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+													<h5>Price Options</h5>
+													<div class="pullbox">
+														<div class="rate-price">$ <?=number_format((float) $Price, 2)?></div>
+														<p>Avg Per Night</p>
+														<p>Taxes excluded</p>
+													</div>
+												</div>
+												
+												<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+												<form id="gotcarform" action="{{ route('xmlbooking', ['id' => $results[$i]['@attributes']['id']]) }}" method="post">
+												{{ csrf_field() }}
+												<input type="hidden" name="quantity_adults" value="{{ $quantity_adults }}">
+												<input type="hidden" name="quantity_childs" value="{{ $quantity_childs }}">
+												<input type="hidden" name="quantity_rooms" value="{{ $quantity_rooms }}">
+													<button type="submit" class="btn btn-primary">Book Now</button>
+												</form>
+												</div>
+												<div class="clearfix"></div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<?php }  ?>
+						
+						<?php }else{
+						  $rooms = $results['Room']; ?>
+						  <div class="roompage_container">
+							<div class="roombox">
+								<div class="row clearfix">
+									<div class="col-md-12">
+										<div class="room_details">
+											<?php //echo $results[$i]['@attributes']['id'];
+											$Price=0;
+											if(isset($rooms[0])){
+												
+												foreach($rooms as $key=>$rm){
+														if(isset($rm['RoomType'])){
+														$RoomType = $rm['RoomType']['@attributes']['text'];
+													}else{
+														$RoomType ='';	
+													}
+														
+													if(isset($rm['MealType'])){
+														$MealType = $rm['MealType']['@attributes']['text'];
+													}else{
+														$MealType='';
+													}
+													$Price += (float) get_option('markup_price') + (float) $rm['Price']['@attributes']['amt'];
+												}
+											}else{
+												$RoomType = (isset($rooms['RoomType']['@attributes']['text'])?$rooms['RoomType']['@attributes']['text']:'');
+												$MealType = (isset($rooms['MealType']['@attributes']['text'])?$rooms['MealType']['@attributes']['text']:'');
+												$Price = (float) get_option('markup_price') + (float) $rooms['Price']['@attributes']['amt'];
+											}
+											?>
+											<h2><?php echo $RoomType; ?></h2>
+											<p><i class="fa fa-check-circle"></i>  <?php echo $MealType; ?></p>
+											<div class="profile_bannertext2">
+												<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+													<h5>Price Options</h5>
+													<div class="pullbox">
+														<div class="rate-price">$ <?=number_format((float) $Price, 2); ?></div>
+														<p>Avg Per Night</p>
+														<p>Taxes excluded</p>
+													</div>
+												</div>
+												<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+												<form id="gotcarform" action="{{ route('xmlbooking', ['id' => $results['@attributes']['id']]) }}" method="post">
+												{{ csrf_field() }}
+												<input type="hidden" name="quantity_adults" value="{{ $quantity_adults }}">
+												<input type="hidden" name="quantity_childs" value="{{ $quantity_childs }}">
+												<input type="hidden" name="quantity_rooms" value="{{ $quantity_rooms }}">
+													<button type="submit" class="btn btn-primary">Book Now</button>
+												</form>
+												</div>
+												<div class="clearfix"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<?php }?>
+					</div>
+				</div>
+				<div id="section5" class="sect-tab" style="padding-top:0px;">
+					<div class="container-fluid2">
+						 <h1>Location</h1>
+						 <?php echo getRoomxmlHotelData('hotelAddress',$hotel_data->id); ?>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+
+<!--/////////////////////////////////////////-->
+@endsection
+@section('script')
+<!--new-->
+<script defer src="{{ asset('frontend/js/jquery.flexslider.js') }}"></script> 
+<script defer src="{{ asset('frontend/js/script.flexslider.js') }}"></script> 
+<script src="{{ asset('frontend/js/jquery.prettyPhoto.js') }}"></script> 
+<script>
+	$(document).ready(function () {
+		$("a[rel^='prettyPhoto']").prettyPhoto();
+	});
+</script> 
+<!--new-->
+
+@endsection

@@ -1,0 +1,446 @@
+@extends('frontend.layouts.app')
+@section('css')
+<link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.1/fullcalendar.min.css'>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.5.2/css/fileinput.min.css">
+@endsection
+@section('content')
+<!--Banner sec-->
+<section class="profile dashboard hometop_gap">
+  @include('frontend.layouts.hotelier_sidenav')
+  <div class="dashboard_content">
+    <h1>Add Room</h1>
+    @include('frontend.layouts.messages')
+    <div class="wizard">
+      <div class="wizard-inner">
+        <div class="connecting-line"></div>
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Room">
+              <span class="round-tab">
+                <i class="glyphicon glyphicon-folder-open"></i>
+              </span>
+            </a>
+          </li>
+          <li role="presentation" class="disabled">
+            <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Room Details">
+              <span class="round-tab">
+                <i class="glyphicon glyphicon-pencil"></i>
+              </span>
+            </a>
+          </li>
+          <li role="presentation" class="disabled">
+            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Room Gallery">
+              <span class="round-tab">
+                <i class="glyphicon glyphicon-picture"></i>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <span id="message"></span>
+        <div class="tab-pane active" role="tabpanel" id="step1">
+          <form action="{{ route('user.hotels.rooms.doadd', ['id' => $id]) }}" method="POST" id="RoomAddstep1">
+            {{ csrf_field() }}
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Room Name <span class="required">*</span></label>
+                  <input type="text" name="name" id="name" class="form-control" placeholder="Room Name">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Category <span class="required">*</span></label>
+                  <select name="category" id="category" class="form-control">
+                    <option value="">---Please select---</option>
+                    @foreach($roomcategory as $rc)
+                    <option value="{{ $rc->id }}">{{ $rc->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>Description <span class="required">*</span></label>
+                  <textarea class="form-control editor" name="descp" id="descp" placeholder="Description"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>No. of Rooms <span class="required">*</span></label>
+                  <input type="text" name="room_capacity" id="room_capacity" class="form-control" placeholder="No. of Rooms">
+                </div>
+                <div class="form-group">
+                  <label>Adult Capacity <span class="required">*</span></label>
+                  <input type="text" name="adult_capacity" id="adult_capacity" class="form-control" placeholder="Adult Capacity">
+                </div>
+                <div class="form-group">
+                  <label>Availability <span class="required">*</span></label>&nbsp;&nbsp;&nbsp;&nbsp;</br>
+                  <label class="radio-inline"><input type="radio" name="availability" value="1" checked>Yes</label>
+                  <label class="radio-inline"><input type="radio" name="availability" value="0">No</label>
+                </div>
+                <div class="form-group">
+                  <label>Amenities </label>&nbsp;&nbsp;&nbsp;&nbsp;</br>
+                  @foreach($amenities as $amenitiy)
+                  <label class="checkbox-inline"><input type="checkbox" name="amenities[]" value="{{ $amenitiy->id }}">{{ $amenitiy->amenities_name }}</label>
+                  @endforeach
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Base Price <span class="required">*</span></label>
+                  <input type="text" name="base_price" id="base_price" class="form-control" placeholder="Base Price">
+                </div>
+                <div class="form-group">
+                  <label>No.of bed <span class="required">*</span></label>
+                  <input type="text" name="extra_bed" id="extra_bed" class="form-control" placeholder="No.of bed">
+                </div>
+                <div class="form-group">
+                  <label>Child Capacity <span class="required">*</span></label>
+                  <input type="text" name="child_capacity" id="child_capacity" class="form-control" placeholder="Child Capacity" value="0">
+                </div>
+              </div>
+            </div>
+            <ul class="list-inline pull-right">
+              <li><button type="submit" class="btn btn-primary">Save and continue</button></li>
+            </ul>
+          </form>
+          <div class="row" id="cal_sec" style="display: none;">
+            <input type="hidden" name="cal_room_capacity" id="cal_room_capacity">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <div id='calendar'></div>
+                <br><br><br>
+                <button class="btn btn-primary pull-right" id="next_tab" style="display: none;">Next</button>
+                <div class="modal fade calender_modal" role="dialog">
+                  <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Room Availability Datepicker</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label>Title</label>
+                          <select name="event_title" id="event_title" class="form-control">
+                            <option value="1">Available</option>
+                            <option value="2">Unavailable</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label>Price</label>
+                          <input type="text" name="room_price" id="room_price" class="form-control" value="">
+                        </div>
+                        <div class="form-group">
+                          <label>Select range</label>
+                          <input type="text" name="date_range" id="date_range" class="form-control">
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="save_calender" class="btn btn-primary">Update</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" role="tabpanel" id="step2">
+          <form action="{{ route('user.hotels.rooms.adddetails') }}" method="POST" id="step2form">
+            {{ csrf_field() }}
+            <span id="step_2_content">
+              <input type="hidden" name="hotel_id" value="{{ $id }}">
+            </span>
+            <ul class="list-inline pull-right">
+              <li><button type="submit" class="btn btn-primary">Save and continue</button></li>
+            </ul>
+          </form>
+        </div>
+        <div class="tab-pane" role="tabpanel" id="step3">
+          <form action="{{ route('user.hotels.rooms.addgallery') }}" id="" method="POST" class="" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <span id="step_3_content"></span>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>Featured Image</label>
+                  <div class="file-loading">
+                    <input id="featured_image" name="featured_image" type="file" accept=".jpg,.gif,.png">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>Gallery Images</label>
+                  <div class="file-loading">
+                    <input id="gallery_image" name="gallery_image[]" type="file" accept=".jpg,.gif,.png" multiple>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ul class="list-inline pull-right">
+              <li><button type="submit" class="btn btn-primary">Save</button></li>
+            </ul>
+          </form>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </form>
+  </div>
+</div>
+</section>
+<div class="clearfix"></div>
+@endsection
+@section('script')
+<script src="{{ asset('fullcalender') }}/lib/moment.min.js"></script>
+<script src="{{ asset('fullcalender') }}/fullcalendar.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.5.2/js/fileinput.min.js"></script>
+<script type="text/javascript">
+  $('form[id="RoomAddstep1"]').validate({
+    rules: {
+      name: {
+        required: true
+      },
+      descp: {
+        required: true
+      },
+      extra_bed: {
+        required: true,
+        number: true
+      },
+      category: {
+        required: true
+      },
+      availability: {
+        required: true
+      },
+      room_capacity: {
+        required: true,
+        number: true,
+        min: 1
+      },
+      base_price: {
+        required: true,
+        number: true,
+        min: 1
+      },
+      adult_capacity: {
+        required: true,
+        number: true
+      },
+      child_capacity: {
+        required: true,
+        number: true
+      }
+    },
+    submitHandler: function(form){
+      genericAjax(form);
+    }
+  });
+  function genericAjax(form){
+    $.ajax({
+      type     : $(form).attr('method'),
+      url      : $(form).attr('action'),
+      data     : $(form).serialize(),
+      cache    : false,
+      success  : function(data) {
+        var data = $.parseJSON(data);
+        if(data.success == true){
+          $('#message').html('<div class="alert alert-success"><strong>Success!</strong> '+data.message+'</div>');
+          if(data.form_no != 1){
+            var $active = $('.wizard .nav-tabs li.active');
+            $active.addClass('disabled');
+            $active.next().removeClass('disabled');
+            nextTab($active);
+          }
+          setTimeout(function(){
+            $('#RoomAddstep1').fadeOut();
+            $('#cal_sec').fadeIn();
+            $('.alert-success').fadeOut();
+            $("#cal_room_capacity").val(data.results.room_capacity);
+            $("#room_price").val(data.results.base_price);
+          }, 1300);
+          var room_capacity = data.results.room_capacity;
+          if(room_capacity !=""){
+            var details_html = '';
+            for (var i = 0; i < room_capacity; i++) {
+              details_html += '<div class="row form_content_box"><div class="col-sm-12"><div class="row"><div class="col-sm-4"><div class="form-group"><label>Floor No <span class="required">*</span></label><input type="text" name="floor_no[]" id="floor_no_'+i+'" class="form-control floor_no" placeholder="Floor No" required></div></div><div class="col-sm-4"><div class="form-group"><label>Room No <span class="required">*</span></label><input type="text" name="room_no[]" id="room_no_'+i+'" class="form-control room_no" placeholder="Room No" required></div></div><div class="col-sm-4"><div class="form-group"><label>Seat/ bed count</label><input type="text" name="bed_count[]" class="form-control" id="bed_count_'+i+'" placeholder="Seat/ bed count"></div></div></div><div class="row"><div class="col-sm-12"><div class="form-group"><label>Availability <span class="required">*</span></label>&nbsp;&nbsp;&nbsp;&nbsp;<label class="radio-inline"><input type="radio" name="availability_'+i+'" value="1" checked>Yes</label><label class="radio-inline"><input type="radio" name="availability_'+i+'" value="0">No</label></div></div></div></div></div>';
+            }
+            $('#step_2_content').html(details_html);
+            $('#step_2_content').append('<input type="hidden" name="room_id" value="'+data.results.id+'" />');
+            $('#cal_sec').append('<input type="hidden" name="room_id" id="room_id" value="'+data.results.id+'" />');
+          }
+          if(data.results.room_id != ""){
+            $('#step_3_content').append('<input type="hidden" name="room_id" value="'+data.results.room_id+'" />');
+          }
+        }else{
+          $('#message').html('<div class="alert alert-danger"><strong>Error!</strong> Something wents wrong.</div>');
+        }
+      }
+    });
+  }
+  $(document).find('#step2form').validate({
+    ignore: [],
+    rules:{
+      'floor_no[]':
+      {
+        required:true,
+      },
+      'room_no[]':
+      {
+        required:true,
+      },
+      'availability[]':{
+        required:true,
+      }
+    },
+    submitHandler: function(form){
+      genericAjax(form)
+    }
+  });
+
+
+  var getCalenderview = function(){
+    $('#calendar').fullCalendar({
+      header: {
+        left: 'prev',
+        center: 'title',
+        right: 'next'
+      },
+
+navLinks: true, // can click day/week names to navigate views
+editable: true,
+eventLimit: true, // allow "more" link when too many events
+displayEventTime : false,
+selectable: true,
+selectHelper: true,
+select: function(start, end) {
+  $('#date_range').daterangepicker({
+    startDate: moment(start).format('YYYY-MM-DD'),
+    endDate:moment(end).format('YYYY-MM-DD'),
+    minDate: moment(),
+    locale: {
+      format: 'YYYY-MM-DD'
+    }
+  });
+  $('.calender_modal').modal('show');
+},
+eventClick: function(event, element) {
+// console.log(event);
+$('.calender_modal').modal('show');
+$('.calender_modal').find('#event_title').val(event.title);
+$('.calender_modal').find('#start_date').val(event.start);
+$('.calender_modal').find('#room_price').val(event.price);
+$('.calender_modal').find('#end_date').val(event.end);
+},
+eventSources: [
+{
+  events: function(start, end, timezone, callback) {
+    if(localStorage.getItem("room_id")){
+      var id = localStorage.getItem("room_id");
+    }else{
+      var id = 0;
+    }
+
+    $.ajax({
+      type:'GET',
+      url: '{{ route('user.hotels.room.fecthdate') }}',
+      dataType: 'json',
+      data:{ room_id: id},
+      success: function(msg) {
+        var events = msg.events;
+        callback(events);
+      }
+    });
+  }
+},
+]
+});
+
+    $('#calendar').fullCalendar('refetchEvents');
+  }
+  $(document).ready(function () {
+    localStorage.setItem("room_id", '');
+    getCalenderview();
+    $('.nav-tabs > li a[title]').tooltip();
+    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+      var $target = $(e.target);
+      if ($target.parent().hasClass('disabled')) {
+        return false;
+      }
+    });
+    $('#save_calender').on('click', function() {
+      var event_title = $('#event_title').val();
+      var date_range = $('#date_range').val();
+      var room_price = $('#room_price').val();
+      var dates = date_range.split(" - ");
+      if(localStorage.getItem("room_id")==''){
+        localStorage.setItem("room_id",$('#room_id').val());
+      }
+      var room_id = localStorage.getItem("room_id");
+
+      if (event_title) {
+
+        var date_data = {
+          _token: "{{ csrf_token() }}",
+          title: event_title,
+          start: dates[0],
+          end: dates[1],
+          price: room_price,
+          availabe_rooms: $("#cal_room_capacity").val(),
+          room_id: localStorage.getItem("room_id"),
+          hotel_id: {{ $id }}
+        };
+        $.ajax({
+          type     : 'POST',
+          url      : "{{ route('user.hotels.rooms.adddate') }}",
+          data     : date_data,
+          dataType: 'json',
+          success  : function(data) {
+//console.log(data);
+getCalenderview();
+$('#next_tab').show();
+}
+});
+
+      }
+
+      $('.calender_modal').modal('hide');
+    });
+  });
+  $("#next_tab").on('click', function(){
+    var $active = $('.wizard .nav-tabs li.active');
+    $active.addClass('disabled');
+    $active.next().removeClass('disabled');
+    nextTab($active);
+  });
+  function nextTab(elem) {
+    $(elem).next().find('a[data-toggle="tab"]').click();
+  }
+  function prevTab(elem) {
+    $(elem).prev().find('a[data-toggle="tab"]').click();
+  }
+  $("#featured_image").fileinput({
+    showUpload: false,
+    browseClass: "btn btn-primary btn-block",
+    overwriteInitial: false,
+    showCaption: false,
+    showRemove: false,
+  });
+  $("#gallery_image").fileinput({
+    showUpload: false,
+  });
+</script>
+@endsection

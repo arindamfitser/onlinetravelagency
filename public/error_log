@@ -1,0 +1,683 @@
+[14-Jan-2019 10:01:21 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[14-Jan-2019 10:02:23 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[14-Jan-2019 10:02:26 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[14-Jan-2019 10:02:35 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[14-Jan-2019 10:06:21 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[14-Jan-2019 10:11:12 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[14-Jan-2019 10:14:35 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[14-Jan-2019 10:14:55 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[14-Jan-2019 10:18:05 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[14-Jan-2019 10:19:59 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[14-Jan-2019 15:39:42 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6307840 bytes) in /home/otafitser/site/storage/framework/views/060dce510e9a1a481f34eca6ab003a1b5c607233.php on line 51
+[14-Jan-2019 15:39:42 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6426624 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 360
+[14-Jan-2019 15:39:42 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6291456 bytes) in Unknown on line 0
+[14-Jan-2019 15:39:50 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6307840 bytes) in /home/otafitser/site/storage/framework/views/060dce510e9a1a481f34eca6ab003a1b5c607233.php on line 51
+[14-Jan-2019 15:39:50 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6426624 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 360
+[14-Jan-2019 15:39:50 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6291456 bytes) in Unknown on line 0
+[14-Jan-2019 15:39:57 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6307840 bytes) in /home/otafitser/site/storage/framework/views/060dce510e9a1a481f34eca6ab003a1b5c607233.php on line 51
+[14-Jan-2019 15:39:57 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6426624 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 360
+[14-Jan-2019 15:39:57 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6291456 bytes) in Unknown on line 0
+[15-Jan-2019 12:39:46 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[15-Jan-2019 12:39:57 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[15-Jan-2019 12:42:16 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[15-Jan-2019 12:42:20 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[15-Jan-2019 12:42:21 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[15-Jan-2019 12:42:22 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[15-Jan-2019 12:47:17 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[15-Jan-2019 12:47:23 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[15-Jan-2019 12:48:28 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[15-Jan-2019 12:48:29 America/New_York] PHP Parse error:  syntax error, unexpected '?' in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 233
+[17-Jan-2019 11:04:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6307840 bytes) in /home/otafitser/site/storage/framework/views/060dce510e9a1a481f34eca6ab003a1b5c607233.php on line 61
+[17-Jan-2019 11:04:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6422528 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 360
+[17-Jan-2019 11:04:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6291456 bytes) in Unknown on line 0
+[18-Jan-2019 07:19:43 UTC] PHP Fatal error:  Uncaught ReflectionException: Class config does not exist in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php:752
+Stack trace:
+#0 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(752): ReflectionClass->__construct('config')
+#1 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(631): Illuminate\Container\Container->build('config')
+#2 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(586): Illuminate\Container\Container->resolve('config', Array)
+#3 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(732): Illuminate\Container\Container->make('config', Array)
+#4 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(110): Illuminate\Foundation\Application->make('config', Array)
+#5 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(272): app('config')
+#6 /home/otafitser/site/ven in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 752
+[18-Jan-2019 07:20:02 UTC] PHP Fatal error:  Uncaught ReflectionException: Class config does not exist in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php:752
+Stack trace:
+#0 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(752): ReflectionClass->__construct('config')
+#1 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(631): Illuminate\Container\Container->build('config')
+#2 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(586): Illuminate\Container\Container->resolve('config', Array)
+#3 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(732): Illuminate\Container\Container->make('config', Array)
+#4 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(110): Illuminate\Foundation\Application->make('config', Array)
+#5 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(272): app('config')
+#6 /home/otafitser/site/ven in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 752
+[18-Jan-2019 07:20:44 UTC] PHP Fatal error:  Uncaught ReflectionException: Class config does not exist in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php:752
+Stack trace:
+#0 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(752): ReflectionClass->__construct('config')
+#1 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(631): Illuminate\Container\Container->build('config')
+#2 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(586): Illuminate\Container\Container->resolve('config', Array)
+#3 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(732): Illuminate\Container\Container->make('config', Array)
+#4 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(110): Illuminate\Foundation\Application->make('config', Array)
+#5 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(272): app('config')
+#6 /home/otafitser/site/ven in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 752
+[18-Jan-2019 07:20:44 UTC] PHP Fatal error:  Uncaught ReflectionException: Class config does not exist in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php:752
+Stack trace:
+#0 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(752): ReflectionClass->__construct('config')
+#1 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(631): Illuminate\Container\Container->build('config')
+#2 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(586): Illuminate\Container\Container->resolve('config', Array)
+#3 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(732): Illuminate\Container\Container->make('config', Array)
+#4 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(110): Illuminate\Foundation\Application->make('config', Array)
+#5 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(272): app('config')
+#6 /home/otafitser/site/ven in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 752
+[18-Jan-2019 07:20:45 UTC] PHP Fatal error:  Uncaught ReflectionException: Class config does not exist in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php:752
+Stack trace:
+#0 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(752): ReflectionClass->__construct('config')
+#1 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(631): Illuminate\Container\Container->build('config')
+#2 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(586): Illuminate\Container\Container->resolve('config', Array)
+#3 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(732): Illuminate\Container\Container->make('config', Array)
+#4 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(110): Illuminate\Foundation\Application->make('config', Array)
+#5 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(272): app('config')
+#6 /home/otafitser/site/ven in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 752
+[18-Jan-2019 07:22:42 UTC] PHP Fatal error:  Uncaught ReflectionException: Class config does not exist in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php:752
+Stack trace:
+#0 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(752): ReflectionClass->__construct('config')
+#1 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(631): Illuminate\Container\Container->build('config')
+#2 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(586): Illuminate\Container\Container->resolve('config', Array)
+#3 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(732): Illuminate\Container\Container->make('config', Array)
+#4 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(110): Illuminate\Foundation\Application->make('config', Array)
+#5 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(272): app('config')
+#6 /home/otafitser/site/ven in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 752
+[18-Jan-2019 07:23:05 UTC] PHP Fatal error:  Uncaught ReflectionException: Class config does not exist in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php:752
+Stack trace:
+#0 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(752): ReflectionClass->__construct('config')
+#1 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(631): Illuminate\Container\Container->build('config')
+#2 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(586): Illuminate\Container\Container->resolve('config', Array)
+#3 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(732): Illuminate\Container\Container->make('config', Array)
+#4 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(110): Illuminate\Foundation\Application->make('config', Array)
+#5 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(272): app('config')
+#6 /home/otafitser/site/ven in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 752
+[18-Jan-2019 07:24:03 UTC] PHP Fatal error:  Uncaught ReflectionException: Class config does not exist in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php:752
+Stack trace:
+#0 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(752): ReflectionClass->__construct('config')
+#1 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(631): Illuminate\Container\Container->build('config')
+#2 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(586): Illuminate\Container\Container->resolve('config', Array)
+#3 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(732): Illuminate\Container\Container->make('config', Array)
+#4 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(110): Illuminate\Foundation\Application->make('config', Array)
+#5 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(272): app('config')
+#6 /home/otafitser/site/ven in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 752
+[18-Jan-2019 07:24:05 UTC] PHP Fatal error:  Uncaught ReflectionException: Class config does not exist in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php:752
+Stack trace:
+#0 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(752): ReflectionClass->__construct('config')
+#1 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(631): Illuminate\Container\Container->build('config')
+#2 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(586): Illuminate\Container\Container->resolve('config', Array)
+#3 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(732): Illuminate\Container\Container->make('config', Array)
+#4 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(110): Illuminate\Foundation\Application->make('config', Array)
+#5 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(272): app('config')
+#6 /home/otafitser/site/ven in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 752
+[18-Jan-2019 07:24:05 UTC] PHP Fatal error:  Uncaught ReflectionException: Class config does not exist in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php:752
+Stack trace:
+#0 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(752): ReflectionClass->__construct('config')
+#1 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(631): Illuminate\Container\Container->build('config')
+#2 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(586): Illuminate\Container\Container->resolve('config', Array)
+#3 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(732): Illuminate\Container\Container->make('config', Array)
+#4 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(110): Illuminate\Foundation\Application->make('config', Array)
+#5 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(272): app('config')
+#6 /home/otafitser/site/ven in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 752
+[18-Jan-2019 07:24:06 UTC] PHP Fatal error:  Uncaught ReflectionException: Class config does not exist in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php:752
+Stack trace:
+#0 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(752): ReflectionClass->__construct('config')
+#1 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(631): Illuminate\Container\Container->build('config')
+#2 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(586): Illuminate\Container\Container->resolve('config', Array)
+#3 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(732): Illuminate\Container\Container->make('config', Array)
+#4 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(110): Illuminate\Foundation\Application->make('config', Array)
+#5 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(272): app('config')
+#6 /home/otafitser/site/ven in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 752
+[18-Jan-2019 07:24:23 UTC] PHP Fatal error:  Uncaught ReflectionException: Class config does not exist in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php:752
+Stack trace:
+#0 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(752): ReflectionClass->__construct('config')
+#1 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(631): Illuminate\Container\Container->build('config')
+#2 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(586): Illuminate\Container\Container->resolve('config', Array)
+#3 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(732): Illuminate\Container\Container->make('config', Array)
+#4 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(110): Illuminate\Foundation\Application->make('config', Array)
+#5 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(272): app('config')
+#6 /home/otafitser/site/ven in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 752
+[18-Jan-2019 07:24:27 UTC] PHP Fatal error:  Uncaught ReflectionException: Class config does not exist in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php:752
+Stack trace:
+#0 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(752): ReflectionClass->__construct('config')
+#1 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(631): Illuminate\Container\Container->build('config')
+#2 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php(586): Illuminate\Container\Container->resolve('config', Array)
+#3 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(732): Illuminate\Container\Container->make('config', Array)
+#4 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(110): Illuminate\Foundation\Application->make('config', Array)
+#5 /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(272): app('config')
+#6 /home/otafitser/site/ven in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 752
+[20-Mar-2019 11:36:24 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:24 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:24 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:24 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:24 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:24 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:24 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:24 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:24 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:24 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:24 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:25 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:25 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:25 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:25 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:25 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:25 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:25 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:25 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:25 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:25 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:26 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:26 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:26 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:26 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:26 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:26 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:36 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:36 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:36 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:36 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:36 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:36 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:36 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:36 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:37 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:36:37 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:12 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:14 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:14 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:14 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:14 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:14 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:14 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:14 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:14 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:14 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:14 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:15 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:15 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:15 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:15 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:15 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:15 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:15 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:15 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:16 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:16 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:16 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:16 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:16 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:16 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:16 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:16 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:33 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:33 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:33 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:33 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:34 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:35 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:36 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:36 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 11:37:36 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:20 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:20 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:21 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:21 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:21 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:21 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:21 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:22 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:22 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:22 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:22 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:22 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:22 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:23 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:23 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:23 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:24 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:24 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:25 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:25 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:25 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:25 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:26 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:26 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:26 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:26 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:26 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:47 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:47 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:49 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:49 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:49 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:50 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:50 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:50 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:53 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:54 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:54 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:54 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:55 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:55 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:55 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:55 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:56 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:56 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:56 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:56 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:57 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:57 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:57 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:57 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:57 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:58 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:07:58 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:08:56 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:09:02 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:09:02 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:09:02 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:09:02 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:09:02 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:09:02 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[20-Mar-2019 14:09:02 UTC] PHP Warning:  touch(): Utime failed: Permission denied in /home/otafitser/site/public/timthumb.php on line 478
+[28-Mar-2019 13:47:25 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 4080545 bytes) in /home/otafitser/site/public/timthumb.php on line 608
+[28-Mar-2019 13:48:25 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 4080545 bytes) in /home/otafitser/site/public/timthumb.php on line 608
+[28-Mar-2019 13:48:36 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 4080545 bytes) in /home/otafitser/site/public/timthumb.php on line 608
+[28-Mar-2019 13:49:15 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 4080545 bytes) in /home/otafitser/site/public/timthumb.php on line 608
+[28-Mar-2019 13:49:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 4080545 bytes) in /home/otafitser/site/public/timthumb.php on line 608
+[28-Mar-2019 13:52:18 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 4080545 bytes) in /home/otafitser/site/public/timthumb.php on line 608
+[28-Mar-2019 16:55:45 UTC] PHP Warning:  require(/home/otafitser/site/vendor/composer/../symfony/polyfill-php72/bootstrap.php): failed to open stream: No such file or directory in /home/otafitser/site/vendor/composer/autoload_real.php on line 66
+[28-Mar-2019 16:55:45 UTC] PHP Fatal error:  require(): Failed opening required '/home/otafitser/site/vendor/composer/../symfony/polyfill-php72/bootstrap.php' (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/otafitser/site/vendor/composer/autoload_real.php on line 66
+[28-Mar-2019 16:56:45 UTC] PHP Warning:  require(/home/otafitser/site/vendor/composer/../symfony/polyfill-php72/bootstrap.php): failed to open stream: No such file or directory in /home/otafitser/site/vendor/composer/autoload_real.php on line 66
+[28-Mar-2019 16:56:45 UTC] PHP Fatal error:  require(): Failed opening required '/home/otafitser/site/vendor/composer/../symfony/polyfill-php72/bootstrap.php' (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/otafitser/site/vendor/composer/autoload_real.php on line 66
+[28-Mar-2019 16:58:37 UTC] PHP Warning:  require(/home/otafitser/site/vendor/composer/../symfony/polyfill-php72/bootstrap.php): failed to open stream: No such file or directory in /home/otafitser/site/vendor/composer/autoload_real.php on line 66
+[28-Mar-2019 16:58:37 UTC] PHP Fatal error:  require(): Failed opening required '/home/otafitser/site/vendor/composer/../symfony/polyfill-php72/bootstrap.php' (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/otafitser/site/vendor/composer/autoload_real.php on line 66
+[28-Mar-2019 17:14:24 UTC] PHP Warning:  require(/home/otafitser/site/vendor/composer/../symfony/polyfill-php72/bootstrap.php): failed to open stream: No such file or directory in /home/otafitser/site/vendor/composer/autoload_real.php on line 66
+[28-Mar-2019 17:14:24 UTC] PHP Fatal error:  require(): Failed opening required '/home/otafitser/site/vendor/composer/../symfony/polyfill-php72/bootstrap.php' (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/otafitser/site/vendor/composer/autoload_real.php on line 66
+[29-Mar-2019 05:58:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[29-Mar-2019 05:58:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php on line 28
+[29-Mar-2019 05:58:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6836224 bytes) in Unknown on line 0
+[29-Mar-2019 05:58:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[29-Mar-2019 05:58:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php on line 28
+[29-Mar-2019 05:58:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6836224 bytes) in Unknown on line 0
+[29-Mar-2019 10:03:23 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[29-Mar-2019 10:03:23 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 567
+[29-Mar-2019 10:03:23 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6832128 bytes) in Unknown on line 0
+[29-Mar-2019 10:03:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[29-Mar-2019 10:03:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 567
+[29-Mar-2019 10:03:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6832128 bytes) in Unknown on line 0
+[29-Mar-2019 10:03:51 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[29-Mar-2019 10:03:51 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 567
+[29-Mar-2019 10:03:51 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6832128 bytes) in Unknown on line 0
+[22-May-2019 07:25:09 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[22-May-2019 07:25:10 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 567
+[22-May-2019 07:25:10 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6623232 bytes) in Unknown on line 0
+[22-May-2019 08:04:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 332
+[22-May-2019 08:04:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Handler/HandlerInterface.php on line 74
+[22-May-2019 08:04:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[22-May-2019 08:05:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 332
+[22-May-2019 08:05:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Handler/HandlerInterface.php on line 74
+[22-May-2019 08:05:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[22-May-2019 17:56:55 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\admin\HotelsController::del_reviews() in /home/otafitser/site/app/Http/Controllers/Admin/HotelsController.php on line 909
+[27-May-2019 13:50:41 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 23072768 bytes) in /home/otafitser/site/app/Http/Middleware/RedirectIfAuthenticated.php on line 21
+[27-May-2019 13:50:45 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/otafitser/site/vendor/symfony/var-dumper/Dumper/CliDumper.php on line 498
+[27-May-2019 13:50:45 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in Unknown on line 0
+[27-May-2019 13:50:53 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 23072768 bytes) in /home/otafitser/site/app/Http/Middleware/RedirectIfAuthenticated.php on line 21
+[27-May-2019 13:50:53 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/otafitser/site/vendor/symfony/var-dumper/Dumper/CliDumper.php on line 498
+[27-May-2019 13:50:53 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in Unknown on line 0
+[27-May-2019 13:50:56 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 23072768 bytes) in /home/otafitser/site/app/Http/Middleware/RedirectIfAuthenticated.php on line 21
+[27-May-2019 13:50:56 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/otafitser/site/vendor/symfony/var-dumper/Dumper/CliDumper.php on line 498
+[27-May-2019 13:50:56 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in Unknown on line 0
+[27-May-2019 13:50:57 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 23072768 bytes) in /home/otafitser/site/app/Http/Middleware/RedirectIfAuthenticated.php on line 21
+[27-May-2019 13:50:57 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/otafitser/site/vendor/symfony/var-dumper/Dumper/CliDumper.php on line 498
+[27-May-2019 13:50:57 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in Unknown on line 0
+[27-May-2019 13:50:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 23072768 bytes) in /home/otafitser/site/app/Http/Middleware/RedirectIfAuthenticated.php on line 21
+[27-May-2019 13:50:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/otafitser/site/vendor/symfony/var-dumper/Dumper/CliDumper.php on line 498
+[27-May-2019 13:50:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in Unknown on line 0
+[27-May-2019 13:51:26 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 23072768 bytes) in /home/otafitser/site/app/Http/Middleware/RedirectIfAuthenticated.php on line 21
+[27-May-2019 13:51:26 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/otafitser/site/vendor/symfony/var-dumper/Dumper/CliDumper.php on line 498
+[27-May-2019 13:51:26 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in Unknown on line 0
+[27-May-2019 13:51:28 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 23072768 bytes) in /home/otafitser/site/app/Http/Middleware/RedirectIfAuthenticated.php on line 21
+[27-May-2019 13:51:28 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/otafitser/site/vendor/symfony/var-dumper/Dumper/CliDumper.php on line 498
+[27-May-2019 13:51:28 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in Unknown on line 0
+[27-May-2019 13:51:29 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 23072768 bytes) in /home/otafitser/site/app/Http/Middleware/RedirectIfAuthenticated.php on line 21
+[27-May-2019 13:51:29 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/otafitser/site/vendor/symfony/var-dumper/Dumper/CliDumper.php on line 498
+[27-May-2019 13:51:29 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in Unknown on line 0
+[27-May-2019 13:51:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 23072768 bytes) in /home/otafitser/site/app/Http/Middleware/RedirectIfAuthenticated.php on line 21
+[27-May-2019 13:51:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/otafitser/site/vendor/symfony/var-dumper/Dumper/CliDumper.php on line 498
+[27-May-2019 13:51:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in Unknown on line 0
+[27-May-2019 13:51:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 23072768 bytes) in /home/otafitser/site/app/Http/Middleware/RedirectIfAuthenticated.php on line 21
+[27-May-2019 13:51:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/otafitser/site/vendor/symfony/var-dumper/Dumper/CliDumper.php on line 498
+[27-May-2019 13:51:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in Unknown on line 0
+[27-May-2019 13:55:21 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 23072768 bytes) in /home/otafitser/site/app/Http/Middleware/RedirectIfAuthenticated.php on line 31
+[27-May-2019 13:55:21 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 12288 bytes) in /home/otafitser/site/vendor/symfony/var-dumper/Dumper/CliDumper.php on line 502
+[27-May-2019 13:55:21 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in Unknown on line 0
+[27-May-2019 13:55:24 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 23072768 bytes) in /home/otafitser/site/app/Http/Middleware/RedirectIfAuthenticated.php on line 31
+[27-May-2019 13:55:24 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 12288 bytes) in /home/otafitser/site/vendor/symfony/var-dumper/Dumper/CliDumper.php on line 502
+[27-May-2019 13:55:24 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in Unknown on line 0
+[27-May-2019 14:28:40 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 23072768 bytes) in /home/otafitser/site/app/Http/Middleware/RedirectIfAuthenticated.php on line 31
+[27-May-2019 14:28:40 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 12288 bytes) in /home/otafitser/site/vendor/symfony/var-dumper/Dumper/CliDumper.php on line 502
+[27-May-2019 14:28:40 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in Unknown on line 0
+[20-Jun-2019 15:39:31 UTC] PHP Parse error:  syntax error, unexpected '::' (T_PAAMAYIM_NEKUDOTAYIM) in /home/otafitser/site/app/Helper.php on line 141
+[03-Sep-2019 13:14:09 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 684032 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[03-Sep-2019 13:14:09 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in /home/otafitser/site/vendor/filp/whoops/src/Whoops/Exception/Frame.php on line 122
+[03-Sep-2019 13:14:09 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 1974272 bytes) in Unknown on line 0
+[03-Sep-2019 13:14:28 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 2105344 bytes) in /home/otafitser/site/storage/framework/views/a775ce7e9a6a4e6a13ab9800580d283d6f466a54.php on line 89
+[03-Sep-2019 13:14:28 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in /home/otafitser/site/vendor/symfony/var-dumper/Caster/Caster.php on line 33
+[03-Sep-2019 13:14:28 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 2105344 bytes) in Unknown on line 0
+[03-Sep-2019 13:15:12 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 684032 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[03-Sep-2019 13:15:12 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/filp/whoops/src/Whoops/Handler/PrettyPageHandler.php on line 192
+[03-Sep-2019 13:15:12 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 1994752 bytes) in Unknown on line 0
+[03-Sep-2019 13:22:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 3829760 bytes) in /home/otafitser/site/app/Http/Controllers/SearchController.php on line 205
+[03-Sep-2019 13:22:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/filp/whoops/src/Whoops/Resources/views/frames_description.html.php on line 1
+[03-Sep-2019 13:22:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 40960 bytes) in Unknown on line 0
+[03-Sep-2019 13:23:19 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 2097152 bytes) in /home/otafitser/site/app/Http/Controllers/SearchController.php on line 205
+[03-Sep-2019 13:23:19 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in /home/otafitser/site/vendor/filp/whoops/src/Whoops/Exception/FrameCollection.php on line 20
+[03-Sep-2019 13:23:19 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[03-Sep-2019 13:26:06 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 3403776 bytes) in /home/otafitser/site/app/Http/Controllers/SearchController.php on line 205
+[04-Sep-2019 10:09:33 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/otafitser/site/app/Filter.php on line 225
+[04-Sep-2019 12:46:04 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/otafitser/site/app/Filter.php on line 229
+[04-Sep-2019 13:26:23 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/otafitser/site/app/Filter.php on line 233
+[25-Oct-2019 07:00:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[25-Oct-2019 07:00:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 567
+[25-Oct-2019 07:00:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6557696 bytes) in Unknown on line 0
+[25-Oct-2019 07:01:12 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[25-Oct-2019 07:01:12 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Log/Events/MessageLogged.php on line 1
+[25-Oct-2019 07:01:12 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6541312 bytes) in Unknown on line 0
+[25-Oct-2019 07:02:40 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[25-Oct-2019 07:02:40 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Log/Events/MessageLogged.php on line 1
+[25-Oct-2019 07:02:40 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6541312 bytes) in Unknown on line 0
+[25-Oct-2019 07:02:48 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[25-Oct-2019 07:02:48 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 567
+[25-Oct-2019 07:02:48 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6557696 bytes) in Unknown on line 0
+[25-Oct-2019 07:59:00 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[25-Oct-2019 07:59:02 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php on line 1
+[25-Oct-2019 07:59:02 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6557696 bytes) in Unknown on line 0
+[25-Oct-2019 13:02:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[25-Oct-2019 13:02:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php on line 122
+[25-Oct-2019 13:02:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[29-Oct-2019 09:07:08 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[29-Oct-2019 09:07:09 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/symfony/debug/Exception/FatalErrorException.php on line 1
+[29-Oct-2019 09:07:09 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[29-Oct-2019 13:53:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[29-Oct-2019 13:53:39 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php on line 1
+[29-Oct-2019 13:53:39 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6561792 bytes) in Unknown on line 0
+[30-Oct-2019 11:26:36 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[30-Oct-2019 11:26:36 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php on line 122
+[30-Oct-2019 11:26:36 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[30-Oct-2019 11:26:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[30-Oct-2019 11:26:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php on line 122
+[30-Oct-2019 11:26:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[30-Oct-2019 11:26:44 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[30-Oct-2019 11:26:44 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php on line 122
+[30-Oct-2019 11:26:44 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[30-Oct-2019 11:27:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[30-Oct-2019 11:27:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php on line 122
+[30-Oct-2019 11:27:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[30-Oct-2019 11:38:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 831488 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 361
+[30-Oct-2019 11:38:47 UTC] PHP Fatal error:  ob_start(): Cannot use output buffering in output buffering display handlers in /home/otafitser/site/vendor/filp/whoops/src/Whoops/Util/SystemFacade.php on line 18
+[30-Oct-2019 11:48:41 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[30-Oct-2019 11:48:41 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php on line 122
+[30-Oct-2019 11:48:41 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[30-Oct-2019 11:51:26 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[30-Oct-2019 11:51:26 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php on line 122
+[30-Oct-2019 11:51:26 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[30-Oct-2019 11:51:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[30-Oct-2019 11:51:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php on line 122
+[30-Oct-2019 11:51:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[01-Nov-2019 06:59:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[01-Nov-2019 06:59:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 567
+[01-Nov-2019 06:59:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6582272 bytes) in Unknown on line 0
+[01-Nov-2019 07:00:08 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[01-Nov-2019 07:00:08 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 567
+[01-Nov-2019 07:00:08 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6557696 bytes) in Unknown on line 0
+[01-Nov-2019 07:01:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[01-Nov-2019 07:01:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 567
+[01-Nov-2019 07:01:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6582272 bytes) in Unknown on line 0
+[01-Nov-2019 07:01:43 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Str.php on line 102
+[01-Nov-2019 07:01:43 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 567
+[01-Nov-2019 07:01:43 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6557696 bytes) in Unknown on line 0
+[01-Nov-2019 07:27:08 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Str.php on line 102
+[01-Nov-2019 07:27:09 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php on line 1
+[01-Nov-2019 07:27:09 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6643712 bytes) in Unknown on line 0
+[01-Nov-2019 07:28:43 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[01-Nov-2019 07:28:43 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Handler/AbstractHandler.php on line 61
+[01-Nov-2019 07:28:43 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6639616 bytes) in Unknown on line 0
+[01-Nov-2019 07:28:50 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[01-Nov-2019 07:28:50 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Handler/AbstractHandler.php on line 61
+[01-Nov-2019 07:28:50 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6639616 bytes) in Unknown on line 0
+[01-Nov-2019 07:30:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[01-Nov-2019 07:30:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 690
+[01-Nov-2019 07:30:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6668288 bytes) in Unknown on line 0
+[01-Nov-2019 07:35:33 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 4210688 bytes) in /home/otafitser/site/storage/framework/views/060dce510e9a1a481f34eca6ab003a1b5c607233.php on line 55
+[01-Nov-2019 07:35:35 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 118784 bytes) in /home/otafitser/site/vendor/filp/whoops/src/Whoops/Util/SystemFacade.php on line 77
+[01-Nov-2019 07:35:35 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 4313088 bytes) in Unknown on line 0
+[01-Nov-2019 07:37:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[01-Nov-2019 07:37:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/NormalizerFormatter.php on line 109
+[01-Nov-2019 07:37:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 10248192 bytes) in Unknown on line 0
+[01-Nov-2019 07:37:50 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Str.php on line 102
+[01-Nov-2019 07:37:50 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/NormalizerFormatter.php on line 230
+[01-Nov-2019 07:37:50 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 10248192 bytes) in Unknown on line 0
+[01-Nov-2019 07:42:12 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[01-Nov-2019 07:42:12 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/NormalizerFormatter.php on line 109
+[01-Nov-2019 07:42:12 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 10244096 bytes) in Unknown on line 0
+[01-Nov-2019 07:42:57 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Str.php on line 102
+[01-Nov-2019 07:42:57 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/NormalizerFormatter.php on line 281
+[01-Nov-2019 07:42:57 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 10297344 bytes) in Unknown on line 0
+[01-Nov-2019 07:43:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Str.php on line 102
+[01-Nov-2019 07:43:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/NormalizerFormatter.php on line 281
+[01-Nov-2019 07:43:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 10256384 bytes) in Unknown on line 0
+[01-Nov-2019 07:44:21 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[01-Nov-2019 07:44:21 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Log/Events/MessageLogged.php on line 1
+[01-Nov-2019 07:44:21 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 10252288 bytes) in Unknown on line 0
+[01-Nov-2019 07:45:57 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[01-Nov-2019 07:45:57 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Log/Events/MessageLogged.php on line 1
+[01-Nov-2019 07:45:57 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 10252288 bytes) in Unknown on line 0
+[01-Nov-2019 07:50:42 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[01-Nov-2019 07:50:42 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php on line 131
+[01-Nov-2019 07:50:42 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 10289152 bytes) in Unknown on line 0
+[01-Nov-2019 07:50:46 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[01-Nov-2019 07:50:46 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/NormalizerFormatter.php on line 109
+[01-Nov-2019 07:50:46 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 10289152 bytes) in Unknown on line 0
+[01-Nov-2019 07:51:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9332456 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 93
+[01-Nov-2019 07:51:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9449472 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[01-Nov-2019 07:51:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 131072 bytes) in Unknown on line 0
+[01-Nov-2019 07:51:34 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9332456 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 93
+[01-Nov-2019 07:51:34 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9449472 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[01-Nov-2019 07:51:34 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 131072 bytes) in Unknown on line 0
+[01-Nov-2019 07:51:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9332456 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 93
+[01-Nov-2019 07:51:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9449472 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[01-Nov-2019 07:51:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 131072 bytes) in Unknown on line 0
+[01-Nov-2019 07:53:04 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9103192 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 93
+[01-Nov-2019 07:53:04 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9220096 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[01-Nov-2019 07:53:04 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 131072 bytes) in Unknown on line 0
+[01-Nov-2019 07:53:06 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9103192 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 93
+[01-Nov-2019 07:53:06 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9220096 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[01-Nov-2019 07:53:06 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 131072 bytes) in Unknown on line 0
+[01-Nov-2019 07:53:08 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9103192 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 93
+[01-Nov-2019 07:53:08 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9220096 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[01-Nov-2019 07:53:08 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 131072 bytes) in Unknown on line 0
+[01-Nov-2019 07:54:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[01-Nov-2019 07:54:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 567
+[01-Nov-2019 07:54:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7376896 bytes) in Unknown on line 0
+[01-Nov-2019 07:56:07 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[01-Nov-2019 07:56:07 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 567
+[01-Nov-2019 07:56:07 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7376896 bytes) in Unknown on line 0
+[01-Nov-2019 07:57:34 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[01-Nov-2019 07:57:34 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php on line 131
+[01-Nov-2019 07:57:34 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 10289152 bytes) in Unknown on line 0
+[01-Nov-2019 07:58:03 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Str.php on line 102
+[01-Nov-2019 07:58:03 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php on line 108
+[01-Nov-2019 07:58:03 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9183232 bytes) in Unknown on line 0
+[01-Nov-2019 07:58:05 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[01-Nov-2019 07:58:05 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php on line 108
+[01-Nov-2019 07:58:05 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9187328 bytes) in Unknown on line 0
+[01-Nov-2019 07:58:07 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[01-Nov-2019 07:58:07 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php on line 108
+[01-Nov-2019 07:58:07 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9187328 bytes) in Unknown on line 0
+[01-Nov-2019 07:58:09 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[01-Nov-2019 07:58:09 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php on line 108
+[01-Nov-2019 07:58:09 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9187328 bytes) in Unknown on line 0
+[01-Nov-2019 08:00:17 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9103192 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 93
+[01-Nov-2019 08:00:17 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9220096 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[01-Nov-2019 08:00:17 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 131072 bytes) in Unknown on line 0
+[01-Nov-2019 08:01:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[01-Nov-2019 08:01:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 620
+[01-Nov-2019 08:01:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7385088 bytes) in Unknown on line 0
+[01-Nov-2019 08:09:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[01-Nov-2019 08:09:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 249
+[01-Nov-2019 08:09:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7352320 bytes) in Unknown on line 0
+[01-Nov-2019 08:09:40 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[01-Nov-2019 08:09:40 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 88
+[01-Nov-2019 08:09:40 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7356416 bytes) in Unknown on line 0
+[04-Nov-2019 12:40:46 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[04-Nov-2019 12:40:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[04-Nov-2019 12:40:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php on line 122
+[04-Nov-2019 12:40:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php on line 122
+[04-Nov-2019 12:40:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[04-Nov-2019 12:40:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[04-Nov-2019 12:40:52 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[04-Nov-2019 12:40:52 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/symfony/debug/Exception/FatalErrorException.php on line 1
+[04-Nov-2019 12:40:52 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[04-Nov-2019 12:41:08 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[04-Nov-2019 12:41:08 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/symfony/debug/Exception/FatalErrorException.php on line 1
+[04-Nov-2019 12:41:08 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[04-Nov-2019 12:41:24 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[04-Nov-2019 12:41:24 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/symfony/debug/Exception/FatalErrorException.php on line 1
+[04-Nov-2019 12:41:24 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[04-Nov-2019 12:41:44 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[04-Nov-2019 12:41:44 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/symfony/debug/Exception/FatalErrorException.php on line 1
+[04-Nov-2019 12:41:44 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[04-Nov-2019 12:41:54 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[04-Nov-2019 12:41:54 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php on line 122
+[04-Nov-2019 12:41:54 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[04-Nov-2019 12:42:25 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connectors/Connector.php on line 67
+[04-Nov-2019 12:42:25 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/symfony/debug/Exception/FatalErrorException.php on line 1
+[04-Nov-2019 12:42:25 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in Unknown on line 0
+[07-Nov-2019 11:04:51 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[07-Nov-2019 11:04:52 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Log/Events/MessageLogged.php on line 12
+[07-Nov-2019 11:04:52 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7315456 bytes) in Unknown on line 0
+[07-Nov-2019 11:25:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[07-Nov-2019 11:25:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 567
+[07-Nov-2019 11:25:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6631424 bytes) in Unknown on line 0
+[07-Nov-2019 11:28:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Support/Collection.php on line 863
+[07-Nov-2019 11:28:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Logger.php on line 399
+[07-Nov-2019 11:28:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6569984 bytes) in Unknown on line 0
+[07-Nov-2019 11:35:53 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[07-Nov-2019 11:35:53 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Handler/AbstractHandler.php on line 125
+[07-Nov-2019 11:35:53 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6561792 bytes) in Unknown on line 0
+[07-Nov-2019 11:41:52 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[07-Nov-2019 11:41:52 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php on line 1
+[07-Nov-2019 11:41:52 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6574080 bytes) in Unknown on line 0
+[07-Nov-2019 11:48:05 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 16384 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/Database/Connection.php on line 330
+[07-Nov-2019 11:48:05 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/otafitser/site/vendor/monolog/monolog/src/Monolog/Handler/AbstractHandler.php on line 125
+[07-Nov-2019 11:48:05 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6475776 bytes) in Unknown on line 0
+[07-Nov-2019 11:49:37 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9103160 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 93
+[07-Nov-2019 11:49:37 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9220096 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[07-Nov-2019 11:49:37 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 131072 bytes) in Unknown on line 0
+[07-Nov-2019 11:54:27 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9103160 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 93
+[07-Nov-2019 11:54:27 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9220096 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[07-Nov-2019 11:54:27 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 131072 bytes) in Unknown on line 0
+[07-Nov-2019 11:54:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9103160 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 93
+[07-Nov-2019 11:54:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 9220096 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[07-Nov-2019 11:54:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 131072 bytes) in Unknown on line 0
+[07-Nov-2019 12:00:01 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8235144 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 93
+[07-Nov-2019 12:00:01 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8351744 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[07-Nov-2019 12:00:03 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8235144 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 93
+[07-Nov-2019 12:00:03 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8351744 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[07-Nov-2019 12:00:06 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8235144 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 93
+[07-Nov-2019 12:00:06 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8351744 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[07-Nov-2019 12:38:27 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6307840 bytes) in /home/otafitser/site/storage/framework/views/060dce510e9a1a481f34eca6ab003a1b5c607233.php on line 32
+[07-Nov-2019 12:38:27 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6410240 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 361
+[07-Nov-2019 12:38:27 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 6291456 bytes) in Unknown on line 0
+[07-Nov-2019 12:39:22 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7941888 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[07-Nov-2019 12:39:22 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8056832 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[07-Nov-2019 12:39:24 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7941888 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[07-Nov-2019 12:39:24 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8056832 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[07-Nov-2019 12:39:26 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7941888 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[07-Nov-2019 12:39:26 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8056832 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[07-Nov-2019 12:39:28 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7941888 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[07-Nov-2019 12:39:28 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8056832 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[08-Nov-2019 06:56:36 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7941888 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[08-Nov-2019 06:56:39 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8056832 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[08-Nov-2019 06:59:04 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7941888 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[08-Nov-2019 06:59:04 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8056832 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[08-Nov-2019 06:59:09 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7941888 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[08-Nov-2019 06:59:09 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8056832 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[08-Nov-2019 06:59:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7941888 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[08-Nov-2019 06:59:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8056832 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[08-Nov-2019 07:20:41 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7941888 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[08-Nov-2019 07:20:41 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8056832 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[08-Nov-2019 07:22:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7941888 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[08-Nov-2019 07:22:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8056832 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[08-Nov-2019 07:46:34 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7941888 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[08-Nov-2019 07:46:34 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8056832 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[08-Nov-2019 07:46:37 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7941888 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[08-Nov-2019 07:46:37 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8056832 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[08-Nov-2019 08:20:14 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7864096 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[08-Nov-2019 08:20:14 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7979008 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[08-Nov-2019 08:29:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7933336 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[08-Nov-2019 08:29:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8048640 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[08-Nov-2019 08:33:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 7929240 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[08-Nov-2019 08:33:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8044544 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[08-Nov-2019 08:37:21 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8228104 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[08-Nov-2019 08:37:21 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8343552 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[08-Nov-2019 08:37:43 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 5659939 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 361
+[08-Nov-2019 08:37:43 UTC] PHP Fatal error:  ob_start(): Cannot use output buffering in output buffering display handlers in /home/otafitser/site/vendor/filp/whoops/src/Whoops/Util/SystemFacade.php on line 18
+[08-Nov-2019 08:38:48 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8236296 bytes) in /home/otafitser/site/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php on line 50
+[08-Nov-2019 08:38:48 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8351744 bytes) in /home/otafitser/site/vendor/symfony/http-foundation/Response.php on line 1286
+[23-Jun-2020 09:19:58 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/ota1fitser/public_html/storage/framework/views/1c5dcc0eb77b1e690fc89a006ef1e4800a14d373.php on line 158
+[23-Jun-2020 09:19:58 UTC] PHP Fatal error:  Uncaught ErrorException: ob_end_flush(): failed to send buffer of zlib output compression (0) in /home/ota1fitser/public_html/vendor/symfony/http-foundation/Response.php:1286
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'ob_end_flush():...', '/home/ota1fitse...', 1286, Array)
+#1 /home/ota1fitser/public_html/vendor/symfony/http-foundation/Response.php(1286): ob_end_flush()
+#2 /home/ota1fitser/public_html/vendor/symfony/http-foundation/Response.php(379): Symfony\Component\HttpFoundation\Response::closeOutputBuffers(0, true)
+#3 /home/ota1fitser/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): Symfony\Component\HttpFoundation\Response->send()
+#4 /home/ota1fitser/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#5 /home/ota1fitse in /home/ota1fitser/public_html/vendor/symfony/http-foundation/Response.php on line 1286
+[23-Jun-2020 09:20:38 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/ota1fitser/public_html/storage/framework/views/1c5dcc0eb77b1e690fc89a006ef1e4800a14d373.php on line 158
+[23-Jun-2020 09:20:38 UTC] PHP Fatal error:  Uncaught ErrorException: ob_end_flush(): failed to send buffer of zlib output compression (0) in /home/ota1fitser/public_html/vendor/symfony/http-foundation/Response.php:1286
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'ob_end_flush():...', '/home/ota1fitse...', 1286, Array)
+#1 /home/ota1fitser/public_html/vendor/symfony/http-foundation/Response.php(1286): ob_end_flush()
+#2 /home/ota1fitser/public_html/vendor/symfony/http-foundation/Response.php(379): Symfony\Component\HttpFoundation\Response::closeOutputBuffers(0, true)
+#3 /home/ota1fitser/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(112): Symfony\Component\HttpFoundation\Response->send()
+#4 /home/ota1fitser/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(89): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalErrorException))
+#5 /home/ota1fitse in /home/ota1fitser/public_html/vendor/symfony/http-foundation/Response.php on line 1286

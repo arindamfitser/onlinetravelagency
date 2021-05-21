@@ -1,0 +1,374 @@
+<?php
+
+namespace App\Http\Controllers;
+use App\Filter;
+use App\Countries;
+use App\Regions;
+use App\States;
+use App\Hotels;
+use App\Accommodations;
+use App\Species;
+use App\Inspirations;
+use App\Experiences;
+use App\HotelAccommodationRelation;
+use App\HotelSpeciesRelation;
+use App\HotelInspirationsRelation;
+use App\HotelExperiencesRelation;
+use App\HotelContact;
+use App\HotelGallery;
+use App\HotelAddress;
+use App\KeyFeature;
+use App\ServiceFacility;
+use App\RoomFacility;
+use App\Recreation;
+use App\HotelFeaturesRelation;
+use App\ServiceFacilitiesTranslation;
+use App\RoomFacilitiesTranslation;
+use App\RecreationTranslation;
+use App\HotelAward;
+use App\Rooms;
+use App\FoodDrink;
+use App\Review;
+use App\Fisherman;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use Session;
+
+class SearchController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //$this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {   
+        $filter = new Filter;
+        if($request->keywords)
+        {
+         $hotels=$filter->parce_kayword($request->keywords);
+
+         if(!empty($hotels)){
+          //var_dump($hotels);
+             foreach ($hotels as $key => $hotel) {
+                   $hotel->address = HotelAddress::where('hotel_id', '=' , $hotel->id)->get()->first();
+                   if($hotel->address==""){
+                     $hotel->address = HotelAddress::where('hotel_id', '=' , $hotel->hotel_id)->get()->first();
+                   } 
+                   $hotel->galleries= HotelGallery::where('hotel_id', '=' , $hotel->id)->get()->all();
+                   $hotel->price = Rooms::where('hotel_id', '=' , $hotel->id)->min('base_price');
+                   $hotel->review = Review::where('hotel_id', '=' , $hotel->id)->where('status', '=' , 1)->get()->all();
+                   $hotel->features = KeyFeature::join('hotel_features_relations', 'key_features.id', '=', 'hotel_features_relations.features_id')
+              ->where('hotel_features_relations.hotel_id', '=', $hotel->id)
+              ->get()->all();
+
+                    $hotel->fishing_data = Fisherman::where('hotel_id', '=' , $hotel->id)->get()->first();
+                    if(empty($hotel->fishing_data)){
+                       $hotel->fishing_data = Fisherman::where('hotel_id', '=' , $hotel->hotel_id)->get()->first();
+                    }
+                 
+             }
+            return view('frontend.hotels.search', compact('hotels', 'hotels'));
+         }else{
+                return view('frontend.hotels.empty');
+          }
+        }
+     }
+
+    public function hotelDetails($slug){
+       
+           $hotel = Hotels::whereTranslation('hotels_slug', $slug)->first();;
+           
+           //var_dump($hotel);
+        if($hotel){
+            $hotel->features = KeyFeature::join('hotel_features_relations', 'key_features.id', '=', 'hotel_features_relations.features_id')
+              ->where('hotel_features_relations.hotel_id', '=', $hotel->id)
+              ->get()->all();
+            $hotel->servicefacilities = ServiceFacility::join('service_facilities_translations', 'service_facilities.id', '=', 'service_facilities_translations.service_facilities_id')
+              ->where('service_facilities_translations.hotel_id', '=', $hotel->id)
+              ->get()->all();
+            $hotel->roomfacilities = RoomFacility::join('room_facilities_translations', 'room_facilities.id', '=', 'room_facilities_translations.room_facilities_id')
+              ->where('room_facilities_translations.hotel_id', '=', $hotel->id)
+              ->get()->all();
+            $hotel->recreations = Recreation::join('recreation_translations', 'recreations.id', '=', 'recreation_translations.recreation_id')
+              ->where('recreation_translations.hotel_id', '=', $hotel->id)
+              ->get()->all();
+            $hotel->rooms = Rooms::where('hotel_id', '=', $hotel->id)
+              ->get()->all();
+            $hotel->food_drinks = FoodDrink::where('hotel_id', '=', $hotel->id)
+              ->get()->all();
+            $hotel->galleries = HotelGallery::where('hotel_id', '=' , $hotel->id)->get();
+            $hotel->hotelcontact = HotelContact::where('hotel_id', '=' , $hotel->id)->get()->first();
+            $hotel->hoteladdress = HotelAddress::where('hotel_id', '=' , $hotel->id)->get()->first();
+            $hotel->hotelawards = HotelAward::where('hotel_id', '=' , $hotel->id)->get();
+            $hotel->hotelreview = Review::where('hotel_id', '=' , $hotel->id)->where('status', '=' , 1)->get();
+            
+        }
+
+        return view('frontend.hotels.details', compact('hotel', 'hotel'));
+    }
+
+    public function xmlhotelDetails(Request $request, $id){
+      $quantity_adults = $request->quantity_adults;
+      $quantity_childs = $request->quantity_childs;
+      $quantity_rooms = $request->quantity_rooms;
+      $hotels = DB::table('hotel_master_xml')->join('hotel_description_xml', 'hotel_master_xml.id', '=', 'hotel_description_xml.hotel_id')->join('hotel_address_xml', 'hotel_master_xml.id', '=', 'hotel_address_xml.hotel_id')->where('hotel_master_xml.id', $id)->get()->first();
+      $images = DB::table('hotel_images_xml')->select('*')->where('hotel_images_xml.hotel_id', $id)->get()->all();
+      $amenity = DB::table('hotel_amenity_xml')->select('*')->where('hotel_amenity_xml.hotel_id', $id)->get()->all();
+      $results = $request->results;
+      $hotelDesc = DB::table('hotel_description_xml')->where('hotel_id', $id)->get();      
+      $dataArray = array('hotels' => $hotels, 'images' => $images, 'amenity' => $amenity, 'results' => $results, 'hotelDesc' => $hotelDesc);
+      return view('frontend.hotels.xmldetails', compact('dataArray', 'quantity_adults', 'quantity_childs', 'quantity_rooms'));
+    }
+
+    public function byDestination()
+    {
+        $accommodation_search = DB::table('regions_translations')->select('*', 'hotels.id as hotel_id')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_accommodation_relations', 'hotels.id', '=', 'hotel_accommodation_relations.hotel_id')->groupBy('hotels.region_id')->get()->all();
+        $experience_search = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_experiences_relations', 'hotels.id', '=', 'hotel_experiences_relations.hotel_id')->groupBy('hotels.region_id')->get()->all();
+        $inspiration_search = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_inspirations_relations', 'hotels.id', '=', 'hotel_inspirations_relations.hotel_id')->groupBy('hotels.region_id')->get()->all();
+        $species_search = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_species_relations', 'hotels.id', '=', 'hotel_species_relations.hotel_id')->groupBy('hotels.region_id')->get()->all();
+        return view('frontend.hotels.destinations', compact('accommodation_search', 'experience_search', 'inspiration_search', 'species_search'));
+    }
+    public function get_rg_type_data(Request $request){
+      //print_r($request->all());
+      $type = $request->type;
+      $data_id = $request->data_id;
+      switch ($type) {
+         case 'accommodation':
+           $search_data = DB::table('regions_translations')->select('*', 'hotels.id as hotel_id')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_accommodation_relations', 'hotels.id', '=', 'hotel_accommodation_relations.hotel_id')->where('hotel_accommodation_relations.accommodation_id', '=', $data_id)->groupBy('hotels.region_id')->get()->all();
+          break;
+        case 'experience':
+           $search_data = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_experiences_relations', 'hotels.id', '=', 'hotel_experiences_relations.hotel_id')->where('hotel_experiences_relations.experiences_id', '=', $data_id)->groupBy('hotels.region_id')->get()->all();
+          break;
+        case 'inspiration':
+           $search_data = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_inspirations_relations', 'hotels.id', '=', 'hotel_inspirations_relations.hotel_id')->where('hotel_inspirations_relations.inspirations_id', '=', $data_id)->groupBy('hotels.region_id')->get()->all();
+          break;
+        case 'species':
+           $search_data = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_species_relations', 'hotels.id', '=', 'hotel_species_relations.hotel_id')->where('hotel_species_relations.species_id', '=', $data_id)->groupBy('hotels.region_id')->get()->all();
+          break;
+      }
+      if(!empty($search_data)){
+        return view('frontend.hotels.region', compact('search_data', 'type'));
+      }else{
+        return view('frontend.hotels.empty');
+      }
+    }
+
+  public function soapCurl(Request $request){
+    $filter = new Filter;
+    $xml = $filter->AvailabilitySearchXML($request);
+    $url = "http://api.stuba.com/RXLServices/ASMX/XmlService.asmx"; 
+    //setting the curl parameters.
+    $data=$filter->fatchRoomsxml($url,$xml);
+    echo 'Results=' .count($data["HotelAvailability"]);
+    foreach ($data["HotelAvailability"] as $key => $value) {
+      $data=$filter->HotelDetailXML($value["Hotel"]["@attributes"]["id"]);
+    }  
+  }
+  public function destinationsEnroute(Request $request){
+    ini_set('memory_limit', '-1');
+    // $filter = new Filter;
+    // $xml = $filter->AvailabilitySearchXML($request);
+    // $url = "http://api.stuba.com/RXLServices/ASMX/XmlService.asmx";
+    // $data=$filter->fatchRoomsxml($url,$xml);
+    // echo "<pre>";
+    // print_r($data);
+    // die;
+    session(['ab'       => $request->ab]);    
+    session(['rooms'    => $request->ab]);
+    session(['num_room' => $request->num_room]);
+    session(['region_id' => $request->region_id]);
+    session(['keywords' => $request->keywords]);
+    session(['t_start' => $request->t_start]);
+    session(['t_end' => $request->t_end]);
+    session(['quantity_adults' => $request->quantity_adults]);
+    session(['quantity_child' => $request->quantity_child]);
+    session(['noguests' => $request->noguests]);
+    return view('frontend.hotels.rxmlsearch');
+  }
+  public function destinationsEnrouteFetchResult(Request $request){
+    $request['ab']              = session('ab');
+    $request['rooms']           = session('rooms');
+    $request['num_room']        = session('num_room');
+    $request['region_id']       = session('region_id');
+    $request['keywords']        = session('keywords');
+    $request['t_start']         = session('t_start');
+    $request['t_end']           = session('t_end');
+    $request['quantity_adults'] = session('quantity_adults');
+    $request['quantity_child']  = session('quantity_child');
+    $request['noguests']        = session('noguests');
+    ini_set('memory_limit', '-1');
+    $html = '';
+    $count = 0;
+    $filter = new Filter;
+    if($request->keywords){
+      $diff = date_diff(date_create($request->t_start), date_create($request->t_end));
+      $diff = $diff->format("%a");
+      session(['totalNight' => $diff]);
+      $xml = $filter->AvailabilitySearchXML($request);
+      // header('Content-type: text/xml');
+      // echo $xml; die;
+      $url = "http://api.stuba.com/RXLServices/ASMX/XmlService.asmx";
+      $data=$filter->fatchRoomsxml($url,$xml);
+      $html = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="holidaysection text-center" style="padding:25px">
+                  <h2> Search result not found! please try another!!</h2>
+                </div>
+              </div>';
+      $success = FALSE;
+      if(@$data["HotelAvailability"]){
+        $success = TRUE;
+        $hotels =array();
+        $price =array();
+        $result =array();
+        $quantity_adults = $request->quantity_adults;
+        $quantity_childs = $request->quantity_child;
+        $quantity_rooms = $request->quantity_rooms;
+        $currency = $data['Currency'];
+        for ($i=0; $i < count($data["HotelAvailability"]) ; $i++) {
+          @$hotel_id = $data["HotelAvailability"][$i]["Hotel"]["@attributes"]["id"];
+          if($hotel_id != ''){
+            $check = DB::table('hotel_master_xml')->select('id')->where('hotel_master_xml.id', $hotel_id)->get()->first();
+            if(empty($check)){
+              DB::table('hotel_master_xml')->insert(
+                array(
+                      'id'                 =>   $hotel_id, 
+                      'name'               =>   (isset($data["HotelAvailability"][$i]["Hotel"]["@attributes"]["name"]) ? $data["HotelAvailability"][$i]["Hotel"]["@attributes"]["name"] : ''),
+                      'region_id'          =>   (isset($data["HotelAvailability"][$i]["Hotel"]["Region"]["@attributes"]["id"]) ? $data["HotelAvailability"][$i]["Hotel"]["Region"]["@attributes"]["id"] : ''),
+                      'region_name'        =>   (isset($data["HotelAvailability"][$i]["Hotel"]["Region"]["@attributes"]["name"]) ? $data["HotelAvailability"][$i]["Hotel"]["Region"]["@attributes"]["name"] : ''),
+                      'type'               =>   (isset($data["HotelAvailability"][$i]["Hotel"]["@attributes"]["type"]) ? $data["HotelAvailability"][$i]["Hotel"]["@attributes"]["type"] : ''),
+                      'stars'              =>   (isset($data["HotelAvailability"][$i]["Hotel"]["@attributes"]["stars"]) ? $data["HotelAvailability"][$i]["Hotel"]["@attributes"]["stars"] : ''),
+                      'rating_system'      =>   (isset($data["HotelAvailability"][$i]["Hotel"]["Rating"]["System"]) ? $data["HotelAvailability"][$i]["Hotel"]["Rating"]["System"] : ''),
+                      'rating_score'       =>   (isset($data["HotelAvailability"][$i]["Hotel"]["Rating"]["Score"]) ? $data["HotelAvailability"][$i]["Hotel"]["Rating"]["Score"] : ''),
+                      'rating_description' =>   (isset($data["HotelAvailability"][$i]["Hotel"]["Rating"]["Description"]) ? $data["HotelAvailability"][$i]["Hotel"]["Rating"]["Description"] : ''),
+                      'rank'               =>   (isset($data["HotelAvailability"][$i]["Hotel"]["@attributes"]["rank"]) ? $data["HotelAvailability"][$i]["Hotel"]["@attributes"]["rank"] : '')
+                )
+              );
+              $insert = array(
+                "hotel_id" => $hotel_id,
+              );
+              foreach(array_keys($data["HotelAvailability"][$i]["Hotel"]["Address"]) as $val){
+                if(!is_array($data["HotelAvailability"][$i]["Hotel"]["Address"][$val])){
+                  if($data["HotelAvailability"][$i]["Hotel"]["Address"][$val] != '' ){
+                    $insert[$val] = $data["HotelAvailability"][$i]["Hotel"]["Address"][$val];
+                  }
+                }
+              }
+              DB::table('hotel_address_xml')->insert($insert);
+              if(!empty($data["HotelAvailability"][$i]["Hotel"]["Description"])){
+                foreach($data["HotelAvailability"][$i]["Hotel"]["Description"] as $k => $v){
+                  if(isset($v["Language"]) && isset($v["Type"]) && isset($v["Text"]) && $v["Language"] != '' && $v["Type"] != '' && $v["Text"] != ''){
+                    DB::table('hotel_description_xml')->insert(
+                      array(
+                            'hotel_id'   =>   $hotel_id,
+                            'Language'   =>   (isset($v["Language"]) ? $v["Language"] : ''),
+                            'Type'       =>   (isset($v["Type"]) ? $v["Type"] : ''),
+                            'Text'       =>   (isset($v["Text"]) ? $v["Text"] : '')
+                      )
+                    );
+                  }
+                }
+              }
+              if(!empty($data["HotelAvailability"][$i]["Hotel"]["Photo"])){
+                foreach($data["HotelAvailability"][$i]["Hotel"]["Photo"] as $ke => $m){
+                  if(isset($m["Url"]) && $m["Url"] != ''){
+                    DB::table('hotel_images_xml')->insert(
+                      array(
+                            'hotel_id'        =>   $hotel_id,
+                            'Url'             =>   (isset($m["Url"]) ? str_replace("http://api.stuba.com", "", $m["Url"]) : ''),
+                            'Width'           =>   (isset($m["Width"]) ? $m["Width"] : ''),
+                            'Height'          =>   (isset($m["Height"]) ? $m["Height"] : ''),
+                            'Bytes'           =>   (isset($m["Bytes"]) ? $m["Bytes"] : ''),
+                            'Caption'         =>   (isset($m["Caption"]) ? $m["Caption"] : ''),
+                            'ThumbnailUrl'    =>   (isset($m["ThumbnailUrl"]) ? str_replace("http://api.stuba.com", "", $m["ThumbnailUrl"]) : ''),
+                            'ThumbnailWidth'  =>   (isset($m["ThumbnailWidth"]) ? $m["ThumbnailWidth"] : ''),
+                            'ThumbnailHeight' =>   (isset($m["ThumbnailHeight"]) ? $m["ThumbnailHeight"] : ''),
+                            'ThumbnailBytes'  =>   (isset($m["ThumbnailBytes"]) ? $m["ThumbnailBytes"] : ''),
+                            'PhotoType'       =>   (isset($m["PhotoType"]) ? $m["PhotoType"] : '')
+                      )
+                    );
+                  }
+                }
+              }
+              if(!empty($data["HotelAvailability"][$i]["Hotel"]["Amenity"])){
+                foreach($data["HotelAvailability"][$i]["Hotel"]["Amenity"] as $kee => $j){
+                  if(isset($j["Text"]) && $j["Text"] != ''){
+                    DB::table('hotel_amenity_xml')->insert(
+                      array(
+                            'hotel_id'        =>   $hotel_id,
+                            'Code'            =>   (isset($j["Code"]) ? $j["Code"] : $j["Text"]),
+                            'Text'            =>   (isset($j["Text"]) ? $j["Text"] : '')
+                      )
+                    );
+                  }
+                }
+              }
+            }
+            if(isset($data["HotelAvailability"][$i]["Result"][0])){
+              if(isset($data["HotelAvailability"][$i]["Result"][0]["Room"][0])){
+              $prc = 0;
+              foreach($data["HotelAvailability"][$i]["Result"][0]["Room"] as $key=>$room){
+                $prc = $prc + (($room["Price"]["@attributes"]["amt"] / $diff) / 2);
+              }
+              @$price[] = $prc;
+              }else{
+              @$price[] = $data["HotelAvailability"][$i]["Result"][0]["Room"]["Price"]["@attributes"]["amt"] / $diff;
+              }
+            }else{
+              if(isset($data["HotelAvailability"][$i]["Result"]["Room"][0])){
+              $prc = 0;
+              foreach($data["HotelAvailability"][$i]["Result"]["Room"] as $key=>$room){
+                $prc = $prc + $room["Price"]["@attributes"]["amt"];
+              }
+              @$price[] = $prc;
+              }else{
+                //@$price[] = $data["HotelAvailability"][$i]["Result"][0]["Room"]["Price"]["@attributes"]["amt"]; 
+                @$price[] = $data["HotelAvailability"][$i]["Result"]["Room"]["Price"]["@attributes"]["amt"] / $diff;
+              }  
+            }
+            @$result[] = $data["HotelAvailability"][$i]["Result"];
+            $hotels[] = $filter->get_xml_hotel_details($hotel_id);
+          }
+        }
+        $html = '';
+        session(['totalHotelList' => json_encode($hotels)]);
+        session(['results' => json_encode($result)]);
+        session(['price' => json_encode($price)]);
+        session(['currency' => $currency]);
+        $finalArray = array();
+        arsort($price);
+        if(!empty($hotels)) :
+          foreach($price as $key => $p) :
+              $finalArray[$key] =  $hotels[$key];
+          endforeach;
+        endif;
+        if(!empty($finalArray)) :
+          $hotels = array();
+          $hotels = $finalArray;
+        endif;
+        $count = count($hotels);
+        $html = view('frontend.hotels.ajaxHotel', compact('hotels', 'currency', 'result', 'price', 'quantity_adults', 'quantity_childs', 'quantity_rooms'))->render();
+      }
+      print json_encode(array(
+        "success" => $success,
+        "html"    => $html,
+        "count"   => $count,
+        "totalHotelList"   => json_encode($hotels),
+        "results"   => json_encode($result),
+        "price"   => json_encode($price),
+        "currency"   => $currency,
+      ));
+    }
+  }
+}

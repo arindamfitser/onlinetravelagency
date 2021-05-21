@@ -1,0 +1,229 @@
+<?php
+namespace App\Http\Controllers\Ajax;
+use App\Hotels;
+use App\Rooms;
+use App\RoomCategory;
+use App\RoomDetail;
+use App\RoomGallery;
+use App\RoomAvailability;
+use App\Cart;
+use App\User;
+use App\StatesTranslation;
+use Mail;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+
+class AjaxController extends Controller
+{
+  public function __construct()
+  {
+        //$this->middleware('auth');
+  }
+
+  public function addWishlist(Request $request){
+      $id= DB::table('wishlist')->insert(
+       ['hotel_id' => $request['hotel_id'], 'user_id' => $request['user_id']]
+      );
+      if($id){
+         echo 'success';
+      }else{
+         echo 'error';
+      }
+
+  }
+
+  public function getWihlistbyUser(Request $request){
+    $user = DB::table('wishlist')->where('user_id', $request['user_id'])->get()->all();
+    echo  json_encode($user);
+  }
+
+  public function checkUserEmail(Request $request){
+    $user = User::all()->where('email', $request['email'])->first();
+    $U = auth('web')->user();  
+    if ($U){
+        return \Response::json(array('msg' => $request['email'].' email is available','status'=>'false'));
+    }else if($user) {
+        return \Response::json(array('msg' => $request['email'].' is already taken','status'=>'true'));
+    }else{
+        return \Response::json(array('msg' => $request['email'].' email is available','status'=>'false'));
+    }
+  }
+
+  public function doSendcontact(Request $request){
+
+       $e_data = [
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'contact' => $request->contact,
+            'subject' => $request->subject,
+            'body' => $request->message,
+        ];
+        Mail::send('emails.contact', ['e_data' => $e_data], function ($m) use ($e_data) {
+            $m->from('no-reply@fitser.com', 'Gupta Hotels');
+            $m->to(get_option('email'), $e_data['first_name'].' '.$e_data['last_name'])->subject('New Contact mail :gupta hotel');
+        });
+        echo json_encode(array('status' => 1));
+
+  }
+  public function get_state(Request $request){
+    $country_id = $request->country_id;
+    $states = StatesTranslation::where('countries_id', $country_id)->get()->all();
+    $html = '';
+    foreach ($states as $key => $state) {
+        $html .= '<option value="'.$state->states_id.'">'.$state->states_name.'</option>';
+    }
+    echo $html;
+  }
+
+  public function getmap(Request $request){
+    $id = $request->id;
+    $list = array();
+    switch ($request->type) {
+      case 'accommodation':
+        switch ($request->condition) {
+          case 'region':
+            $data = DB::table('hotels')->join('hotel_accommodation_relations', 'hotels.id', '=', 'hotel_accommodation_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.region_id', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+          case 'country':
+            $data = DB::table('hotels')->join('hotel_accommodation_relations', 'hotels.id', '=', 'hotel_accommodation_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.country_id', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+            case 'state':
+            $data = DB::table('hotels')->join('hotel_accommodation_relations', 'hotels.id', '=', 'hotel_accommodation_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.state_id', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+            case 'town':
+            $data = DB::table('hotels')->join('hotel_accommodation_relations', 'hotels.id', '=', 'hotel_accommodation_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.town', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+        }
+        break;
+        case 'experience':
+        switch ($request->condition) {
+          case 'region':
+            $data = DB::table('hotels')->join('hotel_experiences_relations', 'hotels.id', '=', 'hotel_experiences_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.region_id', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+          case 'country':
+            $data = DB::table('hotels')->join('hotel_experiences_relations', 'hotels.id', '=', 'hotel_experiences_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.country_id', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+            case 'state':
+            $data = DB::table('hotels')->join('hotel_experiences_relations', 'hotels.id', '=', 'hotel_experiences_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.state_id', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+            case 'town':
+            $data = DB::table('hotels')->join('hotel_experiences_relations', 'hotels.id', '=', 'hotel_experiences_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.town', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+          
+        }
+
+        break;
+        case 'inspiration':
+          switch ($request->condition) {
+          case 'region':
+            $data = DB::table('hotels')->join('hotel_inspirations_relations', 'hotels.id', '=', 'hotel_inspirations_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.region_id', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+          case 'country':
+            $data = DB::table('hotels')->join('hotel_inspirations_relations', 'hotels.id', '=', 'hotel_inspirations_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.country_id', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+            case 'state':
+            $data = DB::table('hotels')->join('hotel_inspirations_relations', 'hotels.id', '=', 'hotel_inspirations_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.state_id', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+            case 'town':
+            $data = DB::table('hotels')->join('hotel_inspirations_relations', 'hotels.id', '=', 'hotel_inspirations_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.town', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+          
+        }
+
+        break;
+        case 'species':
+              switch ($request->condition) {
+          case 'region':
+            $data = DB::table('hotels')->join('hotel_species_relations', 'hotels.id', '=', 'hotel_species_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.region_id', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+          case 'country':
+            $data = DB::table('hotels')->join('hotel_species_relations', 'hotels.id', '=', 'hotel_species_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.country_id', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+            case 'state':
+            $data = DB::table('hotels')->join('hotel_species_relations', 'hotels.id', '=', 'hotel_species_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.state_id', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+            case 'town':
+            $data = DB::table('hotels')->join('hotel_species_relations', 'hotels.id', '=', 'hotel_species_relations.hotel_id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('hotels.town', '=', $id)->groupBy('hotels.id')->get()->all();
+            foreach($data as $hs){
+              $list[] =  array('name' => $hs->hotels_name, 'location' => array($hs->latitude, $hs->longitude), 'address' =>$hs->location, 'image' => Storage::disk('local')->url($hs->featured_image), 'link' => route('hotel.details', ['slug' => $hs->hotels_slug]));
+            }
+            echo json_encode($list);
+            break;
+          
+        }
+
+        break;
+    }
+  }
+
+  public function suggestRegion(Request $request){
+    $region = DB::table('roomxml_region')->Where('name', 'like', '%' .$request->region. '%')->get()->toArray();
+                //var_dump($regions);
+    echo $regions= json_encode($region);
+    exit;
+  }
+
+}

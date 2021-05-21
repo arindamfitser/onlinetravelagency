@@ -1,0 +1,212 @@
+.help-block{
+	font-size: 10px;
+	color: #f44336;
+}
+.wizard {
+	padding: 0px 30px 30px 30px;
+    background: #fff;
+}
+
+    .wizard .nav-tabs {
+        position: relative;
+        margin: 40px auto;
+        margin-bottom: 0;
+        border-bottom-color: #e0e0e0;
+    }
+
+    .wizard > div.wizard-inner {
+        position: relative;
+    }
+
+.connecting-line {
+    height: 2px;
+    background: #e0e0e0;
+    position: absolute;
+    width: 80%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: 1;
+}
+
+.wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
+    color: #555555;
+    cursor: default;
+    border: 0;
+    border-bottom-color: transparent;
+}
+
+span.round-tab {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    display: inline-block;
+    border-radius: 100px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    font-size: 25px;
+}
+span.round-tab i{
+    color:#555555;
+}
+.wizard li.active span.round-tab {
+    background: #fff;
+    border: 2px solid #5bc0de;
+    
+}
+.wizard li.active span.round-tab i{
+    color: #5bc0de;
+}
+
+span.round-tab:hover {
+    color: #333;
+    border: 2px solid #333;
+}
+
+.wizard .nav-tabs > li {
+    width: 33%;
+}
+
+.wizard li:after {
+    content: " ";
+    position: absolute;
+    left: 46%;
+    opacity: 0;
+    margin: 0 auto;
+    bottom: 0px;
+    border: 5px solid transparent;
+    border-bottom-color: #5bc0de;
+    transition: 0.1s ease-in-out;
+}
+
+.wizard li.active:after {
+    content: " ";
+    position: absolute;
+    left: 46%;
+    opacity: 1;
+    margin: 0 auto;
+    bottom: 0px;
+    border: 10px solid transparent;
+    border-bottom-color: #5bc0de;
+}
+
+.wizard .nav-tabs > li a {
+    width: 70px;
+    height: 70px;
+    margin: 20px auto;
+    border-radius: 100%;
+    padding: 0;
+}
+
+    .wizard .nav-tabs > li a:hover {
+        background: transparent;
+    }
+
+.wizard .tab-pane {
+    position: relative;
+    padding-top: 50px;
+}
+
+.wizard h3 {
+    margin-top: 0;
+}
+
+@media( max-width : 585px ) {
+
+    .wizard {
+        width: 90%;
+        height: auto !important;
+    }
+
+    span.round-tab {
+        font-size: 16px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .wizard .nav-tabs > li a {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .wizard li.active:after {
+        content: " ";
+        position: absolute;
+        left: 35%;
+    }
+}
+.form_content_box{
+	border: 1px solid #110591;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+.bookingdetails_wrapper{width: 100%;background: #fff;-webkit-border-radius: 8px;-moz-border-radius: 8px;border-radius: 8px;box-shadow: 3px 4px 23px #ccc;padding: 20px;}
+.booking_details_top {width: 100%;border-bottom: 1px solid #ccc;padding: 0 0 10px;}
+.booking_details_top span {font-size: 14px;color: #535352;font-weight: 400;}
+.booking_details_top span:nth-child(2) {width: auto;float: right;position: relative;top:-9px;}
+.booking_details_top span strong {font-size: 20px;}
+.booking_details_middle {width: 100%;border-bottom: 1px solid #ccc;padding: 20px 0 20px;}
+.booking_details_middle h2 {font-size: 20px;color: #535352;font-weight: 600;}
+.booking_details_middle h3 {font-size: 17px;color: #535352;font-weight: 400;margin: 0 0 10px;}
+.booking_details_middle h4 {font-size: 12px;color: #535352;font-weight: 400;margin: 0 0 30px;}
+.booking_details_middle p {font-size: 15px;color: #535352;font-weight: 400;margin: 0 0 15px;}
+.booking_details_middle img {max-width: 100%;display: block;}
+.booking_details_date_info {width: 100%;display: inline-block;margin-top: 30px;min-height: 86px;}
+.dibox{width: 33.33%;min-height: 85px;float:left;border-right:1px solid #ccc;text-align: center;padding: 20px;font-size: 16px;color: #535352;font-weight: 400;}
+.dibox span {width: auto;float:left;font-size: 16px;color: #535352;font-weight: 400;padding: 0 18px;}
+.dibox span b {font-weight: normal;font-size: 13px;}
+.dibox:last-child {border:none;}
+.guest_info {width:100%;display: inline-block;margin-top: 30px;}
+.gibox {width:33.33%;float:left;font-size: 15px;color: #000;font-weight: 400;}
+.gibox span {display: block;font-size: 12px;color: #535352;font-weight: 300;}
+.bkdtls_table {width: 100%;margin-top: 30px;}
+.bkdtls_table table tr td {border:1px solid #ccc;padding: 10px;}
+.bkdtls_table table tr.bkt_tot td {font-weight: bold;color:#000;font-size: 16px;}
+.bkdtls_table table tr.bkt_tot td b {font-size: 13px;font-weight: normal;}
+.bkdtls_table table tr.bkt_tot {background: #f9fafc;}
+.bkdtls_table table tr.bkt_tot td {border:1px solid #f9fafc;}
+.bkdtls_table table tr.bkt_last {background: #d7b956;}
+.bkdtls_table table tr.bkt_last td {border:1px solid #d7b956;color:#fff;}
+.bkdtls_table table tr.bkt_last td a {background: #272727;color:#fff;width:105px;display: inline-block;padding: 10px 0;-webkit-border-radius: 5px;-moz-border-radius: 5px;
+border-radius: 5px;text-align: center;}
+.booking_cancel {width:100%; border:1px solid #ccc;padding: 20px;font-size: 16px;color: #535352;font-weight: 600;margin-top: 30px;}
+.booking_cancel a {color:#f00;text-transform: uppercase;cursor: pointer;}
+.cncl_modalbody_top {width:100%;background: #eee;padding: 10px;}
+.cnclbox {width: 100%;}
+.cnclbox h2 {font-size: 14px;color: #535352;font-weight: 600;margin: 0 0 5px;}
+.cnclbox p {font-size: 12px;color: #535352;font-weight: 400;margin: 0;line-height: 13px;}
+.cnclbox2 {width: 100%;text-align: center;font-size: 15px;color: #6ebb12;font-weight: 600;border-left:1px solid #ccc;}
+.cncl_modalbody_bottom a.active {border: 1px solid #6ebb12;color: #6ebb12;}
+.cncl_modalbody_bottom a.active .fa {color:#6ebb12;}
+.cnclbox2 b {font-weight: 400;font-size: 12px;}
+.cncl_modalbody_bottom {width: 100%;margin-top: 15px;border-top:1px solid #ccc;padding: 10px 0 0;display: inline-block;}
+.cncl_modalbody_bottom h2 {margin: 0 0 30px;text-align: center;font-size: 14px;color: #535352;font-weight: 600;}
+.cncl_modalbody_bottom a {width:45%;float:left;border:1px solid #ccc;padding: 15px;margin: 0 10px 10px;font-size: 13px;color: #000;font-weight: 400;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;text-align: center;}
+.xml_cancel_policy ul,.cnclbox ul  {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.xml_cancel_policy ul li, .cnclbox ul li
+{
+    font-size: 14px;
+    margin: 0 0 1px 0;
+}
+.xml_cancel_policy ul li span , .cnclbox ul li span
+{
+    font-weight: 600;
+}
+.xml_cancel_policy ul ul, .cnclbox ul ul {
+    padding-left: 15px;
+}
+.xml_cancel_policy ul ul li, .cnclbox ul ul li
+{
+    font-size: 13px;
+}

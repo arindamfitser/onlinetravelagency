@@ -1,0 +1,83 @@
+
+RewriteOptions inherit
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+RewriteCond %{REQUEST_URI} !(\.css|\.js|\.png|\.jpg|\.gif|robots\.txt)$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(css|js|images)/(.*)$ public/$1/$2 [L,NC]
+
+#RewriteCond %{HTTPS} !=on
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
+
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+#RewriteEngine On
+#RewriteRule ^(.*)$ public/$1 [L]
+
+#----------------------------------------------------------------cp:ppd
+# Section managed by cPanel: Password Protected Directories     -cp:ppd
+# - Do not edit this section of the htaccess file!              -cp:ppd
+#----------------------------------------------------------------cp:ppd
+
+#AuthType Basic
+#AuthName "Protected 'public_html'"
+#AuthUserFile "/home/dev4luxury8/.htpasswds/public_html/passwd"
+#Require valid-user
+
+
+#----------------------------------------------------------------cp:ppd
+# End section managed by cPanel: Password Protected Directories -cp:ppd
+#----------------------------------------------------------------cp:ppd
+
+# BEGIN cPanel-generated php ini directives, do not edit
+# Manual editing of this file may result in unexpected behavior.
+# To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
+# For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
+<IfModule php7_module>
+   php_flag display_errors On
+   php_value max_execution_time 3000
+   php_value max_input_time 300
+   php_value max_input_vars 1000
+   php_value memory_limit 256M
+   php_value post_max_size 256M
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/var/cpanel/php/sessions/ea-php71"
+   php_value upload_max_filesize 256M
+   php_flag zlib.output_compression Off
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/var/cpanel/php/sessions/ea-php71"
+   php_flag zlib.output_compression Off
+</IfModule>
+<IfModule lsapi_module>
+   php_flag display_errors On
+   php_value max_execution_time 3000
+   php_value max_input_time 300
+   php_value max_input_vars 1000
+   php_value memory_limit 256M
+   php_value post_max_size 256M
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/var/cpanel/php/sessions/ea-php71"
+   php_value upload_max_filesize 256M
+   php_flag zlib.output_compression Off
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/var/cpanel/php/sessions/ea-php71"
+   php_flag zlib.output_compression Off
+</IfModule>
+# END cPanel-generated php ini directives, do not edit
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php72” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php72 .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

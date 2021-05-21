@@ -1,0 +1,183 @@
+<?php
+
+namespace App\Http\Controllers;
+use App\Filter;
+use App\Countries;
+use App\Regions;
+use App\States;
+use App\Hotels;
+use App\Accommodations;
+use App\Species;
+use App\Inspirations;
+use App\Experiences;
+use App\HotelAccommodationRelation;
+use App\HotelSpeciesRelation;
+use App\HotelInspirationsRelation;
+use App\HotelExperiencesRelation;
+use App\HotelContact;
+use App\HotelGallery;
+use App\HotelAddress;
+use App\KeyFeature;
+use App\ServiceFacility;
+use App\RoomFacility;
+use App\Recreation;
+use App\HotelFeaturesRelation;
+use App\ServiceFacilitiesTranslation;
+use App\RoomFacilitiesTranslation;
+use App\RecreationTranslation;
+use App\HotelAward;
+use App\Rooms;
+use App\FoodDrink;
+use App\Review;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+
+
+class SearchController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //$this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {   
+        $filter = new Filter;
+        if($request->keywords)
+        {
+         $hotels=$filter->parce_kayword($request->keywords);
+
+         if(!empty($hotels)){
+          //var_dump($hotels);
+             foreach ($hotels as $key => $hotel) {
+                   $hotel->address = HotelAddress::where('hotel_id', '=' , $hotel->id)->get()->first()['location'];
+                   if($hotel->address==""){
+                     $hotel->address = HotelAddress::where('hotel_id', '=' , $hotel->hotel_id)->get()->first()['location'];
+                   } 
+                   $hotel->galleries= HotelGallery::where('hotel_id', '=' , $hotel->id)->get()->all();
+                   $hotel->price = Rooms::where('hotel_id', '=' , $hotel->id)->min('base_price');
+                   $hotel->review = Review::where('hotel_id', '=' , $hotel->id)->where('status', '=' , 1)->get()->all();
+                   $hotel->features = KeyFeature::join('hotel_features_relations', 'key_features.id', '=', 'hotel_features_relations.features_id')
+              ->where('hotel_features_relations.hotel_id', '=', $hotel->id)
+              ->get()->all();
+                 
+             }
+            return view('frontend.hotels.search', compact('hotels', 'hotels'));
+         }else{
+                return view('frontend.hotels.empty');
+          }
+        }
+     }
+
+    public function hotelDetails($slug){
+       
+           $hotel = Hotels::whereTranslation('hotels_slug', $slug)->first();;
+           
+           //var_dump($hotel);
+        if($hotel){
+            $hotel->features = KeyFeature::join('hotel_features_relations', 'key_features.id', '=', 'hotel_features_relations.features_id')
+              ->where('hotel_features_relations.hotel_id', '=', $hotel->id)
+              ->get()->all();
+            $hotel->servicefacilities = ServiceFacility::join('service_facilities_translations', 'service_facilities.id', '=', 'service_facilities_translations.service_facilities_id')
+              ->where('service_facilities_translations.hotel_id', '=', $hotel->id)
+              ->get()->all();
+            $hotel->roomfacilities = RoomFacility::join('room_facilities_translations', 'room_facilities.id', '=', 'room_facilities_translations.room_facilities_id')
+              ->where('room_facilities_translations.hotel_id', '=', $hotel->id)
+              ->get()->all();
+            $hotel->recreations = Recreation::join('recreation_translations', 'recreations.id', '=', 'recreation_translations.recreation_id')
+              ->where('recreation_translations.hotel_id', '=', $hotel->id)
+              ->get()->all();
+            $hotel->rooms = Rooms::where('hotel_id', '=', $hotel->id)
+              ->get()->all();
+            $hotel->food_drinks = FoodDrink::where('hotel_id', '=', $hotel->id)
+              ->get()->all();
+            $hotel->galleries = HotelGallery::where('hotel_id', '=' , $hotel->id)->get();
+            $hotel->hotelcontact = HotelContact::where('hotel_id', '=' , $hotel->id)->get()->first();
+            $hotel->hoteladdress = HotelAddress::where('hotel_id', '=' , $hotel->id)->get()->first();
+            $hotel->hotelawards = HotelAward::where('hotel_id', '=' , $hotel->id)->get();
+            $hotel->hotelreview = Review::where('hotel_id', '=' , $hotel->id)->where('status', '=' , 1)->get();
+            
+        }
+
+        return view('frontend.hotels.details', compact('hotel', 'hotel'));
+    }
+
+    public function xmlhotelDetails(Request $request, $id){
+     /* print_r($request->all());
+      exit();*/
+      $quantity_adults = $request->quantity_adults;
+      $hotels = DB::table('hotel_master_xml')->join('hotel_description_xml', 'hotel_master_xml.id', '=', 'hotel_description_xml.hotel_id')->join('hotel_address_xml', 'hotel_master_xml.id', '=', 'hotel_address_xml.hotel_id')->where('hotel_master_xml.id', $id)->get()->first();
+        $images = DB::table('hotel_images_xml')->select('*')->where('hotel_images_xml.hotel_id', $id)->get()->all();
+        $amenity = DB::table('hotel_amenity_xml')->select('*')->where('hotel_amenity_xml.hotel_id', $id)->get()->all();
+       $results = $request->results;
+       $dataArray = array('hotels' => $hotels, 'images' => $images, 'amenity' => $amenity, 'results' => $results);
+       return view('frontend.hotels.xmldetails', compact('dataArray', 'quantity_adults'));
+    }
+
+    public function byDestination()
+    
+    {
+        $accommodation_search = DB::table('regions_translations')->select('*', 'hotels.id as hotel_id')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_accommodation_relations', 'hotels.id', '=', 'hotel_accommodation_relations.hotel_id')->groupBy('hotels.region_id')->get()->all();
+        $experience_search = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_experiences_relations', 'hotels.id', '=', 'hotel_experiences_relations.hotel_id')->groupBy('hotels.region_id')->get()->all();
+        $inspiration_search = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_inspirations_relations', 'hotels.id', '=', 'hotel_inspirations_relations.hotel_id')->groupBy('hotels.region_id')->get()->all();
+        $species_search = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_species_relations', 'hotels.id', '=', 'hotel_species_relations.hotel_id')->groupBy('hotels.region_id')->get()->all();
+        return view('frontend.hotels.destinations', compact('accommodation_search', 'experience_search', 'inspiration_search', 'species_search'));
+    }
+
+    public function soapCurl(Request $request){
+             $filter = new Filter;
+             $xml = $filter->AvailabilitySearchXML($request);
+             $url = "http://www.stubademo.com/RXLStagingServices/ASMX/XmlService.asmx"; 
+             //setting the curl parameters.
+             $data=$filter->fatchRoomsxml($url,$xml);
+             echo 'Results=' .count($data["HotelAvailability"]);
+             foreach ($data["HotelAvailability"] as $key => $value) {
+                $data=$filter->HotelDetailXML($value["Hotel"]["@attributes"]["id"]);
+         }  
+    }
+
+  public function destinationsEnroute(Request $request){
+    //var_dump($request->all());
+        $filter = new Filter;
+        if($request->keywords)
+         {
+            $xml = $filter->AvailabilitySearchXML($request);
+            $url = "http://www.stubademo.com/RXLStagingServices/ASMX/XmlService.asmx"; 
+              //setting the curl parameters.
+              $data=$filter->fatchRoomsxml($url,$xml);
+              if(@$data["HotelAvailability"]){
+              $hotels =array();
+              $price =array();
+              $result =array();
+              $quantity_adults = $request->quantity_adults;
+                $currency = $data['Currency'];
+                for ($i=0; $i < count($data["HotelAvailability"]) ; $i++) { 
+                  @$hotel_id = $data["HotelAvailability"][$i]["Hotel"]["@attributes"]["id"];
+                  @$price[] = $data["HotelAvailability"][$i]["Result"][0]["Room"]["Price"]["@attributes"]["amt"];
+                  @$result[] = $data["HotelAvailability"][$i]["Result"];
+                  $hotels[] = $filter->get_xml_hotel_details($hotel_id);
+                 //echo print_r($price);
+                }
+                 //exit();
+                // echo '<pre>';
+                // print_r($result);
+                // echo '</pre>';
+                // exit();
+                return view('frontend.hotels.rxmlsearch', compact('hotels', 'price', 'currency', 'result', 'quantity_adults'));
+              }else{
+                return view('frontend.hotels.empty');
+            }
+      }
+    }
+}
