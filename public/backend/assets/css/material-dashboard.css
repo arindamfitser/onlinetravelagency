@@ -9165,15 +9165,16 @@ textarea {
   line-height: 1.42857 !important; }
 
 .form-group input[type=file] {
-  opacity: 0;
+  opacity: 1;
   position: absolute;
-  top: 0;
+  top: 25px;
   right: 0;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; }
+  /* z-index: -1; */
+}
 
 .form-newsletter .input-group,
 .form-newsletter .form-group {

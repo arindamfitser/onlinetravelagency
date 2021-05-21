@@ -108,7 +108,7 @@
                                                             <input type="file" name="featured_image" class="form-control">
                                                         </div>
                                                     </div>
-                                                    <div class="row rommImageDiv">
+                                                    <div class="col-md-12 rommImageDiv">
                                                         <?php
                                                         if(!empty($roomgallery)) :
                                                             foreach($roomgallery as $rgKey => $rg):

@@ -116,7 +116,7 @@
                                                             <input type="file" name="featured_image" class="form-control requiredCheck" data-check="Featured Image">
                                                         </div>
                                                     </div>
-                                                    <div class="row rommImageDiv"></div>
+                                                    <div class="col-md-12 rommImageDiv"></div>
                                                     <div class="col-md-12 text-center">
                                                         <div class="form-group text-center">
                                                             <input type="hidden" id="imgCnt"
