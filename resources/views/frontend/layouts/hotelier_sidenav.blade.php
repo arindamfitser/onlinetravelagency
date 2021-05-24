@@ -53,7 +53,7 @@
                 </a>
             </li>
         <?php endif; ?>
-        <li class="{{ Request::is('users/bookings*') ? 'active' : '' }}"><a href="{{ route('users.bookings') }}"><i class="fa fa-list" aria-hidden="true"></i>Bookings</a></li>             
+        <li class="{{ (Request::is('users/bookings*') || Request::is('users/booking*')) ? 'active' : '' }}"><a href="{{ route('users.bookings') }}"><i class="fa fa-list" aria-hidden="true"></i>Bookings</a></li>             
         <li class="{{ Request::is('users/reviews*') ? 'active' : '' }}"><a href="{{ route('users.hotels.reviews') }}"><i class="fa fa-list" aria-hidden="true"></i>Reviews</a></li>           
         <li class="{{ Request::is('users/transactions*') ? 'active' : '' }}"><a href="{{ route('user.transactions') }}"><i class="fa fa-list" aria-hidden="true"></i>Transactions</a></li>           
     </ul>

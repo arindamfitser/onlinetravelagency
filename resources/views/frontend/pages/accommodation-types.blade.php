@@ -17,7 +17,8 @@
                         if($accommodation->accommodations_image !=""){
                         ?>
                             <!-- <img src="{{ imageUrl(Storage::disk('local')->url($accommodation->accommodations_image), 371, 261, 100, 1)}}" alt="{{ $accommodation->accommodations_name }}"> -->
-                            <img src="{{ url('/'). resize(base_path('public').Storage::disk('local')->url($accommodation->accommodations_image), array('w'=>371,'h'=>261), 1) }}" alt="{{ $accommodation->accommodations_name }}" />
+                            {{-- <img src="{{ url('/'). resize(base_path('public').Storage::disk('local')->url($accommodation->accommodations_image), array('w'=>371,'h'=>261), 1) }}" alt="{{ $accommodation->accommodations_name }}" /> --}}
+                            <img src="{{ url('/public/').Storage::disk('local')->url($accommodation->accommodations_image) }}" alt="{{ $accommodation->accommodations_name }}"/>
                         <?php }else{ ?>
                             <img src="{{ asset('frontend/images/timthumb.jpg') }}" alt="{{ $accommodation->accommodations_name }}"> 
                         <?php } ?>

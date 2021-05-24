@@ -1,6 +1,8 @@
 @extends('frontend.layouts.app')
 @section('css')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="{{ asset('css/jquery.loading.css')}}">
+<link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css')}}">
 @endsection
 @section('content')
 <!--Banner sec-->
@@ -59,14 +61,17 @@
 </div>
 @endsection
 @section('script')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="{{ asset('js/jquery.loading.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+<script src="{{ asset('js/common-function.js') }}"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 $('#hotel').DataTable();
 } );
 </script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script type="text/javascript">
   $(".reason_cls").on('click', function(){
     $('a').removeClass('active');
@@ -81,31 +86,20 @@ $('#hotel').DataTable();
           type     : "post",
           url      : "{{ route('user.booking.cancelation') }}",
           data     : {
-              "_token": "{{ csrf_token() }}",
-              "reason": reason,
-              "booking_id": {{ $id }}
+            "_token": "{{ csrf_token() }}",
+            "reason": reason,
+            "booking_id": {{ $id }}
           },
-          cache    : false,
-          success  : function(data) {
-            var data = $.parseJSON(data);
-            if(data.status == 1){
-              $("#myModal").modal('hide');
-              swal({title: 'Cancelled!',
-                text: "Booking Cancelled successfully!",
-                type: 'success',
-                buttons:false});
-              //swal("Canceled!", "Booking Cancelled successfully!", "success");
-              setTimeout(function(){
-                location.reload();
-              }, 2000);
+          dataType : "JSON",
+          success  : function(res) {
+            if(res.success){
+              //$("#myModal").modal('hide');
+              swalAlertThenRedirect('"Booking Cancelled Successfully !!!', 'success', "{{ route('users.bookings') }}");
             }
-          },
-          error: function(err){
-            swal('Please login to your account for cancellation process!');
           }
       });
     }else{
-      swal('Please select a reason for cancellation');
+      swalAlert("Please select a reason for cancellation !!!", "warning", 5000);
     }
   });
 </script>

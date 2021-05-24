@@ -47,13 +47,6 @@ use App\Http\Controllers\Controller;
 class HotelsControllerNew extends Controller{
     public function __construct(){
     }
-    private static function pr($data, $action = TRUE){
-        echo "<pre>";
-        print_r($data);
-        if($action):
-            die;
-        endif;
-    }
     public function index(){  
         $this->middleware('auth:admin');
         $hotels = HotelNewEntry::all();

@@ -433,8 +433,117 @@ function get_randompass($limit=8){
          $c = implode("",$c);
          return substr($c,0,10);
  }
+function pr($data, $action = TRUE){
+	print "<pre>";
+	print_r($data);
+	if($action):
+		die;
+	endif;
+}
+function bookingdetailsHtml($id){
+ 	// $booking 		= App\Booking::select('*', 'bookings.user_id as booked_user', 'bookings.status as booked_status','bookings.created_at as created_at')
+	//  ->join('booking_items', 'bookings.id', '=', 'booking_items.booking_id')
+	//  ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
+	//  ->join('hotels_translations', 'booking_items.hotel_id', '=', 'hotels_translations.hotels_id')
+	//  ->join('hotel_addresses', 'hotels_translations.hotels_id', '=', 'hotel_addresses.hotel_id')
+	//  ->where('bookings.id', '=', $id)->first();
+	$booking 		= App\Booking::select('*', 'bookings.user_id as booked_user', 'bookings.status as booked_status','bookings.created_at as created_at')
+                    ->join('hotel_new_entries', 'bookings.hotel_token', '=', 'hotel_new_entries.hotel_token')
+                    ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
+                    ->where('bookings.id', $id)->first();
+	$bookingItem	= App\BookingItem::where('booking_id', '=', $id)->first();
+ 	$tot_booking 	= App\BookingItem::where('booking_id', '=', $id)->get()->count();
+ 	$users 			= get_user_details($booking->booked_user);
+ 	$html 			= '';
+ 	$html 			.= '<div class="bookingdetails_wrapper">';
+	if($booking->booked_status==1):
+		$html .= '<div class="pull-right clearfix"><span class="label label-success">Completed</span></div>';
+	elseif($booking->booked_status==2):
+		$html .= '<div class="pull-right clearfix"><span class="label label-danger">Cancelled</span></div>';
+	elseif($booking->booked_status==3):
+		$html .= '<div class="pull-right clearfix"><span class="label ellab-primary">Pending</span></div>';
+	endif;
+ 	$html .='
+	<div class="booking_details_top">
+ 		<span>Booking ID <br><strong>'.$id.'</strong></span>
+ 		<span>Booked by '.$users['first_name'].' '.$users['last_name'].' on '.date('D, d F Y', strtotime($booking->created_at)).'</span>
+	</div>
+	<div class="booking_details_middle">
+ 		<div class="row">
+ 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+ 				<h2>'.$booking->hotels_name.'</h2>
+ 				<p><strong>Address :</strong> '.$booking->address.' </p>
+ 			</div>
+ 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+				<img src="'.url('public/uploads/' . $booking->featured_image).'" alt="'.$booking->hotels_name.'" style="height: 100px; width:auto;">
+ 			</div>
+ 		</div>
+ 	</div>
+	<div class="booking_details_date_info">
+ 		<div class="dibox">
+ 			<span>'.date('d F', strtotime($booking->start_date)).' <br><b>'.date('D', strtotime($booking->start_date)).', '.$booking->start_date.' </b></span>
+ 			<span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+ 			<span>'.date('F d', strtotime($booking->end_date)).' <br><b>'.date('D', strtotime($booking->end_date)).', '.$booking->start_date.' </b></span>
+ 		</div>
+ 		<div class="dibox">6 Guests</div>
+ 		<div class="dibox">'.$booking->name.'</div>
+ 	</div>
+ 	<div class="guest_info">
+ 		<div class="gibox"><span>PRIMARY GUEST</span> '.$users['first_name'].' '.$users['last_name'].' </div>
+		<div class="gibox"><span>Mobile Number</span>  '.$users['mobile_number'].' </div>
+		<div class="gibox"><span>Email ID</span>  '.$users['email'].'  </div>
+ 	</div>
+ 	<div class="bkdtls_table">
+ 		<table class="table">   
+ 			<tbody> 
+				<tr> 
+					<td>Room Tariff</td> 
+					<td>'.getPrice($bookingItem->base_price).' x '.$booking->nights.' Nights</td> 
+					<td>'.getPrice($bookingItem->base_price * $booking->nights).'</td>
+				</tr>
+				<tr> 
+					<td>Discount</td> 
+					<td>'.getPrice($bookingItem->discount).' x '.$booking->nights.' Nights</td> 
+					<td>'.getPrice($bookingItem->discount * $booking->nights).'</td> 
+				</tr>
+				<tr> 
+					<td>Net Room Tariff</td> 
+					<td>'.getPrice($bookingItem->price).' x '.$booking->nights.' Nights</td> 
+					<td>'.getPrice($bookingItem->price * $booking->nights).'</td>
+				</tr>
+				<tr> 
+					<td>Booking Amount</td> 
+					<td>'.getPrice($bookingItem->total_price).' x '.$tot_booking.' Room(s)</td> 
+					<td>'.getPrice($booking->carttotal).'</td>
+				</tr> 
+				<tr> 
+					<td>Net Booking Amount</td> 
+					<td>Rounding up</td> 
+					<td>'.getPrice($booking->carttotal).'</td>
+				</tr> 
+				<tr> 
+					<td>Minimum Prepaid Amount to be Paid</td> 
+					<td>&nbsp;</td> 
+					<td>'.getPrice($booking->carttotal).'</td>
+				</tr>
+				<tr class="bkt_tot"> 
+					<td>Total Amount <br><b>(Inclusive of all taxes)</b></td> 
+					<td>&nbsp;</td> 
+					<td>'.getPrice($booking->carttotal).'</td>
+				</tr>
+ 			</tbody> 
+ 		</table>
+ 	</div>';
+ 	if($booking->booked_status != 2 && strtotime($booking->start_date) > strtotime(date('Y-m-d'))):
+ 	    $html .= '
+		<div class="booking_cancel">Something is not right ? <a data-toggle="modal" data-target="#myModal">cancel the booking</a></div>';
+	endif;
+ 	return $html;
+ }
 
- function bookingdetailsHtml($id){
+
+
+ function bookingdetailsHtmlBack($id){
  	$booking = App\Booking::select('*', 'bookings.user_id as booked_user', 'bookings.status as booked_status','bookings.created_at as created_at')->join('booking_items', 'bookings.id', '=', 'booking_items.booking_id')->join('rooms', 'booking_items.room_id', '=', 'rooms.id')->join('hotels_translations', 'booking_items.hotel_id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels_translations.hotels_id', '=', 'hotel_addresses.hotel_id')->where('bookings.id', '=', $id)
  	->get()->first();
  	$tot_booking = App\BookingItem::where('booking_id', '=', $id)->get()->count();

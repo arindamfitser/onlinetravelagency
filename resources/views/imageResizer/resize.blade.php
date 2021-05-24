@@ -6,11 +6,11 @@ function resize($imagePath, $opts = null, $chk = null){
 	//echo $imagePath; die;
 	$imagePath = urldecode($imagePath);
 	if ($chk == null){
-		//$cacheFolder = base_path('public/cache/');
-		$cacheFolder = '../../../public/cache/';
+		$cacheFolder = base_path('public/cache/');
+		//$cacheFolder = '../../../public/cache/';
 	}else{
-		//$cacheFolder = base_path('public/cache/');
-		$cacheFolder = '../../../public/cache/';
+		$cacheFolder = base_path('public/cache/');
+		//$cacheFolder = '../../../public/cache/';
 	}
 	$remoteFolder = $cacheFolder . 'remote/';
 	$defaults = array(

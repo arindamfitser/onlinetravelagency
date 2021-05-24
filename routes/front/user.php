@@ -47,10 +47,19 @@ Route::get('/users/hotels/room/roomdate', 'RoomsController@fetchRoomsdate')->nam
 Route::get('users/reviews', 'ReviewController@index')->name('users.hotels.reviews');
 Route::post('users/hotels/reviews/status/{id}', 'ReviewController@review_status_change')->name('users.hotels.reviews.status');
 Route::delete('users/hotels/reviews/delete/{id}', 'ReviewController@delete')->name('users.hotels.reviews.delete');
-Route::get('users/bookings', 'BookingController@index')->name('users.bookings');
-Route::get('users/booking/add', 'BookingController@add_Booking')->name('user.booking.add');
 
-Route::get('users/view_booking/{id}', 'BookingController@show_booking')->name('users.view_booking');
+
+
+Route::get('users/bookings', 'BookingController@index')->name('users.bookings');
+Route::get('users/booking/add', 'BookingController@newBooking')->name('user.booking.add');
+Route::post('users/check-room-available', 'BookingController@checkRoomAvailable')->name('user.check.room.available');
+Route::post('users/get-room-price', 'BookingController@getRoomPrice')->name('user.get.room.price');
+Route::post('users/hotelier-book-hotel', 'BookingController@hotelierBookHotel')->name('user.hotelier.book.hotel');
+Route::get('users/bookings/{id}', 'BookingController@showBooking')->name('users.view.booking');
+Route::post('users/booking/cancelation', 'BookingController@bookingCancelation')->name('user.booking.cancelation');
+
+
+
 
 Route::get('/users/service-tickets', function () {
       $user = auth('web')->user();
@@ -67,7 +76,7 @@ Route::post('users/booking/add/room_del', 'BookingController@room_del')->name('u
 Route::post('users/booking/add/payment_process', 'BookingController@booking_payment_process')->name('user.booking.add.booking_add');
 Route::get('users/invoice/', 'BookingController@invoice_list')->name('user.invoice.invoice_list');
 Route::get('users/invoice/{id}', 'BookingController@invoice_generate')->name('user.invoice.invoice_generate');
-Route::post('users/booking/cancelation', 'BookingController@booking_cancelation')->name('user.booking.cancelation');
+
 
 Route::post('/users/hotelier/rooms/update', 'Ajax\RoomsController@addUpdateRoomAbility')->name('user.hotelier.room.adddate');
 Route::get('users/transactions/', 'TransactionController@index')->name('user.transactions');

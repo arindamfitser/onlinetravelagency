@@ -18,11 +18,12 @@ if(!empty($banners)){
             @foreach($banners as $key => $banner)
 
             <?php
-
             //echo url('/public/').Storage::disk('local')->url($banner->banners_image); die;
             ?>
             <div class="item <?php echo ($key == 0) ? 'active' : ''; ?>">
-                <img src="{{ url('/'). resize(base_path('public').Storage::disk('local')->url($banner->banners_image), array('w'=>1498,'h'=>681), 1) }}" alt="slide <?=$key?>" />
+                {{-- <img src="{{ url('/'). resize(base_path('public').Storage::disk('local')->url($banner->banners_image), array('w'=>1498,'h'=>681), 1) }}"
+                    alt="slide" /> --}}
+                <img src="{{  url('/public/').Storage::disk('local')->url($banner->banners_image) }}" alt="slide <?=$key?>" />
                 <div class="banner_text">
                     <div class="banner_text_inner">
                         <h2><?php echo strip_tags($banner->banners_description); ?></h2>
@@ -61,14 +62,15 @@ if(!empty($banners)){
                         <div class="wrapper-category-image"> 
                             <?php if($acc->accommodations_image !=""){ ?>
                                 <!--<img src="{{ imageUrl(Storage::disk('local')->url($acc->accommodations_image), 371, 261, 100, 1)}}" alt="{{ $acc->accommodations_name }}"> -->
-                                <img src="{{ url('/'). resize(base_path('public').Storage::disk('local')->url($acc->accommodations_image), array('w'=>371,'h'=>261), 1) }}" alt="{{ $acc->accommodations_name }}" />
+                                {{-- <img src="{{ url('/'). resize(base_path('public').Storage::disk('local')->url($acc->accommodations_image), array('w'=>371,'h'=>261), 1) }}" alt="{{ $acc->accommodations_name }}" /> --}}
+                                <img src="{{ url('/public/').Storage::disk('local')->url($acc->accommodations_image) }}" alt="{{ $acc->accommodations_name }}" />
                             <?php }else{ ?>
                                 <img src="{{ asset('frontend/images/timthumb.jpg') }}" alt="{{ $acc->accommodations_name }}"> 
                             <?php } ?>
                         </div>
                         <!--<h3>Castles, Chateaux & Luxury Manors</h3>-->
                         <h3>{{ $acc->accommodations_name }}</h3>
-                    </a>
+                    </a>c
                 </div>
                 @endforeach
             </div>
@@ -119,7 +121,8 @@ if(!empty($banners)){
                            <a href="javascript:void(0);"  onclick="onSubmitData('{{ $exp->id }}', 'experience')" class="category-thumbnail">
                               <?php if($exp->experiences_image !=""){?>
                                 <!--<img src="{{ imageUrl(Storage::disk('local')->url($exp->experiences_image), 371, 261, 100, 1)}}" alt="{{ $exp->experiences_name }}"> -->
-                                <img src="{{ url('/'). resize(base_path('public').Storage::disk('local')->url($exp->experiences_image), array('w'=>371,'h'=>261), 1) }}" alt="{{ $exp->experiences_name }}" />
+                                {{-- <img src="{{ url('/'). resize(base_path('public').Storage::disk('local')->url($exp->experiences_image), array('w'=>371,'h'=>261), 1) }}" alt="{{ $exp->experiences_name }}" /> --}}
+                                <img src="{{ url('/public/').Storage::disk('local')->url($exp->experiences_image) }}" alt="{{ $exp->experiences_name }}" />
                                 <?php }else{ ?>
                                 <img src="{{ asset('frontend/images/timthumb.jpg') }}" alt="{{ $exp->experiences_name }}"> 
                               <?php } ?>
@@ -230,8 +233,10 @@ if(!empty($banners)){
                     <div class="wrapper-category-image"> 
                           <?php if($insp->inspirations_image !=""){ ?>
                                 <!--<img src="{{ imageUrl(Storage::disk('local')->url($insp->inspirations_image), 371, 261, 100, 1)}}" alt="{{ $insp->inspirations_name }}"> -->
-                                <img src="{{ url('/'). resize(base_path('public').Storage::disk('local')->url($insp->inspirations_image), array('w'=>371,'h'=>261), 1) }}" alt="{{ $insp->inspirations_name }}"/>
-                          <?php }else{ ?>
+                                {{-- <img src="{{ url('/'). resize(base_path('public').Storage::disk('local')->url($insp->inspirations_image), array('w'=>371,'h'=>261), 1) }}" alt="{{ $insp->inspirations_name }}"/> --}}
+                                <img src="{{ url('/public/').Storage::disk('local')->url($insp->inspirations_image) }}"
+                                    alt="{{ $insp->inspirations_name }}" />
+                                <?php }else{ ?>
                                 <img src="{{ asset('frontend/images/timthumb.jpg') }}" alt="{{ $insp->inspirations_name }}"> 
                           <?php } ?>
                     </div>
@@ -265,7 +270,8 @@ if(!empty($banners)){
                         <!--<img src="{{ imageUrl(asset(Storage::disk('local')->url($partner->image)), 185, 168, 100, 2)}}" />-->
                         <div class="logo_box_inner">
                             <a href="{{ $partner->link }}" target="_blank">
-                                <img src="{{ url('/'). resize(base_path('public').Storage::disk('local')->url($partner->image), array('w'=>185,'h'=>168), 1) }}" />
+                                {{-- <img src="{{ url('/'). resize(base_path('public').Storage::disk('local')->url($partner->image), array('w'=>185,'h'=>168), 1) }}" /> --}}
+                                <img src="{{ url('/public/').Storage::disk('local')->url($partner->image) }}"/>
                             </a>
                         </div>
                     </div>

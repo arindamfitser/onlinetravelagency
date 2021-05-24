@@ -3333,7 +3333,7 @@ padding: 0 0 10px;
 .booking_details_middle img {max-width: 100%;display: block;}
 .booking_details_date_info {width: 100%;display: inline-block;margin-top: 30px;min-height: 86px;}
 .dibox{width: 33.33%;min-height: 85px;float:left;border-right:1px solid #ccc;text-align: center;padding: 20px;font-size: 16px;color: #535352;font-weight: 400;}
-.dibox span {width: auto;float:left;font-size: 16px;color: #535352;font-weight: 400;padding: 0 18px;}
+.dibox span {width: auto;float:left;font-size: 16px;color: #535352;font-weight: 400;padding: 0 15px;}
 .dibox span b {font-weight: normal;font-size: 13px;}
 .dibox:last-child {border:none;}
 .guest_info {width:100%;display: inline-block;margin-top: 30px;}

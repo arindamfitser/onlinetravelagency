@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Hotels;
+use App\HotelNewEntry;
 use App\Booking;
 use App\User;
 use App\Rooms;
@@ -14,27 +14,232 @@ use App\RoomAvailability;
 use PDF;
 use Mail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+class BookingController extends Controller{
+  public function __construct(){
+      $this->middleware('auth');
+  }
+  public function index(){
+    $user   = auth('web')->user();
+    //$hotels = Hotels::where('user_id', $user->id)->get()->all();
+    $hotels = HotelNewEntry::where('user_id', $user->id)->get()->all();
+    if(!empty($hotels)):
+      $bookings     = array();
+      foreach($hotels as $hkey => $hdata):
+        $booking    = array();
+        $booking    = Booking::select('bookings.*', 'hotel_new_entries.hotels_name', 'rooms.name')
+                    ->join('hotel_new_entries', 'bookings.hotel_token', '=', 'hotel_new_entries.hotel_token')
+                    ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
+                    ->where('bookings.hotel_token', '=', $hdata->hotel_token)->get()->all();
+        // $booking    = Booking::select('*', 'bookings.user_id as booked_user', 'bookings.status as booked_status')
+        //             ->join('booking_items', 'bookings.id', '=', 'booking_items.booking_id')
+        //             ->join('rooms', 'booking_items.room_id', '=', 'rooms.id')
+        //             ->where('bookings.hotel_token', '=', $hdata->hotel_token)->get()->all();
+        if(!empty($booking)):
+          array_push($bookings, $booking);
+        endif;
+      endforeach;
+      return view('frontend.hotelier.booking', compact('bookings'));
+    else:
+          abort(404);
+    endif;
+  }
+  public function newBooking(){
+    $user = auth('web')->user();
+    $config = new \Braintree_Configuration([
+      'environment' => 'sandbox',
+      'merchantId' => 'kp8tw949t876r8gv',
+      'publicKey' => 'qh72yshrh9jzd8zh',
+      'privateKey' => '36ce8b294f9d0d4ec81df1fe67d11dce'
+    ]);
+    $gateway          = new \Braintree\Gateway($config);
+    $clientToken      = $gateway->clientToken()->generate();
+    $bookings         = new \StdClass();
+    $bookings->hotels = HotelNewEntry::where('user_id', $user->id)->get()->all();
+    $bookings->users  = User::where('role', 2)->get()->all();
+    return view('frontend.hotelier.new-booking', compact('bookings','clientToken'));
+  }
+  public function checkRoomAvailable(Request $request){
+    $user   = auth('web')->user();
+    $cIn    = $request->checkIn;
+    $cOut   = $request->checkOut;
+    $diff   = date_diff(date_create($cIn), date_create($cOut));
+    $days   = $diff->format("%a");
+    $rooms  = Rooms::where('availability', 1)->where('hotel_token', $request->hotelToken)->get()->all();
+    $html   = '<option value="">-- Select Room --</option>';
+    if(!empty($rooms)):
+      foreach($rooms as $r):
+        $max = '';
+        for($d = 0; $d < $days; $d++):
+          $strt = date('Y-m-d', strtotime($cIn. ' + '. $d .' days'));
+          $end  = date('Y-m-d', strtotime($cIn. ' + '. ($d+1) .' days'));
+          $chk  = DB::table('booking_items')->select('id', 'quantity_room')->where('room_id', $r->id)->where('status', 1)
+                  ->where('check_in', '>=', $strt)->where('check_out', '<=', $end)->get()->all();
+          if(!empty($chk)):
+            $booked = 0;
+            $avlbl  = 0;
+            foreach($chk as $c):
+              $booked += $c->quantity_room;
+            endforeach;
+            $avlbl  = $r->room_capacity - $booked;
+            if(!empty($max)):
+              if($max > $avlbl):
+                $max = $avlbl;
+              endif;
+            else:
+              $max = $avlbl;
+            endif;
+          else:
+            $max = $r->room_capacity;
+            break;
+          endif;
+        endfor;
+        if(!empty($max) && $max != '0'):
+          if($max >= $request->noOfRoomReq):
+            $html .= '<option value="'.$r->id.'">'. $r->name .'</option>';
+          endif;
+        endif;
+      endforeach;
+    endif;
+    print json_encode(array('success' => TRUE, 'html' => $html, 'nights' => $days));
+  }
+  public function getRoomPrice(Request $request){
+    $user   = auth('web')->user();
+    $room   = Rooms::where('id', $request->roomId)->first();
+    print json_encode(array('success' => TRUE, 'price' => $room->base_price));
+  }
+  public function hotelierBookHotel(Request $request){
+    $user     = auth('web')->user();
+    $chkUser  = User::where('email', $request->userEmail)->where('role', 2)->first();
+    if(empty($chkUser)):
+      $password = get_randompass(8);
+      $username = get_randompass(4);
+      $u        = User::create([
+        'username'      => $request->firstName.$username,
+        'email'         => $request->userEmail,
+        'first_name'    => $request->firstName,
+        'last_name'     => $request->lastName,
+        'password'      => bcrypt($password),
+        'mobile_number' => $request->mobileNumber
+      ]);
+      $userId = $u->id;
+    else:
+      $userId = $chkUser->id;
+    endif;
+    $hotel    = HotelNewEntry::where('hotel_token', $request->hotelToken)->first();
+    $hotelId    = $hotel->id;
+    $hotelToken = $hotel->hotel_token;
+    $cIn      = $request->checkIn;
+    $cOut     = $request->checkOut;
+    $diff     = date_diff(date_create($cIn), date_create($cOut));
+    $nights   = $diff->format("%a");
+    $booking  = Booking::create([
+      'user_id'     => $userId,
+      'hotel_id	'   => $hotelId,
+      'hotel_token' => $hotelToken,
+      'start_date'  => $cIn,
+      'end_date'    => $cOut,
+      'nights'      => $nights,
+      'carttotal'   => $request->roomFnlPrc,
+      'currency'    => 'AUD',
+      'status'      => 1,
+      'type'        => 'site'
+    ]);
+    $bookingId = $booking->id;
+    for($n = 0; $n < $nights; $n++):
+      $strt = date('Y-m-d', strtotime($cIn. ' + '. $n .' days'));
+      $end  = date('Y-m-d', strtotime($cIn. ' + '. ($n+1) .' days'));
+      $bi   = BookingItem::create([
+        'booking_id'      => $bookingId,
+        'hotel_id	'       => $hotelId,
+        'hotel_token'     => $hotelToken,
+        'room_id'         => $request->roomId,
+        'user_id'         => $userId,
+        'base_price'      => $request->roomPrc,
+        'price'           => ($request->roomPrc - $request->roomDisc),
+        'discount'        => $request->roomDisc,
+        'total_price'     => ($request->noOfRoomReq *($request->roomPrc - $request->roomDisc)),
+        'nights'          => 1,
+        'room_details_id' => $request->roomId,
+        'check_in'        => $strt,
+        'check_out'       => $end,
+        'start_date'      => $strt,
+        'end_date'        => $end,
+        'quantity_adults' => $request->noOfAdult,
+        'quantity_child'  => $request->noOfChild,
+        'quantity_room'   => $request->noOfRoomReq,
+        'status'          => '1'
+      ]);
+    endfor;
+    print json_encode(array('success' => TRUE));
+  }
+  public function showBooking($id){
+    return view('frontend.hotelier.singlebooking', compact('id'));
+  }
+  public function bookingCancelation(Request $request){
+      $booking_id                   = $request->booking_id;
+      $booking                      = Booking::find($booking_id);
+      $bookingItems	                = BookingItem::where('booking_id', '=', $booking_id)->get()->all();
+      $carttotal                    = $booking->carttotal;
+      $user_id                      = $booking->user_id;
+      $cancelation                  = new Cancelation;
+      $cancelation->booking_id      = $booking_id;
+      $cancelation->user_id         = $user_id;
+      $cancelation->payable_amount  = $carttotal;
+      $cancelation->refund_percent  = 100;
+      $cancelation->reason          = $request->reason;
+      $cancelation->save();
+      $booking->status              = 2;
+      $booking->save();
+      foreach($bookingItems as $bi):
+        $biDet                      = BookingItem::find($bi->id);
+        $biDet->status              = 0;
+        $biDet->save();
+      endforeach;
+      // $bookings = Booking::join('booking_items', 'bookings.id', '=', 'booking_items.booking_id')
+      //             ->where('bookings.id', '=', $booking_id)->first();
+      // $availability_ids = $bookings->availability_ids;
+      // $availability_ids = explode(",", $availability_ids);
+      // for ($i=0; $i < count($availability_ids) ; $i++) {
+      //     $roomavailability = RoomAvailability::find($availability_ids[$i]);
+      //     $availabe_rooms = $roomavailability->availabe_rooms;
+      //     $roomavailability->availabe_rooms = $availabe_rooms + 1;
+      //     $roomavailability->save();
+      //     $room_details_id = $bookings->room_details_id;  
+      //     //$roomallocation = RoomAllocation::where('availability_id', '=', $availability_ids[$i])->where('room_details_id', '=', $room_details_id)->get()->first();
+      //     //$roomallocation->status = 1;
+      //     //$roomallocation->save();
+      // }
+      // $booking->status = 2;
+      // $booking->save();
+      //print_r($request->all());
+      // $user         = get_user_details($user_id);
+      // $bookingitem  = BookingItem::where('booking_id', '=', $booking_id)->first();
+      // $room         = Rooms::find($bookingitem->room_id);
+      // $hotel        = Hotels::find($bookingitem->hotel_id);
+        
+      // $e_data = [
+      //     'booking_id'  => $booking_id,
+      //     'first_name'  => $user->first_name,
+      //     'last_name'   => $user->last_name,
+      //     'email'       => $user->email,
+      //     'room'        => $room->name,
+      //     'hotel'       => $hotel->hotels_name,
+      // ];
+      // if (is_live()){
+      //   Mail::send('emails.cancel', ['e_data' => $e_data], function ($m) use ($e_data) {
+      //     $m->from('no-reply@fitser.com', get_option('blogname'));
+      //     $m->to($e_data['email'], $e_data['first_name'].' '.$e_data['last_name'])->subject('Booking Cancellation');
+      //   });
+      // }
+      echo json_encode(array('success' => TRUE));
+    }
 
-class BookingController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    //
-    public function index(){
-    	$user = auth('web')->user();
-    	$hotels = Hotels::where('user_id', $user->id)->get()->all();
-    	if(!empty($hotels)){
-            foreach($hotels as $hkey => $hdata){
-                $bookings[] = Booking::select('*', 'bookings.user_id as booked_user', 'bookings.status as booked_status')->join('booking_items', 'bookings.id', '=', 'booking_items.booking_id')->join('rooms', 'booking_items.room_id', '=', 'rooms.id')->join('hotels_translations', 'bookings.hotel_id', '=', 'hotels_translations.hotels_id')->where('bookings.hotel_id', '=', $hdata->id)
-              ->get()->all();
-            }
-            return view('frontend.hotelier.booking', compact('bookings'));
-    	}else{
-            abort(404);
-        }
-    }
+
+
+
+
+
 
     public function email_check(){
         echo 123;
@@ -215,24 +420,7 @@ class BookingController extends Controller
         return view('frontend.hotelier.singlebooking', compact('id'));
     }
 
-    public function add_Booking(){
-        $user = auth('web')->user();
-         $config = new \Braintree_Configuration([
-            'environment' => 'sandbox',
-            'merchantId' => 'kp8tw949t876r8gv',
-            'publicKey' => 'qh72yshrh9jzd8zh',
-            'privateKey' => '36ce8b294f9d0d4ec81df1fe67d11dce'
-            ]);
-         
-         $gateway = new \Braintree\Gateway($config);
-
-        $clientToken = $gateway->clientToken()->generate();
-        $bookings = new \StdClass();
-        $bookings->hotels = Hotels::where('user_id', $user->id)->get()->all();
-        $bookings->users = User::where('role', 2)->get()->all();
-        return view('frontend.hotelier.add_booking', compact('bookings','clientToken'));
-       
-    }
+    
 
     public function booking_payment_process(Request $request){
         $user_id = $request->user_id;
@@ -328,54 +516,6 @@ class BookingController extends Controller
 
     }
 
-    public function booking_cancelation(Request $request){
-        $booking_id = $request->booking_id;
-        $booking = Booking::find($booking_id);
-        $carttotal = $booking->carttotal;
-        $user_id = $booking->user_id;
-        $cancelation = new Cancelation;
-        $cancelation->booking_id = $booking_id;
-        $cancelation->user_id = $user_id;
-        $cancelation->payable_amount = $carttotal;
-        $cancelation->refund_percent = 100;
-        $cancelation->reason = $request->reason;
-        $cancelation->save();
-        $bookings = Booking::join('booking_items', 'bookings.id', '=', 'booking_items.booking_id')->where('bookings.id', '=', $booking_id)->get()->first();
-        $availability_ids = $bookings->availability_ids;
-        $availability_ids = explode(",", $availability_ids);
-        for ($i=0; $i < count($availability_ids) ; $i++) {
-            $roomavailability = RoomAvailability::find($availability_ids[$i]);
-            $availabe_rooms = $roomavailability->availabe_rooms;
-            $roomavailability->availabe_rooms = $availabe_rooms + 1;
-            $roomavailability->save();
-            $room_details_id = $bookings->room_details_id;  
-            //$roomallocation = RoomAllocation::where('availability_id', '=', $availability_ids[$i])->where('room_details_id', '=', $room_details_id)->get()->first();
-            //$roomallocation->status = 1;
-            //$roomallocation->save();
-        }
-        $booking->status = 2;
-        $booking->save();
-        //print_r($request->all());
-        $user = get_user_details($user_id);
-        $bookingitem = BookingItem::where('booking_id', '=', $booking_id)->get()->first();
-        $room = Rooms::find($bookingitem->room_id);
-        $hotel = Hotels::find($bookingitem->hotel_id);
-         
-        $e_data = [
-            'booking_id' => $booking_id,
-            'first_name' => $user->first_name,
-            'last_name' => $user->last_name,
-            'email' => $user->email,
-            'room' => $room->name,
-            'hotel' => $hotel->hotels_name,
-        ];
-        if (is_live()){
-          Mail::send('emails.cancel', ['e_data' => $e_data], function ($m) use ($e_data) {
-            $m->from('no-reply@fitser.com', get_option('blogname'));
-            $m->to($e_data['email'], $e_data['first_name'].' '.$e_data['last_name'])->subject('Booking Cancellation');
-          });
-        }
-        echo json_encode(array('status' => 1));
-    }
+    
 
 }

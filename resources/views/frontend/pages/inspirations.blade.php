@@ -16,7 +16,9 @@
                       if($insp->inspirations_image !=""){
                        ?>
                       <!-- <img src="{{ imageUrl(Storage::disk('local')->url($insp->inspirations_image), 371, 261, 100, 1)}}" alt="{{ $insp->inspirations_name }}"> -->
-                      <img src="{{ url('/'). resize(base_path('public').Storage::disk('local')->url($insp->inspirations_image), array('w'=>371,'h'=>261), 1) }}" alt="{{ $insp->inspirations_name }}"/>
+                      {{-- <img src="{{ url('/'). resize(base_path('public').Storage::disk('local')->url($insp->inspirations_image), array('w'=>371,'h'=>261), 1) }}" alt="{{ $insp->inspirations_name }}"/> --}}
+                      <img src="{{ url('/public/').Storage::disk('local')->url($insp->inspirations_image) }}"
+                        alt="{{ $insp->inspirations_name }}" />
                       <?php }else{ ?>
                        <img src="{{ asset('frontend/images/timthumb.jpg') }}" alt="{{ $insp->inspirations_name }}"> 
                       <?php } ?>
