@@ -447,8 +447,8 @@ function bookingdetailsHtml($id){
 	//  ->join('hotels_translations', 'booking_items.hotel_id', '=', 'hotels_translations.hotels_id')
 	//  ->join('hotel_addresses', 'hotels_translations.hotels_id', '=', 'hotel_addresses.hotel_id')
 	//  ->where('bookings.id', '=', $id)->first();
-	$booking 		= App\Booking::select('*', 'bookings.user_id as booked_user', 'bookings.status as booked_status','bookings.created_at as created_at')
-                    ->join('hotel_new_entries', 'bookings.hotel_token', '=', 'hotel_new_entries.hotel_token')
+	$booking 		= App\Booking::select('*', 'hotels.featured_image', 'bookings.user_id as booked_user', 'bookings.status as booked_status','bookings.created_at as created_at')
+                    ->join('hotels', 'bookings.hotel_token', '=', 'hotels.hotel_token')
                     ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
                     ->where('bookings.id', $id)->first();
 	$bookingItem	= App\BookingItem::where('booking_id', '=', $id)->first();
@@ -483,9 +483,9 @@ function bookingdetailsHtml($id){
  		<div class="dibox">
  			<span>'.date('d F', strtotime($booking->start_date)).' <br><b>'.date('D', strtotime($booking->start_date)).', '.$booking->start_date.' </b></span>
  			<span><i class="fa fa-calendar" aria-hidden="true"></i></span>
- 			<span>'.date('F d', strtotime($booking->end_date)).' <br><b>'.date('D', strtotime($booking->end_date)).', '.$booking->start_date.' </b></span>
+ 			<span>'.date('F d', strtotime($booking->end_date)).' <br><b>'.date('D', strtotime($booking->end_date)).', '.$booking->end_date.' </b></span>
  		</div>
- 		<div class="dibox">6 Guests</div>
+ 		<div class="dibox">'.($bookingItem->quantity_adults + $bookingItem->quantity_child).' Guests</div>
  		<div class="dibox">'.$booking->name.'</div>
  	</div>
  	<div class="guest_info">
@@ -513,7 +513,7 @@ function bookingdetailsHtml($id){
 				</tr>
 				<tr> 
 					<td>Booking Amount</td> 
-					<td>'.getPrice($bookingItem->total_price).' x '.$tot_booking.' Room(s)</td> 
+					<td>'.getPrice($bookingItem->total_price).' x '.$bookingItem->quantity_room .' Room(s)</td> 
 					<td>'.getPrice($booking->carttotal).'</td>
 				</tr> 
 				<tr> 

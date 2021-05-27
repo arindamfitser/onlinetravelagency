@@ -180,7 +180,6 @@
 <script src="{{ asset('fullcalender') }}/fullcalendar.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.5.2/js/fileinput.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <script src="{{ asset('js/jquery.loading.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>

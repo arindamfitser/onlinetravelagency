@@ -11,7 +11,7 @@
 <section class="profile dashboard hometop_gap">
     @include('frontend.layouts.hotelier_sidenav')
     <div class="dashboard_content">
-        <h1>New Booking</h1>
+        <h1>{{ $bookings->hotels->hotels_name }} :: New Booking</h1>
         @include('frontend.layouts.messages')
         <div class="wizard">
             <div class="tab-content">
@@ -22,35 +22,22 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Hotel <span class="required">*</span></label>
-                                    <select class="form-control requiredCheck" name="hotelToken" id="hotelToken" data-check="Hotel">
-                                        <option value="">-- Select Hotel --</option>
-                                        <?php
-                                        if(!empty($bookings->hotels)):
-                                            foreach($bookings->hotels as $h):
-                                        ?>
-                                                <option value="{{ $h->hotel_token }}">{{ $h->hotels_name }}</option>
-                                        <?php endforeach; endif; ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group">
                                     <label>No of Room <span class="required">*</span></label>
                                     <input type="text" name="noOfRoomReq" id="noOfRoomReq" class="form-control isNumber requiredCheck"
                                         data-check="No of Room" placeholder="No of Room" value="1">
+                                    <input type="hidden" name="hotelToken" id= "hotelToken" value="{{ $bookings->hotels->hotel_token }}">
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Check In Date <span class="required">*</span></label>
-                                    <input type="text" id="checkIn" name="checkIn" class="form-control requiredCheck datepicker" autocomplete="off">
+                                    <input type="text" id="checkIn" name="checkIn" class="form-control requiredCheck datepicker" data-check="Check In date" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="bmd-label-floating">Check Out Date <span class="required">*</span></label>
-                                    <input type="text" id="checkOut" name="checkOut" class="form-control requiredCheck datepicker" autocomplete="off">
+                                    <input type="text" id="checkOut" name="checkOut" class="form-control requiredCheck datepicker" data-check="Check Out date" autocomplete="off">
                                 </div>
                             </div>
                             <input type="hidden" name="bookingNights" id="bookingNights" value="0">
@@ -77,9 +64,9 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Discount <span class="required">*</span></label>
-                                    <input type="text" name="roomDisc" id="roomDisc" class="form-control isNumber requiredCheck" data-check="Discount"
-                                        placeholder="Discount" value="0">
+                                    <label>Per Room Discount</label>
+                                    <input type="text" name="roomDisc" id="roomDisc" class="form-control isNumber requiredCheck@" data-check="Discount"
+                                        placeholder="Discount" value="">
                                 </div>
                             </div>
                             <div class="col-sm-12">
@@ -134,7 +121,7 @@
                         </div>
                         <br/>
                         <ul class="list-inline text-center">
-                            <li><button type="submit" class="btn btn-primary">Book</button></li>
+                            <li><button type="button" class="btn btn-primary bookHotelButton">Book</button></li>
                         </ul>
                     </form>
                 </div>
@@ -254,6 +241,7 @@
         });
         $(document).on('keyup', '#roomDisc', function() {
             if($('#roomPrc').val() > '0'){
+                //console.log(isNaN($('#roomDisc').val()));
                 if(parseInt($('#roomPrc').val()) >= parseInt($('#roomDisc').val())){
                     let newVal = parseFloat($('#roomPrc').val()) - parseFloat($('#roomDisc').val());
                     $('#roomFnlPrc').val($('#bookingNights').val() * parseFloat(newVal) * parseFloat($('#noOfRoomReq').val()));
@@ -265,32 +253,48 @@
                 }
             }
         });
-        $(document).on('submit', '#hotelierBookingForm', function(e) {
+        $(document).on('click', '.bookHotelButton', function(e) {
             e.preventDefault();
             let flag = commonFormChecking(true);
             if (flag) {
-                let formData = new FormData(this);
-                $.ajax({
-                    type        : "POST",
-                    url         : "{{ route('user.hotelier.book.hotel') }}",
-                    data        : formData,
-                    cache       : false,
-                    contentType : false,
-                    processData : false,
-                    dataType    : "JSON",
-                    beforeSend  : function () {
-                        $("#hotelierBookingForm").loading();
-                    },
-                    success     : function (res) {
-                        $("#hotelierBookingForm").loading("stop");
-                        if(res.success){
-                            swalAlertThenRedirect('Booking Successfully Done !!!', 'success', "{{ route('users.bookings') }}");
-                        }else{
-                            swalAlert('Something Went Wrong !!! Please Try Again !!!');
-                        }
-                    }
-                });
+                $('#hotelierBookingForm').submit();
             }
+        });
+        $(document).on('submit', '#hotelierBookingForm', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title               : 'Are you sure want to book hotel?',
+                type                : 'warning',
+                showCancelButton    : true,
+                confirmButtonColor  : '#dd6b55',
+                cancelButtonColor   : '#48cab2',
+                confirmButtonText   : "OK",
+                cancelButtonText    : "Cancel"
+            }).then((result) => {
+                if (result.value) {
+                    let formData = new FormData(this);
+                    $.ajax({
+                        type : "POST",
+                        url : "{{ route('user.hotelier.book.hotel') }}",
+                        data : formData,
+                        cache : false,
+                        contentType : false,
+                        processData : false,
+                        dataType : "JSON",
+                        beforeSend : function () {
+                            $("#hotelierBookingForm").loading();
+                        },
+                        success : function (res) {
+                            $("#hotelierBookingForm").loading("stop");
+                            if(res.success){
+                                swalAlertThenRedirect('Booking Successfully Done !!!', 'success', "{{ route('users.bookings') }}");
+                            }else{
+                                swalAlert('Something Went Wrong !!! Please Try Again !!!');
+                            }
+                        }
+                    });
+                }
+            });
         });
     });
 </script>

@@ -466,5 +466,44 @@
     <?php
         endforeach;
     endif;
+elseif(isset($finalSearchRooms)) :
+    if(!empty($finalSearchRooms)):
+        foreach($finalSearchRooms as $key => $room):
+?>
+            <div class=" col-sm-6 roompage_container">
+                <div class="roombox">
+                    <div class="row clearfix">
+                        <div class="col-md-12">
+                            <div class="room_details">
+                                <h2>{{ $room->name }}</h2>
+                                {{-- <p><i class="fa fa-check-circle"></i> {{ $room->descp }}</p> --}}
+                                <div class="profile_bannertext2">
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <h5>Price Options</h5>
+                                        <div class="pullbox">
+                                            <div class="rate-price">$ <?=number_format((float) $room->base_price, 2)?></div>
+                                            <p>Per Night</p>
+                                            <p>Taxes included</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <form id="gotcarform"
+                                            action="{{ route('hotel.book') }}" method="post">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="roomId" value="{{ $room->id }}">
+                                            <input type="hidden" name="bookingArray" value="{{ json_encode($bookingArray) }}">
+                                            <button type="submit" class="btn btn-primary">Book Now</button>
+                                        </form>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<?php
+        endforeach;
+    endif;
 ?>
 <?php endif; ?>

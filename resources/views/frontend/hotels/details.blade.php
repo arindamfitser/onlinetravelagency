@@ -206,8 +206,11 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 									<div id="slider" class="flexslider main-slide-view">
 										<ul class="slides">
 											@foreach($hotel->images as $img)
-											<li> <a href="{{url('public/uploads/' . $img->image)}}" rel="prettyPhoto[pp_gal]"><img
-														src="{{url('public/uploads/' . $img->image)}}" alt="{{ $hotel->hotels_name }}"></a></li>
+											<li>
+												<a href="{{url('public/uploads/' . $img->image)}}" rel="prettyPhoto[pp_gal]">
+													<img src="{{url('public/uploads/' . $img->image)}}" alt="{{ $hotel->hotels_name }}">
+												</a>
+											</li>
 											@endforeach
 										</ul>
 									</div>
@@ -344,7 +347,9 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 							<ul>
 								@foreach ( $hotel->features  as $features)
 								<li>
-									<img src="{{( isset($features->icons) ?  Storage::disk('local')->url('app/public/uploads/icons/'.$features->icons) : 'https://dummyimage.com/92x92/000000/fff.png&text=Icon' )}}" alt="{{ $features->name }})">
+									{{-- <img src="{{( isset($features->icons) ?  Storage::disk('local')->url('app/public/uploads/icons/'.$features->icons) : 'https://dummyimage.com/92x92/000000/fff.png&text=Icon' )}}" alt="{{ $features->name }})"> --}}
+									<img src="{{( isset($features->icons) ?  url('public/icons/' . $features->icons) : 'https://dummyimage.com/92x92/000000/fff.png&text=Icon' )}}"
+										alt="{{ $features->name }}" />
 									<h5> {{ $features->name }} </h5>
 								</li>
 								@endforeach
@@ -358,7 +363,7 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 								<!-- /.panel -->
 								<div class="panel panel-default">
 									<div class="panel-heading">
-										<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false">Check in / check out</a> </h4>
+										<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false">Check In / Check Out</a> </h4>
 									</div>
 									<div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
 										<div class="panel-body">
@@ -860,16 +865,17 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 						<input type="hidden" name="roomSearchHotel" value="{{ $hotel->hotels_name }}" />
 						<input type="hidden" name="roomSearchKeyword" value="{{session('keywords')}}" />
 						<input type="hidden" name="roomStubaId" value="{{$hotel->stuba_id}}" />
+						<input type="hidden" name="roomHotelToken" value="{{$hotel->hotel_token}}" />
 						<div class="form-group">
 							<label for="roomSearchFromDate">From Date: </label>
-							<input type="date" placeholder="yyyy-mm-dd" value="{{session('t_start')}}" min="{{date('Y-m-d')}}"  class="form-control" name="roomSearchFromDate" id="roomSearchFromDate">
+							<input type="text" placeholder="yyyy-mm-dd" value="{{ date('Y-m-d') }}" class="form-control" name="roomSearchFromDate" id="roomSearchFromDate">
 						</div>
 						<div class="form-group">
 							<label for="roomSearchToDate">To Date: </label>
-							<input type="date" placeholder="yyyy-mm-dd" value="{{session('t_end')}}" min="{{date('Y-m-d', strtotime("+1 day"))}}"  class="form-control" name="roomSearchToDate" id="roomSearchToDate">
+							<input type="text" placeholder="yyyy-mm-dd" value="{{date('Y-m-d', strtotime("+1 day"))}}" class="form-control" name="roomSearchToDate" id="roomSearchToDate">
 						</div>
 						<div class="form-group">
-							<label>Room : </label>
+							<label>Rooms : </label>
 							<div class="col-md-12">
 								<input type="hidden" name="norm[]" value="1" />
 								<div class="col-md-5">
@@ -1006,6 +1012,12 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 				$('.modalError').html('<span style="color:red;">From Date must be lesser than To Date !!!</span>');
 				return false;
 			}
+			if($("#roomSearchNumber").length){
+				if($('#roomSearchNumber').val() < '1' ){
+					$('.modalError').html('<span style="color:red;">No of Room Must be Atleast 1 !!!</span>');
+					return false;
+				}
+			}
 			$('#roomSearchForm').submit();
 		});
 	});
@@ -1055,19 +1067,19 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 		e.preventDefault();
 		var formData = new FormData(this);
 		$.ajax({
-			type: "POST",
-			url: '{{ route('destination.fetch.room') }}',
-			data: formData,
-			cache: false,
-			contentType: false,
-			processData: false,
-			dataType: "JSON",
-			beforeSend: function () {
+			type		: "POST",
+			url			: '{{ route('destination.fetch.room') }}',
+			data		: formData,
+			cache		: false,
+			contentType	: false,
+			processData	: false,
+			dataType	: "JSON",
+			beforeSend	: function () {
 				$('#roomSelectModal').modal('hide');
 				$(".roomListAppend").empty();
 				$(".roomListAppend").loading();
 			},
-			success: function (res) {
+			success		: function (res) {
 				$(".roomListAppend").loading("stop");
 				$(".roomListAppend").html(res.html);
 			},

@@ -18,7 +18,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use Session;
+use Illuminate\Support\Facades\Session;
+//use Session;
 class AjaxController extends Controller{
     public function __construct(){
         //$this->middleware('auth');
@@ -654,25 +655,6 @@ class AjaxController extends Controller{
     $totalAdults  = 0;
     $totalKids    = 0;
     $totalRoom    = 0;
-    foreach($request->norm as $keyyy => $val):
-      $ab['norm'][]   = $val;
-      $ab['adlts'][]  = $request->adlts[$keyyy];
-      $ab['kids'][]   = $request->kids[$keyyy];
-      $totalAdults    += $request->adlts[$keyyy];
-      $totalKids      += $request->kids[$keyyy];
-      $totalRoom++;
-    endforeach;
-    Session::put('t_start', $request->roomSearchFromDate);
-    Session::put('t_end', $request->roomSearchToDate);
-    Session::put('keywords', $request->roomSearchKeyword);
-    Session::put('quantity_adults', $totalAdults);
-    Session::put('quantity_child', $totalKids);
-    Session::put('ab', $ab);
-    Session::put('rooms', $ab);
-    Session::put('num_room', $totalRoom);
-    Session::put('quantityRooms', $totalRoom);
-    Session::put('noguests', ($totalAdults + $totalKids));
-    Session::save();
     $html = '<div class="roombox">
               <div class="row clearfix text-center">
                 <h2>Not available for your selected dates!  Please try other dates !!</h2>
@@ -681,53 +663,155 @@ class AjaxController extends Controller{
                 </a> 
               </div>
             </div>';
-    //$region = DB::table('roomxml_region')->Where('name', 'like', $request->roomSearchKeyword. '%')->get()->toArray();
-    $region = DB::table('hotel_region_xml')
-            ->select('country as country_name', 'region_id', 'searchable_region as name')
-            ->Where('country', 'like', '%' .$request->roomSearchKeyword. '%')
-            ->orWhere('region', 'like', '%' .$request->roomSearchKeyword. '%')
-            ->orWhere('sub_region', 'like', '%' .$request->roomSearchKeyword. '%')
-            ->get()->toArray();
-    if(!empty($region)):
-      //session(['region_id' => $region[0]->region_id]);
-      Session::put('region_id', $region[0]->region_id);
-      $diff = date_diff(date_create($request->roomSearchFromDate), date_create($request->roomSearchToDate));
-      $diff = $diff->format("%a");
-      //session(['totalNight' => $diff]);
-      Session::put('totalNight', $diff);
-      // echo "<pre>";
-      // print_r(session()->all()); die;
-      $request['ab']              = Session::get('ab');
-      $request['rooms']           = Session::get('rooms');
-      $request['num_room']        = Session::get('num_room');
-      $request['region_id']       = Session::get('region_id');
-      $request['keywords']        = Session::get('keywords');
-      $request['t_start']         = Session::get('t_start');
-      $request['t_end']           = Session::get('t_end');
-      $request['quantity_adults'] = Session::get('quantity_adults');
-      $request['quantity_child']  = Session::get('quantity_child');
-      $request['noguests']        = Session::get('noguests');
-      $filter                     = new Filter;
-      $xml                        = $filter->AvailabilitySearchXML($request);
-      $url                        = "http://api.stuba.com/RXLServices/ASMX/XmlService.asmx";
-      $data                       = $filter->fatchRoomsxml($url,$xml);
-      $currency                   = 'AUD';
-      $hotelForRoom               = array();
-      $price                      = array();
-      $result                     = array();
-      $finalSearchHotel         = array();
-      //echo "<pre>"; print_r($data); die;
-      if($data["HotelAvailability"]):
-        for ($i = 0; $i < count($data["HotelAvailability"]); $i++) :
-          @$hotel_name = $data["HotelAvailability"][$i]["Hotel"]["@attributes"]["id"];
-          if($hotel_name == $request->roomStubaId):
-            $finalSearchHotel = $data["HotelAvailability"][$i];
-            break;
-          endif;
-        endfor;
+    if($request->roomHotelToken == NULL || empty($request->roomHotelToken)):
+      foreach($request->norm as $keyyy => $val):
+        $ab['norm'][]   = $val;
+        $ab['adlts'][]  = $request->adlts[$keyyy];
+        $ab['kids'][]   = $request->kids[$keyyy];
+        $totalAdults    += $request->adlts[$keyyy];
+        $totalKids      += $request->kids[$keyyy];
+        $totalRoom++;
+      endforeach;
+      Session::put('t_start', $request->roomSearchFromDate);
+      Session::put('t_end', $request->roomSearchToDate);
+      Session::put('keywords', $request->roomSearchKeyword);
+      Session::put('quantity_adults', $totalAdults);
+      Session::put('quantity_child', $totalKids);
+      Session::put('ab', $ab);
+      Session::put('rooms', $ab);
+      Session::put('num_room', $totalRoom);
+      Session::put('quantityRooms', $totalRoom);
+      Session::put('noguests', ($totalAdults + $totalKids));
+      Session::save();
+      //$region = DB::table('roomxml_region')->Where('name', 'like', $request->roomSearchKeyword. '%')->get()->toArray();
+      $region = DB::table('hotel_region_xml')
+              ->select('country as country_name', 'region_id', 'searchable_region as name')
+              ->Where('country', 'like', '%' .$request->roomSearchKeyword. '%')
+              ->orWhere('region', 'like', '%' .$request->roomSearchKeyword. '%')
+              ->orWhere('sub_region', 'like', '%' .$request->roomSearchKeyword. '%')
+              ->get()->toArray();
+      if(!empty($region)):
+        //session(['region_id' => $region[0]->region_id]);
+        Session::put('region_id', $region[0]->region_id);
+        $diff = date_diff(date_create($request->roomSearchFromDate), date_create($request->roomSearchToDate));
+        $diff = $diff->format("%a");
+        //session(['totalNight' => $diff]);
+        Session::put('totalNight', $diff);
+        // echo "<pre>";
+        // print_r(session()->all()); die;
+        $request['ab']              = Session::get('ab');
+        $request['rooms']           = Session::get('rooms');
+        $request['num_room']        = Session::get('num_room');
+        $request['region_id']       = Session::get('region_id');
+        $request['keywords']        = Session::get('keywords');
+        $request['t_start']         = Session::get('t_start');
+        $request['t_end']           = Session::get('t_end');
+        $request['quantity_adults'] = Session::get('quantity_adults');
+        $request['quantity_child']  = Session::get('quantity_child');
+        $request['noguests']        = Session::get('noguests');
+        $filter                     = new Filter;
+        $xml                        = $filter->AvailabilitySearchXML($request);
+        $url                        = "http://api.stuba.com/RXLServices/ASMX/XmlService.asmx";
+        $data                       = $filter->fatchRoomsxml($url,$xml);
+        $currency                   = 'AUD';
+        $hotelForRoom               = array();
+        $price                      = array();
+        $result                     = array();
+        $finalSearchHotel           = array();
+        //echo "<pre>"; print_r($data); die;
+        if($data["HotelAvailability"]):
+          for ($i = 0; $i < count($data["HotelAvailability"]); $i++) :
+            @$hotel_name = $data["HotelAvailability"][$i]["Hotel"]["@attributes"]["id"];
+            if($hotel_name == $request->roomStubaId):
+              $finalSearchHotel = $data["HotelAvailability"][$i];
+              break;
+            endif;
+          endfor;
+        endif;
+        if(!empty($finalSearchHotel)):
+          $html = view('frontend.hotels.ajaxHotel', compact('finalSearchHotel'))->render();
+        endif;
       endif;
-      if(!empty($finalSearchHotel)):
-        $html = view('frontend.hotels.ajaxHotel', compact('finalSearchHotel'))->render();
+    else:
+      $cIn          = $request->roomSearchFromDate;
+      $cOut         = $request->roomSearchToDate;
+      $diff         = date_diff(date_create($cIn), date_create($cOut));
+      $nights       = $diff->format("%a");
+      $maxAdult     = '';
+      $maxChild     = '';
+      foreach($request->norm as $keyyy => $val):
+        $ab['norm'][]   = $val;
+        $ab['adlts'][]  = $request->adlts[$keyyy];
+        $ab['kids'][]   = $request->kids[$keyyy];
+        $totalAdults    += $request->adlts[$keyyy];
+        $totalKids      += $request->kids[$keyyy];
+        if(empty($maxAdult)):
+          $maxAdult     = $request->adlts[$keyyy];
+        else:
+          if($maxAdult < $request->adlts[$keyyy]):
+            $maxAdult   = $request->adlts[$keyyy];
+          endif;
+        endif;
+        if(empty($maxChild)):
+          $maxChild     = $request->kids[$keyyy];
+        else:
+          if($maxChild < $request->kids[$keyyy]):
+            $maxChild   = $request->kids[$keyyy];
+          endif;
+        endif;
+        $totalRoom++;
+      endforeach;
+      $rooms  = Rooms::where('availability', 1)->where('hotel_token', $request->roomHotelToken)
+                ->where('adult_capacity', '>=', $maxAdult)
+                ->where('child_capacity', '>=', $maxChild)->get()->all();
+      $finalSearchRooms           = array();
+      if(!empty($rooms)):
+        $bookingArray = array(
+          'startDate'       => $cIn,
+          'endDate'         => $cOut,
+          'quantityAdults'  => $totalAdults,
+          'quantityChild'   => $totalKids,
+          'rooms'           => $ab,
+          'quantityRooms'   => $totalRoom,
+          'noguests'        => ($totalAdults + $totalKids),
+          'totalNight'      => $nights,
+          'hotelToken'      => $request->roomHotelToken
+        );
+        foreach($rooms as $r):
+          $max = '';
+          for($d = 0; $d < $nights; $d++):
+            $strt = date('Y-m-d', strtotime($cIn. ' + '. $d .' days'));
+            $end  = date('Y-m-d', strtotime($cIn. ' + '. ($d+1) .' days'));
+            $chk  = DB::table('booking_items')->select('id', 'quantity_room')->where('room_id', $r->id)->where('status', 1)
+                    ->where('check_in', '>=', $strt)->where('check_out', '<=', $end)->get()->all();
+            if(!empty($chk)):
+              $booked = 0;
+              $avlbl  = 0;
+              foreach($chk as $c):
+                $booked += $c->quantity_room;
+              endforeach;
+              $avlbl  = $r->room_capacity - $booked;
+              if(!empty($max)):
+                if($max > $avlbl):
+                  $max = $avlbl;
+                endif;
+              else:
+                $max = $avlbl;
+              endif;
+            else:
+              $max = $r->room_capacity;
+              break;
+            endif;
+          endfor;
+          if(!empty($max) && $max != '0'):
+            if($max >= $totalRoom):
+              array_push($finalSearchRooms, $r);
+            endif;
+          endif;
+        endforeach;
+      endif;
+      if(!empty($finalSearchRooms)):
+        $html = view('frontend.hotels.ajaxHotel', compact('finalSearchRooms', 'bookingArray'))->render();
       endif;
     endif;
     print json_encode(array(
@@ -967,5 +1051,92 @@ class AjaxController extends Controller{
         'hotelImagesId' => $hotelImagesId,
         'html'          => $html
     ));
+  }
+  public function destinationFetchRoomBACKUP(Request $request){
+    ini_set('memory_limit', '-1');
+    $ab           = array();
+    $totalAdults  = 0;
+    $totalKids    = 0;
+    $totalRoom    = 0;
+    foreach($request->norm as $keyyy => $val):
+      $ab['norm'][]   = $val;
+      $ab['adlts'][]  = $request->adlts[$keyyy];
+      $ab['kids'][]   = $request->kids[$keyyy];
+      $totalAdults    += $request->adlts[$keyyy];
+      $totalKids      += $request->kids[$keyyy];
+      $totalRoom++;
+    endforeach;
+    Session::put('t_start', $request->roomSearchFromDate);
+    Session::put('t_end', $request->roomSearchToDate);
+    Session::put('keywords', $request->roomSearchKeyword);
+    Session::put('quantity_adults', $totalAdults);
+    Session::put('quantity_child', $totalKids);
+    Session::put('ab', $ab);
+    Session::put('rooms', $ab);
+    Session::put('num_room', $totalRoom);
+    Session::put('quantityRooms', $totalRoom);
+    Session::put('noguests', ($totalAdults + $totalKids));
+    Session::save();
+    $html = '<div class="roombox">
+              <div class="row clearfix text-center">
+                <h2>Not available for your selected dates!  Please try other dates !!</h2>
+                <a href="javascript:void(0);" class="hotelDetailsBack">
+                  <h3>or return to your last Search !!</h3>
+                </a> 
+              </div>
+            </div>';
+    //$region = DB::table('roomxml_region')->Where('name', 'like', $request->roomSearchKeyword. '%')->get()->toArray();
+    $region = DB::table('hotel_region_xml')
+            ->select('country as country_name', 'region_id', 'searchable_region as name')
+            ->Where('country', 'like', '%' .$request->roomSearchKeyword. '%')
+            ->orWhere('region', 'like', '%' .$request->roomSearchKeyword. '%')
+            ->orWhere('sub_region', 'like', '%' .$request->roomSearchKeyword. '%')
+            ->get()->toArray();
+    if(!empty($region)):
+      //session(['region_id' => $region[0]->region_id]);
+      Session::put('region_id', $region[0]->region_id);
+      $diff = date_diff(date_create($request->roomSearchFromDate), date_create($request->roomSearchToDate));
+      $diff = $diff->format("%a");
+      //session(['totalNight' => $diff]);
+      Session::put('totalNight', $diff);
+      // echo "<pre>";
+      // print_r(session()->all()); die;
+      $request['ab']              = Session::get('ab');
+      $request['rooms']           = Session::get('rooms');
+      $request['num_room']        = Session::get('num_room');
+      $request['region_id']       = Session::get('region_id');
+      $request['keywords']        = Session::get('keywords');
+      $request['t_start']         = Session::get('t_start');
+      $request['t_end']           = Session::get('t_end');
+      $request['quantity_adults'] = Session::get('quantity_adults');
+      $request['quantity_child']  = Session::get('quantity_child');
+      $request['noguests']        = Session::get('noguests');
+      $filter                     = new Filter;
+      $xml                        = $filter->AvailabilitySearchXML($request);
+      $url                        = "http://api.stuba.com/RXLServices/ASMX/XmlService.asmx";
+      $data                       = $filter->fatchRoomsxml($url,$xml);
+      $currency                   = 'AUD';
+      $hotelForRoom               = array();
+      $price                      = array();
+      $result                     = array();
+      $finalSearchHotel         = array();
+      //echo "<pre>"; print_r($data); die;
+      if($data["HotelAvailability"]):
+        for ($i = 0; $i < count($data["HotelAvailability"]); $i++) :
+          @$hotel_name = $data["HotelAvailability"][$i]["Hotel"]["@attributes"]["id"];
+          if($hotel_name == $request->roomStubaId):
+            $finalSearchHotel = $data["HotelAvailability"][$i];
+            break;
+          endif;
+        endfor;
+      endif;
+      if(!empty($finalSearchHotel)):
+        $html = view('frontend.hotels.ajaxHotel', compact('finalSearchHotel'))->render();
+      endif;
+    endif;
+    print json_encode(array(
+      "html" => $html
+    ));
+    die;
   }
 }

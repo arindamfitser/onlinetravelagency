@@ -11,9 +11,11 @@
     @include('frontend.layouts.messages')
     <div class="row">
       <div class="col-sm-12">
+        <?php if(!empty($hotels)) : ?>
         <a href="{{ route('user.booking.add') }}" class="btn btn-success pull-right">
           <i class="fa fa-plus" aria-hidden="true"></i> New Booking
         </a>
+        <?php endif; ?>
       </div>
     </div>
     <br>
@@ -38,8 +40,9 @@
             <tbody>
               <?php
               if(!empty($bookings)):
-                foreach($bookings as $bkey => $bData):
-                  foreach($bData as $bkData):
+                //pr($bookings);
+                foreach($bookings as $bkey => $bkData):
+                  //foreach($bData as $bkData):
                     $udata = App\User::where('id', $bkData->user_id)->first();
               ?>
                   <tr>
@@ -70,7 +73,7 @@
                     </td>
                   </tr>
               <?php
-                endforeach;
+                //endforeach;
               endforeach;
             endif;
             ?>

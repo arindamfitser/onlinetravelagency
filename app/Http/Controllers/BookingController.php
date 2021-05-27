@@ -21,28 +21,16 @@ class BookingController extends Controller{
   }
   public function index(){
     $user   = auth('web')->user();
-    //$hotels = Hotels::where('user_id', $user->id)->get()->all();
-    $hotels = HotelNewEntry::where('user_id', $user->id)->get()->all();
-    if(!empty($hotels)):
-      $bookings     = array();
-      foreach($hotels as $hkey => $hdata):
-        $booking    = array();
-        $booking    = Booking::select('bookings.*', 'hotel_new_entries.hotels_name', 'rooms.name')
-                    ->join('hotel_new_entries', 'bookings.hotel_token', '=', 'hotel_new_entries.hotel_token')
-                    ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
-                    ->where('bookings.hotel_token', '=', $hdata->hotel_token)->get()->all();
-        // $booking    = Booking::select('*', 'bookings.user_id as booked_user', 'bookings.status as booked_status')
-        //             ->join('booking_items', 'bookings.id', '=', 'booking_items.booking_id')
-        //             ->join('rooms', 'booking_items.room_id', '=', 'rooms.id')
-        //             ->where('bookings.hotel_token', '=', $hdata->hotel_token)->get()->all();
-        if(!empty($booking)):
-          array_push($bookings, $booking);
-        endif;
-      endforeach;
-      return view('frontend.hotelier.booking', compact('bookings'));
-    else:
-          abort(404);
+    $hotels = Hotels::where('user_id', $user->id)->first();
+    $bookings     = array();
+    if(!empty($hotels)): 
+      $bookings    = Booking::select('bookings.*', 'hotels_translations.hotels_name', 'rooms.name')
+                  ->join('hotels', 'bookings.hotel_token', '=', 'hotels.hotel_token')
+                  ->join('hotels_translations', 'hotels_translations.hotels_id', '=', 'hotels.id')
+                  ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
+                  ->where('bookings.hotel_token', '=', $hotels->hotel_token)->get()->all();
     endif;
+    return view('frontend.hotelier.booking', compact('bookings', 'hotels'));
   }
   public function newBooking(){
     $user = auth('web')->user();
@@ -55,7 +43,8 @@ class BookingController extends Controller{
     $gateway          = new \Braintree\Gateway($config);
     $clientToken      = $gateway->clientToken()->generate();
     $bookings         = new \StdClass();
-    $bookings->hotels = HotelNewEntry::where('user_id', $user->id)->get()->all();
+    //$bookings->hotels = HotelNewEntry::where('user_id', $user->id)->get()->all();
+    $bookings->hotels = Hotels::where('user_id', $user->id)->first();
     $bookings->users  = User::where('role', 2)->get()->all();
     return view('frontend.hotelier.new-booking', compact('bookings','clientToken'));
   }
@@ -126,22 +115,24 @@ class BookingController extends Controller{
     else:
       $userId = $chkUser->id;
     endif;
-    $hotel    = HotelNewEntry::where('hotel_token', $request->hotelToken)->first();
+    //$hotel    = HotelNewEntry::where('hotel_token', $request->hotelToken)->first();
+    $hotel      = Hotels::where('hotel_token', $request->hotelToken)->first();
     $hotelId    = $hotel->id;
     $hotelToken = $hotel->hotel_token;
-    $cIn      = $request->checkIn;
-    $cOut     = $request->checkOut;
-    $diff     = date_diff(date_create($cIn), date_create($cOut));
-    $nights   = $diff->format("%a");
-    $booking  = Booking::create([
+    $cIn        = $request->checkIn;
+    $cOut       = $request->checkOut;
+    $diff       = date_diff(date_create($cIn), date_create($cOut));
+    $nights     = $diff->format("%a");
+    $booking    = Booking::create([
       'user_id'     => $userId,
       'hotel_id	'   => $hotelId,
       'hotel_token' => $hotelToken,
+      'room_id'     => $request->roomId,
       'start_date'  => $cIn,
       'end_date'    => $cOut,
       'nights'      => $nights,
       'carttotal'   => $request->roomFnlPrc,
-      'currency'    => 'AUD',
+      'currency'    => getCurrency(),
       'status'      => 1,
       'type'        => 'site'
     ]);
@@ -157,7 +148,7 @@ class BookingController extends Controller{
         'user_id'         => $userId,
         'base_price'      => $request->roomPrc,
         'price'           => ($request->roomPrc - $request->roomDisc),
-        'discount'        => $request->roomDisc,
+        'discount'        => (!empty($request->roomDisc)) ? $request->roomDisc : '0',
         'total_price'     => ($request->noOfRoomReq *($request->roomPrc - $request->roomDisc)),
         'nights'          => 1,
         'room_details_id' => $request->roomId,
@@ -196,42 +187,6 @@ class BookingController extends Controller{
         $biDet->status              = 0;
         $biDet->save();
       endforeach;
-      // $bookings = Booking::join('booking_items', 'bookings.id', '=', 'booking_items.booking_id')
-      //             ->where('bookings.id', '=', $booking_id)->first();
-      // $availability_ids = $bookings->availability_ids;
-      // $availability_ids = explode(",", $availability_ids);
-      // for ($i=0; $i < count($availability_ids) ; $i++) {
-      //     $roomavailability = RoomAvailability::find($availability_ids[$i]);
-      //     $availabe_rooms = $roomavailability->availabe_rooms;
-      //     $roomavailability->availabe_rooms = $availabe_rooms + 1;
-      //     $roomavailability->save();
-      //     $room_details_id = $bookings->room_details_id;  
-      //     //$roomallocation = RoomAllocation::where('availability_id', '=', $availability_ids[$i])->where('room_details_id', '=', $room_details_id)->get()->first();
-      //     //$roomallocation->status = 1;
-      //     //$roomallocation->save();
-      // }
-      // $booking->status = 2;
-      // $booking->save();
-      //print_r($request->all());
-      // $user         = get_user_details($user_id);
-      // $bookingitem  = BookingItem::where('booking_id', '=', $booking_id)->first();
-      // $room         = Rooms::find($bookingitem->room_id);
-      // $hotel        = Hotels::find($bookingitem->hotel_id);
-        
-      // $e_data = [
-      //     'booking_id'  => $booking_id,
-      //     'first_name'  => $user->first_name,
-      //     'last_name'   => $user->last_name,
-      //     'email'       => $user->email,
-      //     'room'        => $room->name,
-      //     'hotel'       => $hotel->hotels_name,
-      // ];
-      // if (is_live()){
-      //   Mail::send('emails.cancel', ['e_data' => $e_data], function ($m) use ($e_data) {
-      //     $m->from('no-reply@fitser.com', get_option('blogname'));
-      //     $m->to($e_data['email'], $e_data['first_name'].' '.$e_data['last_name'])->subject('Booking Cancellation');
-      //   });
-      // }
       echo json_encode(array('success' => TRUE));
     }
 

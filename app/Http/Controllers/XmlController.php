@@ -2,15 +2,20 @@
 namespace App\Http\Controllers;
 use App\Hotels;
 use App\Booking;
+use App\BookingItem;
 use App\User;
 use App\TourGuide;
 use Mail;
 use Illuminate\Http\Request;
 use App\Filter;
 use PDF;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Session;
-class XmlController extends Controller
-{
+use App\Rooms;
+use App\HotelNewEntry;
+class XmlController extends Controller{
   public function getBookingReq(Request $request, $id){
     $quantity_adults = explode(" ", $request->quantity_adults);
     $quantity_adults = $quantity_adults[0];
@@ -18,8 +23,6 @@ class XmlController extends Controller
     $quantity_childs = $quantity_childs[0];
     $quantity_rooms = explode(" ", $request->quantity_rooms);
     $quantity_rooms = $quantity_rooms[0];
-    // echo "<pre>";
-    // print_r(Session::all()); die;
     if((Session::has('rooms'))){
       $rooms_details = Session::get('rooms');
     }else{
@@ -57,7 +60,6 @@ class XmlController extends Controller
     // die;
     return view('frontend.hotels.xmlconfirm', compact('data','adults','quoteid','room'));
   }
-    
   public function bookingConfirm(Request $request){
     // print_r($request->all());
     // die;
@@ -240,5 +242,124 @@ class XmlController extends Controller
       // $message = $bookdata["Description"];
       // return view('frontend.hotels.4004', compact('code','message'));
     }
+  }
+
+  public function getBookingReqNew(Request $request){
+    $bookingArray           = json_decode($request->bookingArray, true);
+    $bookingArray['roomId'] = $request->roomId;
+    return view('frontend.hotels.hotel-booking', compact('bookingArray'));
+  }
+  public function getBookingSummeryNew(Request $request){
+    $bookingArray         = json_decode($request->bookingArray, true);
+    $guestsDetails        = array();
+    foreach($bookingArray['rooms']['norm'] as $k => $v):
+      for($a = 0; $a < $bookingArray['rooms']['adlts'][$k]; $a++):
+        $guestsDetails['adlts'][$k][] = array(
+          'title'     => $request->adultTitle[$k][$a],
+          'firstName' => $request->adultFirst[$k][$a],
+          'lastName'  => $request->adultLast[$k][$a]
+        );
+      endfor;
+      if($bookingArray['rooms']['kids'][$k]):
+        for($a = 0; $a < $bookingArray['rooms']['kids'][$k]; $a++):
+          $guestsDetails['kids'][$k][] = array(
+            'title'     => $request->childTitle[$k][$a],
+            'firstName' => $request->childFirst[$k][$a],
+            'lastName'  => $request->childLast[$k][$a],
+            'age'       => $request->childAge[$k][$a],
+          );
+        endfor;
+      else:
+        $guestsDetails['kids'][$k]  = array();
+      endif;
+    endforeach;
+    $bookingArray['guestsDetails']  = $guestsDetails;
+    $bookingArray['hotelDetails']   = Hotels::where('hotel_token', $bookingArray['hotelToken'])->first();
+    $bookingArray['roomDetails']    = Rooms::find($bookingArray['roomId']);
+    return view('frontend.hotels.hotel-booking-summary', compact('bookingArray'));
+  }
+  public function hotelBookingConfirm(Request $request){
+    // pr($request->all(), false);
+    $bookingArray = json_decode($request->bookingArray, true);
+    $userId       = get_loggedin_id();
+    //$chkUser    = User::where('email', $request->userEmail)->where('role', 2)->first();
+    $chkUser      = User::where('email', $request->userEmail)->first();
+    if(empty($chkUser)):
+      $password = get_randompass(8);
+      $username = get_randompass(4);
+      $u        = User::create([
+        'username'      => $request->firstName.$username,
+        'email'         => $request->userEmail,
+        'title	'       => $request->title,
+        'first_name'    => $request->firstName,
+        'last_name'     => $request->lastName,
+        'password'      => bcrypt($password),
+        'mobile_number' => $request->mobileNumber,
+        'address'       => $request->address_1,
+        'address_2'     => $request->address_2,
+        'city'          => $request->city,
+        'zipcode'       => $request->zipcode,
+        'country_code'  => $request->country,
+      ]);
+      $userId = $u->id;
+      //  send mail 
+      // if (is_live()) :
+      //   $e_data = [
+      //     'first_name' => $user->first_name,
+      //     'last_name' => $user->last_name,
+      //     'email' => $user->email,
+      //     'password' => $password,
+      //   ];
+      //   Mail::send('emails.welcome', ['e_data' => $e_data], function ($m) use ($e_data) {
+      //     $m->from('no-reply@fitser.com', get_option('blogname'));
+      //     $m->to($e_data['email'], $e_data['first_name'].' '.$e_data['last_name'])->subject('Welcome to '.get_option('blogname'));
+      //   });
+      // endif;
+    else:
+      $userId = $chkUser->id;
+    endif;
+    $booking    = Booking::create([
+      'user_id'         => $userId,
+      'hotel_id	'       => $bookingArray['hotelDetails']['id'],
+      'hotel_token'     => $bookingArray['hotelToken'],
+      'room_id'         => $bookingArray['roomId'],
+      'start_date'      => $bookingArray['startDate'],
+      'end_date'        => $bookingArray['endDate'],
+      'nights'          => $bookingArray['totalNight'],
+      'carttotal'       => $bookingArray['roomDetails']['base_price'] * $bookingArray['totalNight'] * $bookingArray['quantityRooms'],
+      'currency'        => getCurrency(),
+      'booking_comment' => $request->booking_comment,
+      'status'          => 1,
+      'type'            => 'site',
+      'booking_data'    => $request->bookingArray,
+      'guest_details'   => json_encode($bookingArray['guestsDetails'])
+    ]);
+    $bookingId = $booking->id;
+    for($n = 0; $n < $bookingArray['totalNight']; $n++):
+      $strt = date('Y-m-d', strtotime($bookingArray['startDate']. ' + '. $n .' days'));
+      $end  = date('Y-m-d', strtotime($bookingArray['startDate']. ' + '. ($n+1) .' days'));
+      $bi   = BookingItem::create([
+        'booking_id'      => $bookingId,
+        'hotel_id	'       => $bookingArray['hotelDetails']['id'],
+        'hotel_token'     => $bookingArray['hotelToken'],
+        'room_id'         => $bookingArray['roomId'],
+        'user_id'         => $userId,
+        'base_price'      => $bookingArray['roomDetails']['base_price'],
+        'price'           => $bookingArray['roomDetails']['base_price'],
+        'discount'        => '0',
+        'total_price'     => ($bookingArray['quantityRooms'] * $bookingArray['roomDetails']['base_price']),
+        'nights'          => 1,
+        'room_details_id' => $bookingArray['roomId'],
+        'check_in'        => $strt,
+        'check_out'       => $end,
+        'start_date'      => $strt,
+        'end_date'        => $end,
+        'quantity_adults' => $bookingArray['quantityAdults'],
+        'quantity_child'  => $bookingArray['quantityChild'],
+        'quantity_room'   => $bookingArray['quantityRooms'],
+        'status'          => '1'
+      ]);
+    endfor;
+    print json_encode(array('success' => TRUE));
   }
 }

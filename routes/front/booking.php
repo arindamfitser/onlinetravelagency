@@ -27,3 +27,11 @@ Route::post('/hotelier/payment/checkout/process', 'PaymentController@hotelierChe
 Route::post('/hotelier/payment/checkout/cash', 'PaymentController@hotelierCheckoutProcessCashon')->name('hotelier.payment.cashon');
 
 Route::post('/booking/confirm', 'Ajax\BookingController@bookingConfirmProcess')->name('hotel.booking.confirm');
+
+
+
+
+
+Route::post('/hotel/book', 'XmlController@getBookingReqNew')->name('hotel.book');
+Route::post('/hotel/booking/summary', 'XmlController@getBookingSummeryNew')->name('hotel.booking.summary');
+Route::post('/hotel/booking/confirm', 'XmlController@hotelBookingConfirm')->name('hotel.booking.confirm');
