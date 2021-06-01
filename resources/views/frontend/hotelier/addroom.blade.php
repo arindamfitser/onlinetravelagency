@@ -46,7 +46,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Adult Capacity <span class="required">*</span></label>
-                                    <input type="text" name="adult_capacity" class="form-control isNumber requiredCheck" data-check="Adult Capacity" placeholder="Adult Capacity">
+                                    <input type="text" name="adult_capacity" class="form-control isNumber requiredCheck" data-check="Adult Capacity"
+                                        placeholder="Adult Capacity">
                                 </div>
                                 <div class="form-group">
                                     <label>Availability <span class="required">*</span></label>
@@ -56,28 +57,45 @@
                                         <option value="0">No</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label>Amenities </label>&nbsp;&nbsp;&nbsp;&nbsp;</br>
-                                    @foreach($amenities as $amenitiy)
-                                        <label class="checkbox-inline"><input type="checkbox" name="amenities[]" value="{{ $amenitiy->id }}">{{ $amenitiy->amenities_name }}</label>
-                                    @endforeach
-                                </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Base Price <span class="required">*</span></label>
-                                    <input type="text" name="base_price" class="form-control allowNumberDot requiredCheck" data-check="Base Price" placeholder="Base Price">
-                                </div>
                                 <div class="form-group">
                                     <label>No.of bed <span class="required">*</span></label>
                                     <input type="text" name="extra_bed" class="form-control isNumber requiredCheck" data-check="No.of bed" placeholder="No.of bed">
                                 </div>
                                 <div class="form-group">
                                     <label>Child Capacity <span class="required">*</span></label>
-                                    <input type="text" name="child_capacity" class="form-control requiredCheck" data-check="Child Capacity" placeholder="Child Capacity" value="0">
+                                    <input type="text" name="child_capacity" class="form-control isNumber requiredCheck" data-check="Child Capacity"
+                                        placeholder="Child Capacity" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label>Amenities </label><br />
+                                    @foreach($amenities as $amenitiy)
+                                    <label class="checkbox-inline"><input type="checkbox" name="amenities[]"
+                                            value="{{ $amenitiy->id }}">{{ $amenitiy->amenities_name }}</label>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Base Price <span class="required">*</span></label>
+                                    <input type="text" name="base_price" class="form-control allowNumberDot requiredCheck"
+                                        data-check="Base Price" placeholder="Base Price">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row morePriceDiv"></div>
+                        <div class="row">
+                            <input type="hidden" id="prcCnt" value="0">
+                            <div class="col-sm-12 text-center">
+                                <div class="form-group text-center">
+                                    <input type="button" class="btn btn-info addMrPriceBtn" value="+ Add Price">
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br />
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -97,13 +115,14 @@
                         </div>
                         <br/>
                         <ul class="list-inline text-center">
+                            <li><a href="{{ route('user.hotels.rooms', ['id' => $id]) }}"><button type="button"
+                                        class="btn btn-danger">Cancel</button></a></li>
                             <li><button type="submit" class="btn btn-primary">Add Room</button></li>
                         </ul>
                     </form>
                 </div>
                 <div class="clearfix"></div>
             </div>
-            </form>
         </div>
     </div>
 </section>
@@ -143,6 +162,32 @@
                                             <input type="button" class="btn btn-danger deleteMrImgBtn" data-key="'+key+'" value="Remove">\
                                         </div>\
                                     </div>');
+    });
+    $(document).on('click', '.addMrPriceBtn', function() {
+        let key = parseInt($('#prcCnt').val()) + parseInt(1);
+        $('#prcCnt').val(key);
+        $('.morePriceDiv').append('\
+        <div class="col-sm-5 roomPrc'+key+'">\
+            <div class="form-group">\
+                <label>Room Price Text <span class="required">*</span></label>\
+                <input type="text" name="priceText[]" class="form-control requiredCheck" data-check="Room Price Text" autocomplete="off">\
+            </div>\
+        </div>\
+        <div class="col-sm-5 roomPrc'+key+'">\
+            <div class="form-group">\
+                <label>Room Price <span class="required">*</span></label>\
+                <input type="text" name="priceValue[]" class="form-control allowNumberDot requiredCheck" data-check="Room Price" autocomplete="off">\
+            </div>\
+        </div>\
+        <div class="col-md-2 roomPrc'+key+'">\
+            <div class="form-group">\
+                <label class="bmd-label-floating">Action</label><br />\
+                <input type="button" class="btn btn-danger deleteMrPriceBtn" data-key="'+key+'" value="Remove">\
+            </div>\
+        </div>');
+    });
+    $(document).on('click', '.deleteMrPriceBtn', function() {
+        $('.roomPrc' + $(this).attr('data-key')).remove();
     });
     $(document).on('click', '.deleteMrImgBtn', function() {
         $('.roomImg' + $(this).attr('data-key')).remove();

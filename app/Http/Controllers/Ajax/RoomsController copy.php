@@ -14,17 +14,17 @@ use App\RoomAllocation;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-class RoomsController extends Controller{
-public function __construct(){
+
+
+class RoomsController extends Controller
+{
+ public function __construct()
+ {
   $this->middleware('auth');
 }
 
 public function roomAvailable(Request $request){
-           var_dump($request->all());
-  pr($request->all());
-
-
-
+           //var_dump($request->all());
  $user = auth('web')->user();
  if($request->roomType=="all"){
   if($request->available=='off'){ 

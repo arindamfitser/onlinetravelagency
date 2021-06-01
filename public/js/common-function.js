@@ -111,15 +111,18 @@ function commonFormChecking(flag, cls = '', msgbox = '') {
 $(".isNumber").keypress(function (evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-        if (charCode == 43 || charCode == 45 || charCode == 4) {
-            return true;
-        }
+    if (charCode < 48 || charCode > 57) {
         return false;
     }
+    // if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+    //     if (charCode == 43 || charCode == 45 || charCode == 4) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
     return true;
 });
-$(".isChar").keypress(function (evt) {
+$(document).on('keypress', '.isChar', function (evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     if ((charCode >= 65 && charCode <= 122) || charCode == 32 || charCode == 0 || charCode == 45) {
@@ -136,18 +139,18 @@ $(document).on('keyup', '.restrictSpecial', function () {
         $(this).val(no_spl_char);
     }
 });
-$(".allowNumberDot").keyup(function () {
+$(document).on('keyup', '.allowNumberDot', function () {
     var $this = $(this);
     $this.val($this.val().replace(/[^\d.]/g, ''));
 });
 /* allow only letter & space */
-$(".allowOnlyLetter").keypress(function (event) {
+$(document).on('keypress', '.allowOnlyLetter', function (event) {
     var inputValue = event.charCode;
     if (!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) {
         event.preventDefault();
     }
 });
-$('.checkDecimal').keypress(function (event) {
+$(document).on('keypress', '.checkDecimal', function (event) {
     var $this = $(this);
     if ((event.which != 46 || $this.val().indexOf('.') != -1) &&
         ((event.which < 48 || event.which > 57) &&

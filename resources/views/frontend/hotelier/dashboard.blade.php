@@ -1,290 +1,317 @@
 @extends('frontend.layouts.app')
-
 @section('css')
 <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.1/fullcalendar.min.css'>
 <link href="{{ asset('fullcalender') }}/fullcalendar.print.min.css" rel='stylesheet' media='print' />
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.css" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="{{ asset('css/jquery.loading.css')}}">
+<link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css')}}">
+<link rel="stylesheet" href="{{ asset('css/jquery-ui.css')}}">
+<style>
+	#calendar {
+		max-width: 100% !important;
+		margin: 0 auto;
+	}
+	#calender_filter {
+		margin: 10px 10px;
+	}
+</style>
 @endsection
-
 @section('content')
 <!--Banner sec-->
 {{ asset('fullcalender') }}
+<?php 
+$roomHtml = '';
+if(!empty($room->rooms)) :
+	foreach ($room->rooms as $room) : 
+		$roomHtml .= '<option value="'. $room->id .'">'. $room->name .'</option>';
+	endforeach;
+endif;
+?>
 <section class="profile dashboard hometop_gap">
 	@include('frontend.layouts.hotelier_sidenav')
 	<div class="dashboard_content">
-		<h1>Hotel availability calendar</h1>
+		<h1>Hotel availability Calendar</h1>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="user_panel">
 					<div class="col-md-3"> 
-							<div id="calender_filter">
-								<form id="calenderFilter">
-									<input type="hidden" name="available" value="off">
-									<input type="hidden" name="notavailable" value="off">
-									<input type="hidden" name="booked" value="off">
-									<input type="hidden" name="hotel_id" id="hotel_id" value="">
-									<span class="btn-success"> <label class="checkbox-inline   " for="e1"> <input type="checkbox" checked="checked"  name="available" value="on" id="e1" onclick="getAvailableCalender();"/>
-										Available</label></span>
-										<span class="btn-danger">  <label class="checkbox-inline  " for="e2"><input type="checkbox" checked="checked" name="notavailable" value="on" id="e2" onclick="getAvailableCalender();" />
-											Unavailable</label></span>
-											<span class="btn-warning">  <label class="checkbox-inline" for="e3"><input type="checkbox" checked="checked" name="booked" value="on" id="e3" onclick="getAvailableCalender();" />
-												Booked</label></span>
-
-												<div class="form-group">
-													<select class="form-control" id="hotel_id"  name="hotel_id">
-													@if(!empty($hotels))
-														@foreach ($hotels as $hotel)
-															@if($hotel->hotels_name!="")
-																	  <option value="{{ $hotel->id }}">{{ $hotel->hotels_name }}</option>
-																@endif
-														@endforeach
-													@endif
-													</select>
-												</div>
-												
-												<div class="form-group">
-													<select class="form-control" id="roomtype"  name="roomType">
-														<?php 
-														$rms = (array)$room;
-														if(!empty($rms)) { ?>
-															@foreach ($room->rooms as $room)
-																<option value="{{ $room->id }}">{{ $room->name }}</option>
-															@endforeach
-														<?php } ?>
-													</select>
-												</div>
-												
-												<div class="form-group" style="display:none;">
-													<select class="form-control" onchange="getAvailableCalender();" name="room" id="rooms">
-														<option>Select room</option>
-													</select>
-												</div>
-											</form>
-										</div>
-										<div id="eventdetails">
-										<div class="modal-body" >
-											<div class="form-group">
-												<label>Status</label>
-												<select name="event_title" id="event_title" class="form-control">
-													<option value="1">Available</option>
-													<option value="2">Unavailable</option>
-													<option value="3">Booked</option>
-												</select>
-											</div>
-											<div class="form-group">
-												<label>Price</label>
-												<input type="text" name="room_price" id="room_price" class="form-control">
-											</div>
-											<div class="form-group">
-														<label>Rooms details</label>
-														<div id="rooms_details"></div>
-													</div>
-											<div class="form-group">
-												<label>Select range</label>
-												<input type="text" name="date_range" id="date_range" class="form-control">
-											</div>
-											<div class="form-group">
-												<input type="hidden" name="date_id" id="date_id">
-												<button type="button" name="update_date" id="save_calender" class="form-control">
-													<span id="loadSpin"><i class="fa fa-spinner fa-spin"></i></span>Submit</button>
-												</div>
-											</div>
-										</div>
+						<div id="calender_filter">
+							<form id="calenderFilter">
+								{{ csrf_field() }}
+								<input type="hidden" name="hotel_id" id="hotel_id" value="{{ $hotel->id }}">
+								<input type="hidden" name="hotel_token" id="hotel_token" value="{{ $hotel->hotel_token }}">
+								<input type="hidden" name="available" value="on">
+								<input type="hidden" name="booked" value="on">
+								<!-- <span class="btn-success">
+									<label class="checkbox-inline" for="e1">
+										<input type="checkbox" checked="checked"  name="available" value="on" id="e1" class="checkIfChecked"/>
+										Available
+									</label>
+								</span>
+								<span class="btn-warning">
+									<label class="checkbox-inline" for="e3">
+										<input type="checkbox" checked="checked" name="booked" value="on" id="e3" class="checkIfChecked"/>
+										Booked
+									</label>
+								</span>
+								<div class="form-group">
+									<select class="form-control" id="roomtype"  name="roomType">
+										<?= $roomHtml ?>
+									</select>
+								</div> -->
+							</form>
+						</div>
+						<input type="hidden" class="datepicker" value="" id="selectedDate">
+						<div id="eventdetails">
+							<div class="modal-body" >
+								<div class="bookingDetails hide">
+									<h3 class="text-center bookingDetailshead">Booking Details</h3>
+									<div class="form-group">
+										<label></label>
+										<div id="bookingDetails"></div>
+									</div>
 								</div>
-								<div class="col-md-9">
-									<div id='calendar'></div>                  
-								</div>
-								<!-- <div class="col-md-3"></div> -->
-									
-								</div>
+								<h3 class="text-center">Change Room Availability</h3>
+								<form id="roomCountForm">
+									{{ csrf_field() }}
+									<div class="form-group">
+										<label>Room</label>
+										<input type="hidden" id="orgCount" value="0">
+										<select name="roomId" id="roomId" class="form-control requiredCheck" data-check="Room">
+											<option value="">-- Select Room --</option>
+											<?= $roomHtml ?>
+										</select>
+									</div>
+									<div class="form-group">
+										<label>From Date</label>
+										<input type="text" name="fromDate" id="fromDate" class="form-control datepicker requiredCheck" data-check="From Date" autocomplete="off">
+									</div>
+									<div class="form-group">
+										<label>To Date</label>
+										<input type="text" name="toDate" id="toDate" class="form-control datepicker requiredCheck" data-check="To Date"
+											autocomplete="off">
+									</div>
+									<div class="form-group newRoomCountDiv hide">
+										<label>New Available Room</label>
+										<input type="text" name="newAvailable" id="newAvailable" class="form-control isNumber requiredCheck" data-check="New Available Room" autocomplete="off">
+									</div>
+									<div class="form-group">
+										<button type="submit" class="form-control btn btn-success">Update</button>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
-					
-					
-				</section>
-				<div class="clearfix"></div>
-
-
-
-
-				@endsection
-
-				@section('script')
-				<script src="{{ asset('fullcalender') }}/lib/moment.min.js"></script>
-				<script src="{{ asset('fullcalender') }}/fullcalendar.js"></script>
-				<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-				<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.js"></script>
-				<script type="text/javascript">
-					
-					$(document).ready(function() {
-						getAvailableCalender();
-					});
-
-
-					var getAvailableCalender = function(){
-						$('#calendar').fullCalendar({
-							header: {
-								left: 'prev',
-								center: 'title',
-								right: 'next'
-							},
-							
-		      navLinks: true, // can click day/week names to navigate views
-		      editable: true,
-              //eventLimit: true, // allow "more" link when too many events
-              views: {
-						agenda: {
-						eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
-								 }
-					},
-              displayEventTime : false,
-              selectable: true,
-              select: function(start, end) {
-              	$('#date_range').daterangepicker({
-              		startDate: moment(start).format('YYYY-MM-DD'),
-              		endDate:moment(end).format('YYYY-MM-DD'),
-              		minDate: moment(),
-              		locale: { 
-              			format: 'YYYY-MM-DD'
-              		}
-              	});
-              	$('.calender_modal').modal('show'); 
-              },
-              
-              eventSources: [
-              {
+					<div class="col-md-9">
+						<div id='calendar'></div>                  
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</section>
+@endsection
+@section('script')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{ asset('fullcalender') }}/lib/moment.min.js"></script>
+<script src="{{ asset('fullcalender') }}/fullcalendar.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.js"></script>
+<script src="{{ asset('js/jquery.loading.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+<script src="{{ asset('js/common-function.js') }}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		// $('.dateRangePicker').daterangepicker({
+		// 		minDate: moment(),
+		// 		locale: {
+		// 			format: 'YYYY-MM-DD'
+		// 	}
+		// });
+		$(".datepicker").datepicker({
+			dateFormat: 'yy-mm-dd',
+			changeMonth: true,
+			changeYear: true,
+			minDate: 0
+		});
+		getAvailableCalender();
+	});
+	let getAvailableCalender = function(){
+		$('#calendar').fullCalendar({
+			header: {
+				left	: 'prev',
+				center	: 'title',
+				right	: 'next'
+			},
+			navLinks	: true,
+			editable	: true,
+			views: {
+				agenda: {
+					eventLimit: 4
+				}
+			},
+            displayEventTime : false,
+            selectable: true,
+            select: function(start, end) {
+            	// $('#dateRange').daterangepicker({
+              	// 	startDate	: moment(start).format('YYYY-MM-DD'),
+              	// 	endDate		: moment(end).format('YYYY-MM-DD'),
+              	// 	minDate		: moment(),
+              	// 	locale		: { 
+              	// 		format: 'YYYY-MM-DD'
+              	// 	}
+              	// });
+            },
+            eventSources: [{
               	events: function(start, end, timezone, callback) {
               		$.ajax({
-              			type:'GET',
-              			url: '{{route('user.hotels.available')}}',
-              			dataType: 'json',
-              			data:$('#calenderFilter').serialize(),				
-              			success: function(msg) {
+              			type		: 'POST',
+              			url			: '{{route('user.hotels.available')}}',
+              			dataType	: 'JSON',
+              			data		: $('#calenderFilter').serialize(),				
+              			success		: function(msg) {
+							  //console.log(msg);
               				var events = msg.events;
               				callback(events);
               			}
               		});
               	}
-              },
-              ],
-              eventClick: function(event,jsEvent,view) {
-
-              	$('#eventdetails').find('#event_title').val('');
-              	$('#eventdetails').find('#start_date').val('');
-              	$('#eventdetails').find('#date_id').val('');
-              	$('#eventdetails').find('#room_price').val('');
-              	$('#eventdetails').find('#end_date').val('');
-              	$('#eventdetails').find('#rooms_details').html('');
-
-              	$('#date_range').daterangepicker({
-              		startDate: moment(event.start).format('YYYY-MM-DD'),
-              		endDate:moment(event.start).format('YYYY-MM-DD'),
-              		minDate: moment(),
-              		locale: { 
-              			format: 'YYYY-MM-DD'
-              		}
-              	});
-
-              	$('#eventdetails').find('#event_title').val(event.key);
-              	$('#eventdetails').find('#start_date').val(event.start);
-              	$('#eventdetails').find('#date_id').val(event.id);
-              	$('#eventdetails').find('#room_price').val(event.price);
-              	$('#eventdetails').find('#end_date').val(event.end);
-              	$('#eventdetails').find('#rooms_details').html(event.info);
-              	var content = '<div>'+event.description+'</div>';
-
-							tooltip.set({
-								'content.text': content
-							})
-							.reposition(jsEvent).show(event);
-		              },
-		              
-		              dayClick: function() { tooltip.hide() },
-					  eventResizeStart: function() { tooltip.hide() },
-					  eventDragStart: function() { tooltip.hide() },
-					  viewDisplay: function() { tooltip.hide() },
-		              eventRender: function(event, element) { 
-		              	//element.find(".fc-title").append('<br>'+event.price);
-              },
-              eventRender: function(event, element) { 
-              	element.find(".fc-title").append('<br>'+event.price);
-
-              },    
-          });
-
-$('#calendar').fullCalendar('refetchEvents');
-
-}
-
-$(document).on('change','#roomtype',function(){
-	alert($('#roomtype').val());
-	$.ajax({
-		type:'GET',
-		url: '{{route('user.hotels.allrooms')}}',
-		dataType: 'html',
-		data:{room_id:$('#roomtype').val()},				
-		success: function(data) {
-			$('#rooms').html(data);
+			}],
+            eventClick: function(event, jsEvent,view) {
+				console.log(event);
+				console.log(jsEvent);
+				console.log(view);
+				if(!$('.bookingDetails').hasClass('hide')){
+					$('.bookingDetails').addClass('hide');
+				}
+				$('.bookingDetailshead').text('Booking Details');
+				$('#bookingDetails').empty();
+				if($('.bookingDetails').hasClass('hide')){
+					$('.bookingDetails').removeClass('hide');
+				}
+				$('#bookingDetails').html(event.description);
+		    },
+			dayClick: function(start) {
+				$('#selectedDate').val(start);
+				getDateData();
+			},
+			eventResizeStart: function() { tooltip.hide() },
+			eventDragStart: function(start, end) { tooltip.hide() },
+			viewDisplay: function() { tooltip.hide() },
+			eventRender: function(event, element) {
+				//element.find(".fc-title").append('<br>'+event.price);
+			},
+            eventRender: function(event, element) { 
+            	element.find(".fc-title").append('<br>'+event.price);
+            },
+        });
+		$('#calendar').fullCalendar('refetchEvents');
+	}
+	function getDateData(){
+		$.ajax({
+			type 		: 'POST',
+			url 		: "{{route('calendar.date.details')}}",
+			dataType	: 'JSON',
+			data 		: {
+				'_token'		: '{{ csrf_token() }}',
+				'start' 		: $('#selectedDate').val(),
+				'hotel_token' 	: $('#hotel_token').val()
+			},
+			beforeSend: function() {
+				$('#bookingDetails').empty();
+				if(!$('.bookingDetails').hasClass('hide')){
+					$('.bookingDetails').addClass('hide');
+				}
+				
+			},
+			success : function(res) {
+				if(res.success){
+					$('.bookingDetailshead').text(res.startDate);
+					$('#bookingDetails').html(res.html);
+					if($('.bookingDetails').hasClass('hide')){
+						$('.bookingDetails').removeClass('hide');
+					}
+				}
+			}
+		});
+	}
+	$(document).on('change', '#roomId', function(e) {
+		e.preventDefault();
+		$('#orgCount').val('0');
+		if(!$('.newRoomCountDiv').hasClass('hide')){
+			$('.newRoomCountDiv').addClass('hide');
+			$('#newAvailable').val('');
+		}
+		if($('#roomId').val() != ''){
+			$.ajax({
+				type		: "POST",
+				url			: "{{ route('hotel.get.available.rooms') }}",
+				data		: {
+					_token		: "{{ csrf_token() }}",
+					roomId		: $('#roomId').val()
+				},
+				dataType	: "JSON",
+				beforeSend	: function() {
+					$("#eventdetails").loading();
+				},
+				success		: function(res) {
+					$("#eventdetails").loading('stop');
+					if(res.success){
+						$('.newRoomCountDiv').removeClass('hide');
+						$('#orgCount').val(res.available);
+					}
+				}
+			});
 		}
 	});
-	getAvailableCalender();
-});
-
-$('#save_calender').on('click', function() {
-	$('#loadSpin').show();
-	var event_title = $('#event_title').val();
-	var date_id = $('#date_id').val();
-	var date_range = $('#date_range').val();
-	var dates = date_range.split(" - ");
-	var room_price = $('#room_price').val();
-	
-	
-	if (event_title) {
-		var date_data = {
-			_token: "{{ csrf_token() }}",
-			title: event_title,
-			start: dates[0],
-			end: dates[1],
-			price: room_price,
-			room_id: $('#roomtype').val(),
-			date_id: date_id,
-			hotel_id: "<?php echo (isset($room->hotel_id)?$room->hotel_id:''); ?>"
-
-		};
-		$.ajax({
-			type     : 'POST',
-			url      : "{{ route('user.hotels.rooms.adddate') }}",
-			data     : date_data,
-			dataType: 'json',
-			success  : function(data) {
-            //console.log(data);
-            setTimeout(
-            	function() 
-            	{
-            		
-            		$('#loadSpin').hide();
-            		getAvailableCalender();
-            		
-            	}, 2000);
-        }
-    });
-	}
-	
-});
-
+	$("#roomCountForm").submit(function(e) {
+		e.preventDefault();
+		let flag = commonFormChecking(true);
+		if(flag){
+			if(parseInt($('#newAvailable').val()) > parseInt($('#orgCount').val())){
+				swalAlert('New Available Rooms can\'t be greater than Stock Rooms !!!', 'warning');
+				flag = false;
+				return false;
+			}else{
+				let formData = new FormData(this);
+				$.ajax({
+					type		: "POST",
+					url			: "{{ route('hotel.update.available.rooms') }}",
+					data		: formData,
+					cache		: false,
+					contentType	: false,
+					processData	: false,
+					dataType	: "JSON",
+					beforeSend	: function() {
+						$(".eventdetails").loading();
+					},
+					success		: function(res) {
+						$(".holidaysection").loading('stop');
+						if(res.success){
+							$('.newRoomCountDiv').addClass('hide');
+							$('#newAvailable').val('');
+							$('#roomId').val('');
+							$('#fromDate').val('');
+							$('#toDate').val('');
+							swalAlert('Available Rooms Update Successfully !!! ', 'success');
+						}
+					}
+				});
+			}
+		}
+	});
+	$(document).on('click', '.checkIfChecked', function(e) {
+		if($(this).is(":checked") == true){
+			$(this).val('on');
+		}else{
+			$(this).val('off');
+		}
+		//getAvailableCalender();
+	});
 </script>
-
-<style>
-	#calendar {
-		max-width: 100%!important;
-		margin: 0 auto;
-	}
-	#calender_filter{
-		margin: 10px 10px;
-	}
-
-</style>
-
 @endsection

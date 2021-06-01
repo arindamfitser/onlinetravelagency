@@ -57,6 +57,15 @@ class RoomsController extends Controller{
         $rooms->descp               = $request->descp;
         $rooms->availability        = $request->availability;
         $rooms->base_price          = $request->base_price;
+        $morePrice                  = array();
+        if($request->priceText):
+            if(!empty($request->priceText)):
+                foreach($request->priceText as $mpk => $mpkVal):
+                    $morePrice[$request->priceValue[$mpk]] = $mpkVal;
+                endforeach;
+            endif;
+        endif;
+        $rooms->more_price          = json_encode($morePrice);
     	$rooms->save();
         $room_id = $rooms->id;
         for ($i=0; $i < count($request->amenities) ; $i++) :
@@ -106,7 +115,7 @@ class RoomsController extends Controller{
             $img                    = time().$featured_image->getClientOriginalName();
             $request->featured_image->move(public_path('uploads'), $img);
         endif;
-        $rooms                      = Rooms::where('id', '=', $id)->get()->first();
+        $rooms                      = Rooms::find($id);
         $rooms->featured_image      = $img;
     	$rooms->name                = $request->name;
     	$rooms->adult_capacity      = $request->adult_capacity;
@@ -116,6 +125,15 @@ class RoomsController extends Controller{
         $rooms->descp               = $request->descp;
         $rooms->availability        = $request->availability;
         $rooms->base_price          = $request->base_price;
+        $morePrice                  = array();
+        if($request->priceText):
+            if(!empty($request->priceText)):
+                foreach($request->priceText as $mpk => $mpkVal):
+                    $morePrice[$request->priceValue[$mpk]] = $mpkVal;
+                endforeach;
+            endif;
+        endif;
+        $rooms->more_price          = json_encode($morePrice);
     	$rooms->save();
         if(!empty($request->amenities)):
             RoomsAmenitie::where('room_id', '=', $id)->delete();

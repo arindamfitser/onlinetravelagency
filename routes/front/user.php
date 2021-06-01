@@ -10,9 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/users/dashboard', 'ProfileController@index')->name('user.dashboard');
+
 Route::get('/users/calender', 'CalenderController@index')->name('user.calender');
-Route::get('/users/hotels/rooms/available', 'Ajax\RoomsController@roomAvailable')->name('user.hotels.available');
+
 Route::get('/users/hotels/rooms/allrooms', 'Ajax\RoomsController@getRooms')->name('user.hotels.allrooms');
 Route::get('/users/hotels/rooms/roomtype', 'Ajax\RoomsController@getRoomtype')->name('user.hotels.roomtype');
 Route::get('/users/profile', 'ProfileController@Profile')->name('user.profile');
@@ -57,6 +57,13 @@ Route::post('users/get-room-price', 'BookingController@getRoomPrice')->name('use
 Route::post('users/hotelier-book-hotel', 'BookingController@hotelierBookHotel')->name('user.hotelier.book.hotel');
 Route::get('users/bookings/{id}', 'BookingController@showBooking')->name('users.view.booking');
 Route::post('users/booking/cancelation', 'BookingController@bookingCancelation')->name('user.booking.cancelation');
+
+Route::get('/users/dashboard', 'ProfileController@index')->name('user.dashboard');
+Route::post('/hotel/get/available/rooms', 'ProfileController@getAvailableRooms')->name('hotel.get.available.rooms');
+Route::post('/hotel/update/available/rooms', 'ProfileController@updateAvailableRooms')->name('hotel.update.available.rooms');
+Route::post('/users/hotels/rooms/available', 'ProfileController@calenderCallRoomAvailable')->name('user.hotels.available');
+Route::post('/calendar/date/details', 'ProfileController@calendarDateDetails')->name('calendar.date.details');
+//Route::get('/users/hotels/rooms/available', 'Ajax\RoomsController@roomAvailable')->name('user.hotels.available');
 
 
 

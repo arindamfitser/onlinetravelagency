@@ -31,24 +31,38 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Total Room</th>
-                                <th scope="col">Availablity</th>
+                                <th scope="col">Available Today</th>
                                 <th scope="col">Image</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($rooms as $key => $room)
+                            <?php
+                            $rc         = App\RoomCount::where('room_id', $room->id)->where('dt', date('Y-m-d'))->first();
+                            $booked     = 0;
+                            $avlbl      = (!empty($rc)) ? $rc->count : $room->room_capacity;
+                            $chk        = App\BookingItem::select('id', 'quantity_room')->where('room_id', $room->id)->where('status', 1)
+                                        ->where('check_in', date('Y-m-d'))->get()->all();
+                            if(!empty($chk)):
+                                foreach($chk as $c):
+                                    $booked += $c->quantity_room;
+                                endforeach;
+                                $avlbl  -= $booked;
+                            endif;
+                            ?>
                             <tr>
                                 <td>{{ $room->name }}</td>
                                 <td>{{ $room->base_price }}</td>
                                 <td>
                                     <span class="badge">{{ $room->room_capacity }}</span>
                                 </td>
-                                <td>
+                                <!--<td>
                                     <a href="javascript:void(0);" data-id="{{ $room->id }}" class="status-change" data-key="id" data-table="rooms" data-url="{{ route('common.change.status') }}" data-stat="availability" data-change-status="<?=($room->availability) ? '0' : '1'?>" title="Green: Active, Red: InActive">
                                         <?=($room->availability) ? '<i class="fa fa-check green-check-icon" aria-hidden="true"></i>' : '<i class="fa fa-times red-check-icon" aria-hidden="true"></i>'?>
                                     </a>
-                                </td>
+                                </td> -->
+                                <td>{{ $avlbl }}</td>
                                 <td>
                                     <?php if($room->featured_image != NULL ||!empty($room->featured_image)): ?>
                                     <img src="{{ url('public/uploads/' . $room->featured_image)}}" alt="{{ $room->name }}"

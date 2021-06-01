@@ -11,6 +11,7 @@ use App\RoomDetail;
 use App\BookingItem;
 use App\Cancelation;
 use App\RoomAvailability;
+use App\RoomCount;
 use PDF;
 use Mail;
 use Illuminate\Http\Request;
@@ -64,13 +65,15 @@ class BookingController extends Controller{
           $end  = date('Y-m-d', strtotime($cIn. ' + '. ($d+1) .' days'));
           $chk  = DB::table('booking_items')->select('id', 'quantity_room')->where('room_id', $r->id)->where('status', 1)
                   ->where('check_in', '>=', $strt)->where('check_out', '<=', $end)->get()->all();
+          $rc   = RoomCount::where('room_id', $r->id)->where('dt', $strt)->first();
+          $avlbl  = (!empty($rc)) ? $rc->count : $r->room_capacity;
           if(!empty($chk)):
             $booked = 0;
             $avlbl  = 0;
             foreach($chk as $c):
               $booked += $c->quantity_room;
             endforeach;
-            $avlbl  = $r->room_capacity - $booked;
+            $avlbl  -= $booked;
             if(!empty($max)):
               if($max > $avlbl):
                 $max = $avlbl;
@@ -79,7 +82,7 @@ class BookingController extends Controller{
               $max = $avlbl;
             endif;
           else:
-            $max = $r->room_capacity;
+            $max = $avlbl;
             break;
           endif;
         endfor;
