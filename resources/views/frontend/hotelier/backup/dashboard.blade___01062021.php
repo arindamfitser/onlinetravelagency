@@ -1,5 +1,6 @@
 @extends('frontend.layouts.app')
 @section('css')
+<link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.1/fullcalendar.min.css'>
 <link href="{{ asset('fullcalender') }}/fullcalendar.print.min.css" rel='stylesheet' media='print' />
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.css" />
@@ -8,7 +9,6 @@
 <link rel="stylesheet" href="{{ asset('css/jquery.loading.css')}}">
 <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css')}}">
 <link rel="stylesheet" href="{{ asset('css/jquery-ui.css')}}">
-<link rel="stylesheet" href="{{ asset('css/fullcalendar.css')}}">
 <style>
 	#calendar {
 		max-width: 100% !important;
@@ -16,9 +16,6 @@
 	}
 	#calender_filter {
 		margin: 10px 10px;
-	}
-	.fc-event-title {
-		color: #000000 !important;
 	}
 </style>
 @endsection
@@ -121,11 +118,12 @@ endif;
 @section('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{ asset('fullcalender') }}/lib/moment.min.js"></script>
+<script src="{{ asset('fullcalender') }}/fullcalendar.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.js"></script>
 <script src="{{ asset('js/jquery.loading.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
-<script src="{{ asset('js/fullcalendar.js') }}"></script>
 <script src="{{ asset('js/common-function.js') }}"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -141,70 +139,9 @@ endif;
 			changeYear: true,
 			minDate: 0
 		});
+		getAvailableCalender();
 	});
-	document.addEventListener('DOMContentLoaded', function() {
-		let calendarEl	= document.getElementById('calendar');
-		let calendar 	= new FullCalendar.Calendar(calendarEl, {
-							headerToolbar: {
-								left: 'prev,next',
-								center: 'title',
-								right: 'dayGridMonth,timeGridDay'
-								//right: 'dayGridMonth,timeGridWeek,timeGridDay'
-								// left	: 'prev',
-								// center	: 'title',
-								// right	: 'next'
-							},
-							initialDate		: "{{ date('Y-m-d')}}",
-							navLinks		: true, // can click day/week names to navigate views
-							selectable		: true,
-							selectMirror	: true,
-							editable		: true,
-							dayMaxEvents	: true, // allow "more" link when too many events
-							businessHours	: true,
-							select: function(arg) {
-								$('#selectedDate').val(arg.startStr);
-								getDateData();
-								calendar.unselect();
-							},
-							eventClick: function(arg) {								if(!$('.bookingDetails').hasClass('hide')){
-									$('.bookingDetails').addClass('hide');
-								}
-								$('.bookingDetailshead').text('Booking Details');
-								$('#bookingDetails').empty();
-								if($('.bookingDetails').hasClass('hide')){
-									$('.bookingDetails').removeClass('hide');
-								}
-								$('#bookingDetails').html(arg.event.extendedProps.description);
-							},
-							eventSources: [{
-								events: function(arg, callback) {
-									$.ajax({
-										type 		: 'POST',
-										url 		: '{{route('user.hotels.available')}}',
-										dataType 	: 'JSON',
-										//data 		: $('#calenderFilter').serialize(),
-										data 		: {
-											'_token'		: '{{ csrf_token() }}',
-											'start' 		: arg.startStr,
-											'end' 			: arg.endStr,
-											'hotel_id' 		: $('#hotel_id').val(),
-											'hotel_token'	: $('#hotel_token').val(),
-											'available' 	: 'on',
-											'booked' 		: 'on',
-										},
-										success 	: function(msg) {
-											let events = msg.events;
-											callback(events);
-										}
-									});
-								}
-							}],
-						});
-	
-		calendar.render();
-	});
-	
-	/*let getAvailableCalender = function(){
+	let getAvailableCalender = function(){
 		$('#calendar').fullCalendar({
 			header: {
 				left	: 'prev',
@@ -274,7 +211,7 @@ endif;
             },
         });
 		$('#calendar').fullCalendar('refetchEvents');
-	}*/
+	}
 	function getDateData(){
 		$.ajax({
 			type 		: 'POST',
