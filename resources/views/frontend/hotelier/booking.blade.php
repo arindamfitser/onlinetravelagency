@@ -28,6 +28,7 @@
                 <th>ID </th>
                 <th>Hotel </th>
                 <th>Room</th>
+                <th>Room Facility</th>
                 <th>Check in</th>
                 <th>Check out</th>
                 <th>Nights</th>
@@ -40,15 +41,14 @@
             <tbody>
               <?php
               if(!empty($bookings)):
-                //pr($bookings);
                 foreach($bookings as $bkey => $bkData):
-                  //foreach($bData as $bkData):
                     $udata = App\User::where('id', $bkData->user_id)->first();
               ?>
                   <tr>
                     <td>{{ $bkData->id }}</td>
                     <td>{{ $bkData->hotels_name }}</td>
                     <td>{{ $bkData->name }}</td>
+                    <td>{{ $bkData->room_type }}</td>
                     <td>{{ date('d F, Y', strtotime($bkData->start_date)) }} ({{ $bkData->start_date }})</td>
                     <td>{{ date('d F, Y', strtotime($bkData->end_date)) }} ({{ $bkData->end_date }})</td>
                     <td><span class="badge badge-info">{{ $bkData->nights }}</span></td>
@@ -73,7 +73,6 @@
                     </td>
                   </tr>
               <?php
-                //endforeach;
               endforeach;
             endif;
             ?>
@@ -91,7 +90,19 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-$('#datatable').DataTable();
-} );
+  $('#datatable').DataTable({
+    pageLength: 10,
+    searching: true,
+    autoWidth: false,
+    order: [[ 0, "desc" ]]
+    /*
+    dom: 'Bfrtip',
+    buttons: [
+    //'copy', 'csv', 'excel', 'pdf', 'print'
+    'excel', 'pdf', 'print'
+    ]
+    */
+  });
+});
 </script>
 @endsection

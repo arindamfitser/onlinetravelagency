@@ -13,6 +13,14 @@
     <div class="row">
       <div class="col-md-12">
           <?php echo bookingdetailsHtml($id); ?>
+          <br />
+          <ul class="list-inline text-center">
+            <li>
+              <a href="{{ route('users.bookings') }}">
+                <button type="button" class="btn btn-danger">Back to Bookings</button>
+              </a>
+            </li>
+          </ul>
       </div>
     </div>
   </div>
@@ -56,7 +64,6 @@
       <button type="button" id="cancel_btn" class="btn btn-default">Confirm</button>
     </div>
   </div>
-
 </div>
 </div>
 @endsection

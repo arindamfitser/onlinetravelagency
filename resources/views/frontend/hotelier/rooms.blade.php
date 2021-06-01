@@ -30,8 +30,8 @@
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Price</th>
-                                <th scope="col">Total Room</th>
-                                <th scope="col">Available Today</th>
+                                <th scope="col">Total No. of Room</th>
+                                <th scope="col">Total Available Rooms Today</th>
                                 <th scope="col">Image</th>
                                 <th scope="col">Action</th>
                             </tr>

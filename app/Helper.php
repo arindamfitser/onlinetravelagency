@@ -486,7 +486,7 @@ function bookingdetailsHtml($id){
  			<span>'.date('F d', strtotime($booking->end_date)).' <br><b>'.date('D', strtotime($booking->end_date)).', '.$booking->end_date.' </b></span>
  		</div>
  		<div class="dibox">'.($bookingItem->quantity_adults + $bookingItem->quantity_child).' Guests</div>
- 		<div class="dibox">'.$booking->name.'</div>
+ 		<div class="dibox">'.$booking->name.'<br/>'.$booking->room_type.'</div>
  	</div>
  	<div class="guest_info">
  		<div class="gibox"><span>PRIMARY GUEST</span> '.$users['first_name'].' '.$users['last_name'].' </div>

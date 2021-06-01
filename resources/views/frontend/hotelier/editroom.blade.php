@@ -136,6 +136,73 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
+                                    <label>Minimum Stay Policy <span class="required">*</span></label>
+                                    <input type="text" name="min_stay_policy" class="form-control isNumber requiredCheck"
+                                        data-check="Minimum Stay Policy" placeholder="Minimum Stay Policy" value="{{ $rooms->min_stay_policy }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Inclusions Description of Inclusions</label>
+                                    <textarea class="form-control ckeditor" name="inclusions" id="inclusions"
+                                        placeholder="Inclusions Description of Inclusions">{{ $rooms->inclusions }}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Exclusions Description of Exclusions</label>
+                                    <textarea class="form-control ckeditor" name="exclusions" id="exclusions"
+                                        placeholder="Exclusions Description of Exclusions">{{ $rooms->exclusions }}</textarea>
+                                </div>
+                            </div>
+                            <div class="row moreCancPolDiv">
+                                <?php
+                                $cancPolicy          = json_decode($rooms->cancellation_policy, true);
+                                if(!empty($cancPolicy)) :
+                                    $count = 0;
+                                    foreach($cancPolicy as $cpDays => $cpPerc):
+                                ?>
+                                        <div class="col-sm-5 cancPolicy{{ $count }}">
+                                            <div class="form-group">
+                                                <label>Days Before Check-In <span class="required">*</span></label>
+                                                <input type="text" name="daysBeforeCheckIn[]" class="form-control isNumber requiredCheck"
+                                                    data-check="Days Before Check-In" placeholder="Days Before Check-In" autocomplete="off"
+                                                    value="{{ $cpDays }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5 cancPolicy{{ $count }}">
+                                            <div class="form-group">
+                                                <label>Deduct Percentage <span class="required">*</span></label>
+                                                <input type="text" name="deductPercentage[]" class="form-control isNumber requiredCheck"
+                                                    data-check="Deduct Percentage" autocomplete="off" placeholder="Deduct Percentage"
+                                                    value="{{ $cpPerc }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 cancPolicy{{ $count }}">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Action</label><br />
+                                                <input type="button" class="btn btn-danger deleteCanPolBtn" data-key="{{ $count }}" value="Remove">
+                                            </div>
+                                        </div>
+                                <?php
+                                    $count++;
+                                    endforeach;
+                                endif;
+                                ?>
+                            </div>
+                            <div class="row">
+                                <input type="hidden" id="cancCnt" value="{{ count($cancPolicy) }}">
+                                <div class="col-sm-12 text-center">
+                                    <div class="form-group text-center">
+                                        <input type="button" class="btn btn-primary addMrCancBtn" value="+ Add Cancellation Policy">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label>Featured Image </label>
                                     <br/>
                                     <input type="hidden" name="old_featured_image" value="{{$rooms->featured_image}}">
@@ -186,8 +253,12 @@
                         </div>
                         <br/>
                         <ul class="list-inline text-center">
-                            <li><a href="{{ route('user.hotels.rooms', ['id' => $rooms->hotel_id]) }}"><button type="button" class="btn btn-danger">Cancel</button></a></li>
-                            <li><button type="submit" class="btn btn-primary">Update Room</button></li>
+                            <li>
+                                <a href="{{ route('user.hotels.rooms', ['id' => $rooms->hotel_id]) }}">
+                                    <button type="button" class="btn btn-danger">Cancel</button>
+                                </a>
+                            </li>
+                            <li><button type="submit" class="btn btn-success">Update Room</button></li>
                         </ul>
                     </form>
                 </div>
@@ -255,6 +326,32 @@
                                             <input type="button" class="btn btn-danger deleteMrPriceBtn" data-key="'+key+'" value="Remove">\
                                         </div>\
                                     </div>');
+    });
+    $(document).on('click', '.addMrCancBtn', function() {
+        let key = parseInt($('#cancCnt').val()) + parseInt(1);
+        $('#cancCnt').val(key);
+        $('.moreCancPolDiv').append('\
+        <div class="col-sm-5 cancPolicy'+key+'">\
+            <div class="form-group">\
+                <label>Days Before Check-In <span class="required">*</span></label>\
+                <input type="text" name="daysBeforeCheckIn[]" class="form-control isNumber requiredCheck" data-check="Days Before Check-In" placeholder="Days Before Check-In" autocomplete="off">\
+            </div>\
+        </div>\
+        <div class="col-sm-5 cancPolicy'+key+'">\
+            <div class="form-group">\
+                <label>Deduct Percentage <span class="required">*</span></label>\
+                <input type="text" name="deductPercentage[]" class="form-control isNumber requiredCheck" data-check="Deduct Percentage" autocomplete="off" placeholder="Deduct Percentage">\
+            </div>\
+        </div>\
+        <div class="col-md-2 cancPolicy'+key+'">\
+            <div class="form-group">\
+                <label class="bmd-label-floating">Action</label><br />\
+                <input type="button" class="btn btn-danger deleteCanPolBtn" data-key="'+key+'" value="Remove">\
+            </div>\
+        </div>');
+    });
+    $(document).on('click', '.deleteCanPolBtn', function() {
+        $('.cancPolicy' + $(this).attr('data-key')).remove();
     });
     $(document).on('click', '.deleteMrPriceBtn', function() {
         $('.roomPrc' + $(this).attr('data-key')).remove();

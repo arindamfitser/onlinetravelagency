@@ -108,7 +108,7 @@ function commonFormChecking(flag, cls = '', msgbox = '') {
     });
     return flag;
 }
-$(".isNumber").keypress(function (evt) {
+$(document).on('keypress', '.isNumber', function (evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     if (charCode < 48 || charCode > 57) {

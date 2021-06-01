@@ -66,6 +66,18 @@ class RoomsController extends Controller{
             endif;
         endif;
         $rooms->more_price          = json_encode($morePrice);
+        $rooms->min_stay_policy     = $request->min_stay_policy;
+        $rooms->inclusions          = $request->inclusions;
+        $rooms->exclusions          = $request->exclusions;
+        $cancPolicy                 = array();
+        if($request->daysBeforeCheckIn):
+            if(!empty($request->daysBeforeCheckIn)):
+                foreach($request->daysBeforeCheckIn as $dbc => $dbcVal):
+                    $cancPolicy[$dbcVal] = $request->deductPercentage[$dbc];
+                endforeach;
+            endif;
+        endif;
+        $rooms->cancellation_policy = json_encode($cancPolicy);
     	$rooms->save();
         $room_id = $rooms->id;
         for ($i=0; $i < count($request->amenities) ; $i++) :
@@ -134,6 +146,18 @@ class RoomsController extends Controller{
             endif;
         endif;
         $rooms->more_price          = json_encode($morePrice);
+        $rooms->min_stay_policy     = $request->min_stay_policy;
+        $rooms->inclusions          = $request->inclusions;
+        $rooms->exclusions          = $request->exclusions;
+        $cancPolicy                 = array();
+        if($request->daysBeforeCheckIn):
+            if(!empty($request->daysBeforeCheckIn)):
+                foreach($request->daysBeforeCheckIn as $dbc => $dbcVal):
+                    $cancPolicy[$dbcVal] = $request->deductPercentage[$dbc];
+                endforeach;
+            endif;
+        endif;
+        $rooms->cancellation_policy = json_encode($cancPolicy);
     	$rooms->save();
         if(!empty($request->amenities)):
             RoomsAmenitie::where('room_id', '=', $id)->delete();

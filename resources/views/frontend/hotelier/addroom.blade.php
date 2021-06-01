@@ -99,6 +99,39 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
+                                    <label>Minimum Stay Policy <span class="required">*</span></label>
+                                    <input type="text" name="min_stay_policy" class="form-control isNumber requiredCheck"
+                                        data-check="Minimum Stay Policy" placeholder="Minimum Stay Policy" value="1">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Inclusions Description of Inclusions</label>
+                                    <textarea class="form-control ckeditor" name="inclusions" id="inclusions"
+                                        placeholder="Inclusions Description of Inclusions"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Exclusions Description of Exclusions</label>
+                                    <textarea class="form-control ckeditor" name="exclusions" id="exclusions"
+                                        placeholder="Exclusions Description of Exclusions"></textarea>
+                                </div>
+                            </div>
+                            <div class="row moreCancPolDiv"></div>
+                            <div class="row">
+                                <input type="hidden" id="cancCnt" value="0">
+                                <div class="col-sm-12 text-center">
+                                    <div class="form-group text-center">
+                                        <input type="button" class="btn btn-primary addMrCancBtn" value="+ Add Cancellation Policy">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label>Featured Image <span class="required">*</span></label>
                                     <input type="file" name="featured_image" class="form-control requiredCheck" data-check="Featured Image">
                                 </div>
@@ -117,7 +150,7 @@
                         <ul class="list-inline text-center">
                             <li><a href="{{ route('user.hotels.rooms', ['id' => $id]) }}"><button type="button"
                                         class="btn btn-danger">Cancel</button></a></li>
-                            <li><button type="submit" class="btn btn-primary">Add Room</button></li>
+                            <li><button type="submit" class="btn btn-success">Add Room</button></li>
                         </ul>
                     </form>
                 </div>
@@ -133,7 +166,6 @@
 <script src="{{ asset('fullcalender') }}/fullcalendar.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.5.2/js/fileinput.min.js"></script>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <script src="{{ asset('js/jquery.loading.js') }}"></script>
@@ -185,6 +217,32 @@
                 <input type="button" class="btn btn-danger deleteMrPriceBtn" data-key="'+key+'" value="Remove">\
             </div>\
         </div>');
+    });
+    $(document).on('click', '.addMrCancBtn', function() {
+        let key = parseInt($('#cancCnt').val()) + parseInt(1);
+        $('#cancCnt').val(key);
+        $('.moreCancPolDiv').append('\
+        <div class="col-sm-5 cancPolicy'+key+'">\
+            <div class="form-group">\
+                <label>Days Before Check-In <span class="required">*</span></label>\
+                <input type="text" name="daysBeforeCheckIn[]" class="form-control isNumber requiredCheck" data-check="Days Before Check-In" placeholder="Days Before Check-In" autocomplete="off">\
+            </div>\
+        </div>\
+        <div class="col-sm-5 cancPolicy'+key+'">\
+            <div class="form-group">\
+                <label>Deduct Percentage <span class="required">*</span></label>\
+                <input type="text" name="deductPercentage[]" class="form-control isNumber requiredCheck" data-check="Deduct Percentage" autocomplete="off" placeholder="Deduct Percentage">\
+            </div>\
+        </div>\
+        <div class="col-md-2 cancPolicy'+key+'">\
+            <div class="form-group">\
+                <label class="bmd-label-floating">Action</label><br />\
+                <input type="button" class="btn btn-danger deleteCanPolBtn" data-key="'+key+'" value="Remove">\
+            </div>\
+        </div>');
+    });
+    $(document).on('click', '.deleteCanPolBtn', function() {
+        $('.cancPolicy' + $(this).attr('data-key')).remove();
     });
     $(document).on('click', '.deleteMrPriceBtn', function() {
         $('.roomPrc' + $(this).attr('data-key')).remove();

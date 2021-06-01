@@ -21,15 +21,16 @@ class BookingController extends Controller{
       $this->middleware('auth');
   }
   public function index(){
-    $user   = auth('web')->user();
-    $hotels = Hotels::where('user_id', $user->id)->first();
+    $user         = auth('web')->user();
+    $hotels       = Hotels::where('user_id', $user->id)->first();
     $bookings     = array();
     if(!empty($hotels)): 
-      $bookings    = Booking::select('bookings.*', 'hotels_translations.hotels_name', 'rooms.name')
+      $bookings   = Booking::select('bookings.*', 'hotels_translations.hotels_name', 'rooms.name')
                   ->join('hotels', 'bookings.hotel_token', '=', 'hotels.hotel_token')
                   ->join('hotels_translations', 'hotels_translations.hotels_id', '=', 'hotels.id')
                   ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
-                  ->where('bookings.hotel_token', '=', $hotels->hotel_token)->get()->all();
+                  ->where('bookings.hotel_token', $hotels->hotel_token)
+                  ->orderBy('bookings.id', 'DESC')->get()->all();
     endif;
     return view('frontend.hotelier.booking', compact('bookings', 'hotels'));
   }
@@ -96,9 +97,19 @@ class BookingController extends Controller{
     print json_encode(array('success' => TRUE, 'html' => $html, 'nights' => $days));
   }
   public function getRoomPrice(Request $request){
-    $user   = auth('web')->user();
-    $room   = Rooms::where('id', $request->roomId)->first();
-    print json_encode(array('success' => TRUE, 'price' => $room->base_price));
+    $user       = auth('web')->user();
+    $room       = Rooms::where('id', $request->roomId)->first();
+    $morePrice  = json_decode($room->more_price, true);
+    $html       = '';
+    if(!empty($morePrice)):
+      $html     .= '<input type="radio" checked value="'.$room->base_price.'" name="radioRoomType" class="roomType" data-name="Room Only">
+                    <label>Room Only</label><br>';
+      foreach($morePrice as $mrpKey => $mrp):
+        $html   .= '<input type="radio" value="'.$mrpKey.'" name="radioRoomType" class="roomType" data-name="'.$mrp.'">
+                    <label>'.$mrp.'</label><br>';
+      endforeach;
+    endif;
+    print json_encode(array('success' => TRUE, 'price' => $room->base_price, 'html' => $html));
   }
   public function hotelierBookHotel(Request $request){
     $user     = auth('web')->user();
@@ -131,6 +142,7 @@ class BookingController extends Controller{
       'hotel_id	'   => $hotelId,
       'hotel_token' => $hotelToken,
       'room_id'     => $request->roomId,
+      'room_type'   => $request->selectedRoomType,
       'start_date'  => $cIn,
       'end_date'    => $cOut,
       'nights'      => $nights,
@@ -148,6 +160,7 @@ class BookingController extends Controller{
         'hotel_id	'       => $hotelId,
         'hotel_token'     => $hotelToken,
         'room_id'         => $request->roomId,
+        'room_type'       => $request->selectedRoomType,
         'user_id'         => $userId,
         'base_price'      => $request->roomPrc,
         'price'           => ($request->roomPrc - $request->roomDisc),
