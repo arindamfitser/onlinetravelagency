@@ -99,26 +99,8 @@
                                 </select>
                             </div>
                         </div>
-                        <!--<div class="col-md-6 col-lg-6">-->
-                        <!--    <div class="form-group">-->
-                        <!--        <label class="control-label">Date Of Birth<sup style="color:red">*</sup></label>-->
-                        <!--        <div class="input-group">-->
-                        <!--            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
-                        <!--            <input name="dob" id="dob" class="form-control dobdatePicker requiredCheck" data-check="Date Of Birth" type="text" value="{{$user->dob}}" />-->
-                        <!--        </div>-->
-                        <!--    </div>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-6 col-lg-6">-->
-                        <!--    <div class="form-group">-->
-                        <!--    <label class="control-label">Gender</label>-->
-                        <!--        <div class="input-group">-->
-                        <!--            <input type="radio" value="male" name ="gender" id="gender" {{ $user->gender === "male" ? "checked" : " " }} /> Male-->
-                        <!--            <input type="radio" value="female" name ="gender" id="gender" {{ $user->gender === "female" ? "checked" : " " }} /> Female-->
-                        <!--        </div>-->
-                        <!--    </div>-->
-                        <!--</div>-->
-                        <div class="col-md-12 col-lg-12">
-                            <button type="submit" class="btn btn-primary btn-lg" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Updating now ">Update now</button>
+                        <div class="col-md-12 col-lg-12 text-center">
+                            <button type="submit" class="btn btn-succedd btn-lg">Update now</button>
                         </div>
                     </form>
                 </div>
@@ -151,8 +133,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 col-lg-12">
-                            <button type="submit" class="btn btn-primary btn-lg" id="load" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Updating now ">Change now</button>
+                        <div class="col-md-12 col-lg-12 text-center">
+                            <button type="submit" class="btn btn-success btn-lg">Change now</button>
                         </div>
                     </form>
                 </div> 
@@ -161,9 +143,7 @@
     </div>		 
 </section>
 <div class="clearfix"></div>
-
 @endsection
-
 @section('script')
 <script src="{{ asset('js/jquery.loading.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
@@ -259,6 +239,4 @@ $(document).on('submit', '#change_password', function (e) {
     }
 });
 </script>
-  
 @endsection
-

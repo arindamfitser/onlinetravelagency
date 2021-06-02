@@ -18,7 +18,7 @@ class ProfileController extends Controller{
     }
     public function index(Request $request){
         $user = auth('web')->user();
-        if($user->role):
+        if($user->role == '1'):
             //$hotels = Hotels::where('user_id', '=', $user->id)->get()->All();
             $hotel                  = Hotels::where('user_id', '=', $user->id)->first();
             if (!empty($hotel)) :
@@ -172,7 +172,8 @@ class ProfileController extends Controller{
                 $html .='<div class="booking_tootip">';
                 $html .='<div class="pop_content">';
                 $html .='<div class="bitems_head"><span>Room : </span><b>'. $r->name .'</b></div>';
-                $html .='<div class="bitems_head"><span>Total : </span><b style="color:blue;">'. ($avlbl + $booked) .'</b></div>';
+                //$html .='<div class="bitems_head"><span>Total : </span><b style="color:blue;">'. ($avlbl + $booked) .'</b></div>';
+                $html .='<div class="bitems_head"><span>Total : </span><b style="color:blue;">'. $r->room_capacity .'</b></div>';
                 $html .='<div class="bitems_head"><span>Available : </span><b style="color:green;">'. $avlbl .'</b></div>';
                 $html .='<div class="bitems_head"><span>Booked : </span><b style="color:red;">'. $booked .'</b></div>';
                 $html .='</div>';
@@ -200,120 +201,12 @@ class ProfileController extends Controller{
         endif;
         print json_encode(array('success' => TRUE, 'html' => $html, 'startDate' => $strt));
     }
-
-
-
-
-
-
-    
-    public function profile()
-    {
+    public function profile(){
         $user = auth('web')->user();
-       if($user->role=='1'){
-          return view('frontend.hotelier.profile');
-        }else{
-          return view('frontend.customer.profile');
-        }
-        
-    }
-
-    public function calenderCallRoomAvailableBackUp(Request $request){
-        $user       = auth('web')->user();
-        $events     = array();
-        $data       = array();
-        if($request->booked == 'on'):
-            // $booking    = Booking::select('*', 'bookings.user_id as booked_user', 'bookings.status as booked_status', 'bookings.id as booked_id', 'booking_items.quantity_adults', 'booking_items.quantity_child')
-            //             ->join('booking_items', 'bookings.id', '=', 'booking_items.booking_id')
-            //             ->where('bookings.hotel_token', '=', $request->hotel_token)->get()->all();
-            // $booking    = BookingItem::select('booking_items.*', 'rooms.name', 'users.first_name', 'users.last_name')
-            //             ->join('rooms', 'rooms.id', '=', 'booking_items.room_id')
-            //             ->join('users', 'users.id', '=', 'booking_items.user_id')
-            //             ->where('booking_items.hotel_token', '=', $request->hotel_token)
-            //             ->where('booking_items.status', '=', 1)
-            //             ->orderBy('booking_items.start_date', 'ASC')->get()->all();
-            $booking    = BookingItem::select('booking_items.*')
-                        ->where('booking_items.hotel_token', '=', $request->hotel_token)
-                        ->where('booking_items.status', '=', 1)
-                        ->orderBy('booking_items.start_date', 'ASC')->get()->all();
-            if (!empty($booking)) :
-                foreach ($booking as $key => $book) :
-                    $data                   = array();
-                    $html                   = "";
-                    $u                      = User::find($book->user_id);
-                    $r                      = Rooms::find($book->room_id);
-                    $data['id']             = $book->booking_id;
-                    $data['start']          = $book->start_date;
-                    $data['end']            = $book->end_date;
-                    $data['key']            = 'Booked';
-                    $data['price']          = '';
-                    $data['title']          = $u->first_name.' '.$u->last_name.', '.$book->booking_id.' ('.$book->nights.' Nights)';
-                    //$data['price']          = $book->total_price;
-                    //$data['title']          = $book->first_name.' '.$book->last_name.', '.$book->booking_id.' ('.$book->nights.' Nights)';
-                    $data['color']          = '#ec971f;';
-                    $data['className']      = 'booked';
-                    $html .='<div class="booking_tootip">';
-                    $html .='<div class="pop_content">';
-                    $html .='<div class="bitems_head"><span>'.$book->booking_id.'</span></div>';
-                    $html .='<div class="bitems_title"><span>'.$u->first_name.' '.$u->last_name.'</span></div>';
-                    $html .='<div class="bitems_sub"><span>'.$r->name.'</span></div>';
-                    $html .='<div class="bitems"><span>Check in</span> - '.date("d M, Y", strtotime($book->start_date)).'</div>';
-                    $html .='<div class="bitems"><span>Check out</span> - '.date("d M, Y", strtotime($book->end_date)).'</div>';
-                    $html .='<div class="bitems"><span>Nights</span> : '.$book->nights.'</div>';
-                    $html .='<div class="bitems"><span>Guests</span> : '.($book->quantity_adults + $book->quantity_child).'</div>';
-                    // $html .='<div class="bitems_btn">
-                    //             <a href="'.URL('users/view_booking/'.$book->booking_id).'">Details</a> | 
-                    //             <a href="'.URL('users/invoice/'.$book->booking_id).'">Invoice</a>
-                    //         </div>';
-                    $html .='</div>'; 
-                    $html .='</div>';  
-                    $data['description']    = $html;
-                    $data['info']           = 'booked';
-                    array_push($events, $data); 
-                endforeach;
-            endif;
+        if($user->role=='1'):
+            return view('frontend.hotelier.profile');
+        else:
+            return view('frontend.customer.profile');
         endif;
-
-        // $cIn    = date('Y-m-d');
-        // $cOut   = date('Y').'-12-31';
-        // $diff   = date_diff(date_create($cIn), date_create($cOut));
-        // $days   = $diff->format("%a");
-        // for($d = 0; $d <= $days; $d++):
-        //     $data   = array();
-        //     $strt   = date('Y-m-d', strtotime($cIn. ' + '. $d .' days'));
-        //     $end    = date('Y-m-d', strtotime($cIn. ' + '. ($d+1) .' days'));
-        //     $chk    = DB::table('booking_items')->select('id', 'quantity_room')->where('room_id', $request->roomType)->where('status', 1)
-        //             ->where('check_in', '>=', $strt)->where('check_out', '<=', $end)->get()->all();
-        //     $r          = Rooms::find($request->roomType);
-        //     $rc         = RoomCount::where('room_id', $request->roomType)->where('dt', $strt)->first();
-        //     $booked     = 0;
-        //     $avlbl      = (!empty($rc)) ? $rc->count : $r->room_capacity;;
-        //     if(!empty($chk)):
-        //         foreach($chk as $c):
-        //             $booked += $c->quantity_room;
-        //         endforeach;
-        //         $avlbl  -= $booked;
-        //     endif;
-        //     $data['id']             = $r->id;
-        //     $data['start']          = $strt;
-        //     $data['end']            = $strt;
-        //     $data['key']            = $avlbl;
-        //     $data['price']          = $r->base_price;
-        //     if($avlbl > 0):
-        //         $data['title']      = $r->name;
-        //         $data['color']      = '#6cdda2;';
-        //         $data['className']  = 'available';
-        //     else:
-        //         $data['title']      = 'Unavailable';
-        //         $data['color']      = '#f69dcd;';
-        //         $data['className']  = 'unavailable';
-        //     endif;
-        //     $data['description']    = '<div class="pop_content"><div class="popup_single_content">'.$r->name.' available rooms <span>('.$avlbl.')</span></div></div>';
-        //     $data['info']           = '';
-        //     array_push($events, $data);
-        // endfor;
-        $response["events"]=$events;
-        echo  json_encode($response);
-        exit;
     }
 }

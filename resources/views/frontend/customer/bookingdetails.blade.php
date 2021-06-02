@@ -5,22 +5,27 @@
   @include('frontend.layouts.customer_sidenav')
   <div class="dashboard_content">
     <h1>Booking Details</h1>
-     @include('frontend.layouts.messages')
-      <div class="row">
-        <div class="col-md-12">
-         <?php 
-          $booking = App\Booking::select('*', 'bookings.user_id as booked_user', 'bookings.status as booked_status')->where('bookings.id', '=', $id)->get()->first();
-          if($booking->type=='site'){
-              echo bookingdetailsHtml($id);
-              //echo invoice_generate($id,'site');
-          }else if($booking->type=='stuba'){
-              echo stubaBookingdetailsHtml($id);
-               //echo getStubaBookingValue('roomName',$id);
-          }
-          
-         ?>
-        </div>
+    @include('frontend.layouts.messages')
+    <div class="row">
+      <div class="col-md-12">
+        <?php 
+        $booking = App\Booking::select('bookings.type')->where('bookings.id', '=', $id)->first();
+        if($booking->type=='site'):
+          print bookingdetailsHtml($id);
+        elseif($booking->type=='stuba'):
+          print stubaBookingdetailsHtml($id);
+        endif;
+        ?>
+        <br />
+        <ul class="list-inline text-center">
+          <li>
+            <a href="{{ route('customer.booking') }}">
+              <button type="button" class="btn btn-danger">Back to Bookings</button>
+            </a>
+          </li>
+        </ul>
       </div>
+    </div>
   </div>
 </section>
 <div id="myModal" class="modal fade" role="dialog">

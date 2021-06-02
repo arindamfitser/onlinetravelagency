@@ -371,6 +371,7 @@ cd.owlCarousel({
       error: function (xhr, status, error) {
         //alert(xhr.responseText);
         $('#preview_image').attr('src', '{{asset('frontend/images/noimage.jpg')}}');
+        $('#loading').css('display', 'none');
       }
     });
   }

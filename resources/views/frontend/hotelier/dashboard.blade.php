@@ -129,9 +129,9 @@ endif;
 		let calendarEl	= document.getElementById('calendar');
 		let calendar 	= new FullCalendar.Calendar(calendarEl, {
 							headerToolbar: {
-								left: 'prev,next',
+								left: 'prevYear,prev,today,next,nextYear',
 								center: 'title',
-								right: 'dayGridMonth,timeGridDay'
+								right: 'dayGridMonth,dayGridWeek,dayGridDay'
 								//right: 'dayGridMonth,timeGridWeek,timeGridDay'
 								// left	: 'prev',
 								// center	: 'title',

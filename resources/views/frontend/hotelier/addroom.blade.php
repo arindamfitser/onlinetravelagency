@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                     <label>Room Name <span class="required">*</span></label>
+                                     <label>Room Type Name <span class="required">*</span><em style="font-size: 12px;color: #3fa7f1;">(e.g. “Garden Room”, “Pool Suite”, “Overwater Bungalow” etc)</em></label>
                                     <input type="text" name="name" class="form-control requiredCheck" data-check="Room Name" placeholder="Room Name">
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Description <span class="required">*</span></label>
+                                    <label>Room Description <span class="required">*</span><em style="font-size: 12px;color: #3fa7f1;">Describe best room features & attractions - include bed size(s)</em></label>
                                     <textarea class="form-control ckeditor requiredCheck" name="descp" id="descp" data-check="Description" placeholder="Description"></textarea>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                                         placeholder="Child Capacity" value="0">
                                 </div>
                                 <div class="form-group">
-                                    <label>Amenities </label><br />
+                                    <label>Room Amenities <em style="font-size: 12px;color: #3fa7f1;">List Room Amenities separated by commas</em></label><br />
                                     @foreach($amenities as $amenitiy)
                                     <label class="checkbox-inline"><input type="checkbox" name="amenities[]"
                                             value="{{ $amenitiy->id }}">{{ $amenitiy->amenities_name }}</label>

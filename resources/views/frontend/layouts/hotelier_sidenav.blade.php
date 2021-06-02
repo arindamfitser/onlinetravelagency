@@ -1,30 +1,32 @@
 <div class="sidenav">
     <ul>
-        <?php if(empty(Auth::user()->hotel_token)) : ?>
-        <center>
-	        <div style="width:200px;height:200px; border: 1px solid whitesmoke ;text-align: center;position: relative" id="image">
-	       <?php 
-	         if(get_avatar()){ ?>
-	         	<img width="100%" height="100%" id="preview_image" src="{{ Storage::disk('local')->url(get_avatar()) }}"/>
-	         <?php }else{ ?>
-	         	<img width="100%" height="100%" id="preview_image" src="{{asset('frontend/images/noimage.jpg')}}"/>
-	         <?php }
-	       ?>
-	        <i id="loading" class="fa fa-spinner fa-spin fa-3x fa-fw" style="position: absolute;left: 40%;top: 40%;display: none"></i>
-	    </div>
-    	    <p>
-    	        <span onclick="changeProfile()" style="text-decoration: none;">
-    	            <i class="glyphicon glyphicon-edit"></i> Change
-    	        </span>&nbsp;&nbsp;
-    	        <span   onclick="removeFile()" style="color: red;text-decoration: none;">
-    	            <i class="glyphicon glyphicon-trash"></i>
-    	            Remove
-    	        </span>
-    	    </p>
-	        <input type="file" id="file" style="display: none"/>
-	        <input type="hidden" id="file_name" value="{{ Storage::disk('local')->url(get_avatar()) }}" />
-	    </center>
-	    <?php endif; ?>
+        <!-- <center>
+            <div style="width:200px;height:200px; border: 1px solid whitesmoke ;text-align: center;position: relative"
+                id="image">
+                <?php 
+                if(get_avatar()){ ?>
+                <img width="100%" height="100%" id="preview_image"
+                    src="{{ url('/public/'). Storage::disk('local')->url(get_avatar()) }}" />
+                <?php }else{ ?>
+                <img width="100%" height="100%" id="preview_image" src="{{asset('frontend/images/noimage.jpg')}}" />
+                <?php }
+                       ?>
+        
+                <i id="loading" class="fa fa-spinner fa-spin fa-3x fa-fw"
+                    style="position: absolute;left: 40%;top: 40%;display: none"></i>
+            </div>
+            <p>
+                <span onclick="changeProfile()" style="text-decoration: none;">
+                    <i class="glyphicon glyphicon-edit"></i> Change
+                </span>&nbsp;&nbsp;
+                <span onclick="removeFile()" style="color: red;text-decoration: none;">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    Remove
+                </span>
+            </p>
+            <input type="file" id="file" style="display: none" />
+            <input type="hidden" id="file_name" value="{{ Storage::disk('local')->url(get_avatar()) }}" />
+        </center> -->
         <li class="{{ Request::is('users/dashboard*') ? 'active' : '' }}"><a href="{{route('user.dashboard')}}"><i class="fa fa-th-large" aria-hidden="true"></i>Available Calendar</a></li>
         <li class="{{ Request::is('users/profile*') ? 'active' : '' }}"><a href="{{route('user.profile')}}"><i class="fa fa-user" aria-hidden="true"></i>{{ empty(Auth::user()->hotel_token) ? 'Profile' : 'User Profile'}}</a></li>
         <?php if(empty(Auth::user()->hotel_token)) : ?>

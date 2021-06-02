@@ -36,11 +36,8 @@ class FrontController extends Controller
         $inspirations = Inspirations::where('status', '=', 1)->get()->all();
         $partners = Partner::where('status', '=', 1)->get()->all();
         $hotels = Hotels::orderBy('id', 'DESC')->limit(12)->get()->all();
-        $testimonials = DB::table('testimonials')->select('*')->join('testimonials_translations', 'testimonials.id', '=', 'testimonials_translations.testimonials_id')->where('status', '=', 1)->orderBy('c_order', 'ASC')->get()->all();
-        
-        // echo "<pre>";
-        // print_r($banners);
-        // die;
+        //$testimonials = DB::table('testimonials')->select('*')->join('testimonials_translations', 'testimonials.id', '=', 'testimonials_translations.testimonials_id')->where('status', '=', 1)->orderBy('c_order', 'ASC')->get()->all();
+        $testimonials = Testimonials::where('status', 1)->orderBy('id', 'DESC')->get()->all();
         return view('home', compact('banners', 'accommodations', 'experiences', 'inspirations', 'partners', 'hotels', 'testimonials'));
     }
 }
