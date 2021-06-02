@@ -48,23 +48,6 @@ endif;
 								<input type="hidden" name="hotel_token" id="hotel_token" value="{{ $hotel->hotel_token }}">
 								<input type="hidden" name="available" value="on">
 								<input type="hidden" name="booked" value="on">
-								<!-- <span class="btn-success">
-									<label class="checkbox-inline" for="e1">
-										<input type="checkbox" checked="checked"  name="available" value="on" id="e1" class="checkIfChecked"/>
-										Available
-									</label>
-								</span>
-								<span class="btn-warning">
-									<label class="checkbox-inline" for="e3">
-										<input type="checkbox" checked="checked" name="booked" value="on" id="e3" class="checkIfChecked"/>
-										Booked
-									</label>
-								</span>
-								<div class="form-group">
-									<select class="form-control" id="roomtype"  name="roomType">
-										<?= $roomHtml ?>
-									</select>
-								</div> -->
 							</form>
 						</div>
 						<input type="hidden" class="datepicker" value="" id="selectedDate">

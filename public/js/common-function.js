@@ -110,7 +110,7 @@ function commonFormChecking(flag, cls = '', msgbox = '') {
 }
 $(document).on('keypress', '.isNumber', function (evt) {
     evt = (evt) ? evt : window.event;
-    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    let charCode = (evt.which) ? evt.which : evt.keyCode;
     if (charCode < 48 || charCode > 57) {
         return false;
     }
@@ -292,6 +292,17 @@ $(document).on("click", ".genericDelete", function () {
 			});
 		}
 	});
+});
+$(document).on('keypress', '.isPhone', function (evt) {
+    evt = (evt) ? evt : window.event;
+    let charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode < 48 || charCode > 57) {
+        if (charCode == 43) {
+            return true;
+        }
+        return false;
+    }
+    return true;
 });
 function initializeMap(address, divId) {
     let map = null;

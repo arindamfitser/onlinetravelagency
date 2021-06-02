@@ -443,6 +443,7 @@ class HotelsController extends Controller{
                 $hotels->state_id                   = $request->state_id;
                 $hotels->town                       = $request->town;
                 $hotels->email_id                   = $request->email_id;
+                $hotels->phone                      = $request->phone;
                 $hotels->website                    = $request->website;
                 $hotels->address                    = $request->address;
                 $hotels->mailing_address            = $request->mailing_address;
@@ -541,10 +542,12 @@ class HotelsController extends Controller{
                 $hotels->featured_image = $img;
                 $image_gallery          = array();
                 $image_alt              = array();
+                $image_seq              = array();
                 if(isset($request->old_gallery_image)):
                     foreach($request->old_gallery_image as $ogKeyyy => $ogi):
                         array_push($image_gallery, $ogi);
                         array_push($image_alt, $request->old_gallery_image_alt[$ogKeyyy]);
+                        array_push($image_seq, (!empty($request->old_gallery_image_seq[$ogKeyyy])) ? $request->old_gallery_image_seq[$ogKeyyy] : '1');
                     endforeach;
                 endif;
                 if(isset($request->gallery_image)):
@@ -557,12 +560,14 @@ class HotelsController extends Controller{
                                 $request->gallery_image[$i]->move(public_path('uploads'), $gallery_image);
                                 array_push($image_gallery, $gallery_image);
                                 array_push($image_alt, $request->gallery_image_alt[$i]);
+                                array_push($image_seq, (!empty($request->gallery_image_seq[$i])) ? $request->gallery_image_seq[$i] : '1');
                             endif;
                         endfor;
                     endif;
                 endif;
                 $hotels->image_gallery  = json_encode($image_gallery);
                 $hotels->image_alt      = json_encode($image_alt);
+                $hotels->image_sequence = json_encode($image_seq);
                 $hotels->save();
                 break;
         endswitch;

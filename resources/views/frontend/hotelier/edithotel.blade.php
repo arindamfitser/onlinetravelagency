@@ -45,67 +45,117 @@ display: inline;
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Hotel Token <span class="required">*</span></label>
+                                        <label class="bmd-label-floating">Luxury Fishing ID Number (eg LF1234) <span class="required">*</span></label>
                                         <input type="text" name="hotel_token" class="form-control requiredCheck" data-check="Hotel Token" value="{{ $hotels->hotel_token }}" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Name <span class="required">*</span></label>
-                                        <input type="text" id="hotels_name" name="hotels_name" class="form-control requiredCheck" data-check="Name" value="{{ $hotels->hotels_name }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Nearest Airport</label>
-                                        <input type="text" id="nearest_airport" name="nearest_airport" class="form-control" value="{{ $hotels->nearest_airport }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Distance Airport To Hotel</label>
-                                        <input type="text" id="distance_airport" name="distance_airport" class="form-control" value="{{ $hotels->distance_airport }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Transfers</label>
-                                        <input type="text" id="transfers_mode" name="transfers_mode" class="form-control" value="{{ $hotels->transfers_mode }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Region <span class="required">*</span></label>
-                                        <select id="region_id" class="form-control requiredCheck" data-check="Region" name="region_id">
-                                          <?php @regionOption($hotels->region_id); ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Country <span class="required">*</span></label>
-                                        <select id="country_id" class="form-control requiredCheck" data-check="Country" name="country_id" onchange="getState(this.value);">
-                                          <?php @countryOption($hotels->country_id); ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">State <span class="required">*</span></label>
-                                        <select id="state_id" class="form-control requiredCheck" data-check="State" name="state_id">
-                                          <?php @stateOption($hotels->state_id); ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Town <span class="required">*</span></label>
-                                        <input type="text" id="town" name="town" class="form-control requiredCheck" data-check="Town" value="{{ $hotels->town }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Reservations Email Address  <span class="required">*</span></label>
-                                        <input type="text" id="email_id" name="email_id" class="form-control requiredCheck" data-check="Email" value="{{ $hotels->email_id }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Hotel Website</label>
-                                        <input type="text" id="website" name="website" class="form-control" value="{{ $hotels->website }}">
+                                        <label class="bmd-label-floating">Property Name  <span class="required">*</span><em style="font-size: 12px;color: #3fa7f1;">(To be displayed on website)</em></label>
+                                        <input type="text" id="hotels_name" name="hotels_name" class="form-control requiredCheck" data-check="Name" value="{{ $hotels->hotels_name }}">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Hotel Address <span class="required">*</span></label>
+                                        <label class="bmd-label-floating">Physical Address <span class="required">*</span><em
+                                                style="font-size: 12px;color: #3fa7f1;">(for GPS location – must not be a P.O.Box or separate mailing
+                                                address)</em></label>
                                         <input type="text" id="address" name="address" class="form-control requiredCheck" data-check="Hotel Address"
                                             value="{{ $hotels->address }}">
                                     </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
+                                        <label class="bmd-label-floating">Mailing Address Same As Hotel Address?</label>&nbsp;&nbsp;&nbsp;
+                                        <label class="radio-inline">
+                                            <input type="checkbox" class="form-control@ sameMailAddress">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Mailing Address <span class="required">*</span><em
+                                                style="font-size: 12px;color: #3fa7f1;">if different to the above address</em></label>
+                                        <input type="text" name="mailing_address" id="mailing_address" class="form-control requiredCheck"
+                                            data-check="Mailing Address" value="{{ $hotels->mailing_address }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Property Website</label>
+                                        <input type="text" id="website" name="website" class="form-control" value="{{ $hotels->website }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Reservations Email Address <span class="required">*</span><em
+                                                style="font-size: 12px;color: #3fa7f1;">(for booking notification)</em></label>
+                                        <input type="text" id="email_id" name="email_id" class="form-control requiredCheck" data-check="Email"
+                                            value="{{ $hotels->email_id }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Property Phone Number <span class="required">*</span></label>
+                                        <input type="text" name="phone" class="form-control isPhone requiredCheck" data-check="Property Phone Number"
+                                            value="{{ $hotels->phone }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Region <span class="required">*</span><em
+                                                style="font-size: 12px;color: #3fa7f1;">(Select on of the following (tick box)</em></label>
+                                        <select id="region_id" class="form-control requiredCheck" data-check="Region" name="region_id">
+                                            <?php @regionOption($hotels->region_id); ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Country <span class="required">*</span></label>
+                                        <select id="country_id" class="form-control requiredCheck" data-check="Country" name="country_id"
+                                            onchange="getState(this.value);">
+                                            <?php @countryOption($hotels->country_id); ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">State / District <span class="required">*</span></label>
+                                        <select id="state_id" class="form-control requiredCheck" data-check="State" name="state_id">
+                                            <?php @stateOption($hotels->state_id); ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Town <span class="required">*</span><em
+                                                style="font-size: 12px;color: #3fa7f1;">(nearest to property)</em></label>
+                                        <input type="text" id="town" name="town" class="form-control requiredCheck" data-check="Town"
+                                            value="{{ $hotels->town }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Nearest Airport <em style="font-size: 12px;color: #3fa7f1;">(Name and IATA code)</em></label>
+                                        <input type="text" id="nearest_airport" name="nearest_airport" class="form-control" value="{{ $hotels->nearest_airport }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Distance to Nearest Airport <em style="font-size: 12px;color: #3fa7f1;">(specify kms or miles)</em></label>
+                                        <input type="text" id="distance_airport" name="distance_airport" class="form-control" value="{{ $hotels->distance_airport }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Transfers <em style="font-size: 12px;color: #3fa7f1;">(include airport transfers offered to guests and alternative options)</em></label>
+                                        <input type="text" id="transfers_mode" name="transfers_mode" class="form-control" value="{{ $hotels->transfers_mode }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Location</label>
                                         <div id="map"></div>
                                         <div id="infowindow-content">
                                             <img src="" width="16" height="16" id="place-icon">
@@ -130,38 +180,24 @@ display: inline;
                                             value="@if(isset($hotels->zip_code)){{ $hotels->zip_code }}@else {{ '' }}@endif">
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Mailing Address Same As Hotel Address?</label>&nbsp;&nbsp;&nbsp;
-                                        <label class="radio-inline">
-                                            <input type="checkbox" class="form-control@ sameMailAddress">
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Mailing Address <span class="required">*</span></label>
-                                        <input type="text" name="mailing_address" id="mailing_address" class="form-control requiredCheck"
-                                            data-check="Mailing Address" value="{{ $hotels->mailing_address }}">
-                                    </div>
-                                </div>
-                            </div>
+                            </div>                            
                             <div class="row">
-                                <div class="col-sm-12">
-                                  <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                                <div class="col-sm-12 text-center">
+                                  <button type="submit" class="btn btn-success btn-lg">Update</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div id="two" class="tab-pane fade">
-                        <form action="{{ route('user.hotels.update.new', ['id' => $hotels->id]) }}" method="POST" enctype="multipart/form-data" id="tabTwoEditHotel">
+                        <!-- <form action="{{ route('user.hotels.update.new', ['id' => $hotels->id]) }}" method="POST" enctype="multipart/form-data" id="tabTwoEditHotel"> -->
+                        <form  enctype="multipart/form-data" id="tabTwoEditHotel">
                             <input type="hidden" name="form_no" value="2">
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Property Description <span class="required">*</span></label>
-                                        <textarea class="form-control ckeditor" name="hotels_desc" id="hotels_desc">{{ $hotels->hotels_desc }}</textarea>
+                                        <label class="bmd-label-floating" data-toggle="tooltip" data-placement="bottom" title="Please note that we provide a very brief property description which precedes your description.  We suggest that you view the finished display on our website and if required edit your description to avoid repetition, to improve flow and to ensure that your property is described truthfully in its best light)">Property Description <span class="required">*</span><em style="font-size: 12px;color: #3fa7f1;">(must be written in the Third Person – do not use terms such as “we” “us” “our” etc. )</em></label>
+                                        <textarea class="form-control ckeditor requiredCheckTwo" data-check="Property Description" name="hotels_desc" id="hotels_desc">{{ $hotels->hotels_desc }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -172,7 +208,8 @@ display: inline;
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Do you have a Beach on or adjacent to your site?</label>&nbsp;&nbsp;&nbsp;
+                                        <h3>Answer Yes or No to which of these features are applicable to your property</h3>
+                                        <label class="bmd-label-floating">Do you have a Beach on or adjacent to your site</label>&nbsp;&nbsp;&nbsp;
                                         <label class="radio-inline">
                                             <input type="radio" name="beach_availability" value="1" {{ ($hotels->beach_availability) ? 'checked' : '' }}>Yes
                                         </label>
@@ -183,18 +220,89 @@ display: inline;
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Do you offer Fine Dining at your Restaurant?</label>&nbsp;&nbsp;&nbsp;
+                                        <label class="bmd-label-floating">Do you offer Fine Dining at your Restaurant</label>&nbsp;&nbsp;&nbsp;
                                         <label class="radio-inline">
-                                            <input type="radio" name="fine_dining_availability" value="1" {{ ($hotels->fine_dining_availability) ? 'checked' : '' }}>Yes
+                                            <input type="radio" name="fine_dining_availability" value="1"
+                                                {{ ($hotels->fine_dining_availability) ? 'checked' : '' }}>Yes
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="fine_dining_availability" value="0" {{ (!$hotels->fine_dining_availability) ? 'checked' : '' }}>No
+                                            <input type="radio" name="fine_dining_availability" value="0"
+                                                {{ (!$hotels->fine_dining_availability) ? 'checked' : '' }}>No
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Do you offer Watersports as a guest activity?</label>&nbsp;&nbsp;&nbsp;
+                                        <label class="bmd-label-floating">Do you have a Spa on site</label>&nbsp;&nbsp;&nbsp;
+                                        <label class="radio-inline">
+                                            <input type="radio" name="spa_availability" value="1" id="spa_availability"
+                                                {{ ($hotels->spa_availability) ? 'checked' : '' }}>Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="spa_availability" value="0" id="spa_availability"
+                                                {{ (!$hotels->spa_availability) ? 'checked' : '' }}>No
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 spaDiv {{ ($hotels->spa_availability == '0') ? 'hide' : '' }}">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Spa Type</label>&nbsp;&nbsp;&nbsp;
+                                        <label class="radio-inline">
+                                            <input type="radio" name="spa_type" value="Spa" {{ ($hotels->spa_type == 'Spa') ? 'checked' : '' }}>Spa
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="spa_type" value="In-room spa services"
+                                                {{ ($hotels->spa_type == 'In-room spa services') ? 'checked' : '' }}>In-room spa services
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="spa_type" value="In-room Massage services"
+                                                {{ ($hotels->spa_type == 'In-room Massage services') ? 'checked' : '' }}>In-room Massage services
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="spa_type" value="In-room beauty treatments"
+                                                {{ ($hotels->spa_type == 'In-room beauty treatments') ? 'checked' : '' }}>In-room beauty treatments
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Do you have a Pool on site</label>&nbsp;&nbsp;&nbsp;
+                                        <label class="radio-inline">
+                                            <input type="radio" name="pool" value="yes" id="pool" {{ ($hotels->pool == 'yes') ? 'checked' : '' }}>Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="pool" value="no" id="pool" {{ ($hotels->pool == 'no') ? 'checked' : '' }}>No
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 poolDiv {{ ($hotels->pool == 'no') ? 'hide' : '' }}">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Pool Type</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="pool_type" value="Pool" id="pool_type"
+                                                {{ ($hotels->pool_type == 'Pool') ? 'checked' : '' }}>Pool
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="pool_type" value="Pools" id="pool_type"
+                                                {{ ($hotels->pool_type == 'Pools') ? 'checked' : '' }}>(number) Pools
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="pool_type" value="Pools with separate children’s pool" id="pool_type"
+                                                {{ ($hotels->pool_type == 'Pools with separate children’s pool') ? 'checked' : '' }}>(number) Pools
+                                            with separate children’s pool
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 poolDiv {{ ($hotels->pool == 'no') ? 'hide' : '' }}">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Number of Pools</label>
+                                        <input type="text" id="no_of_pools" name="no_of_pools" class="form-control isNumber"
+                                            value="{{ $hotels->no_of_pools }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Do you offer Watersports as a guest activity</label>&nbsp;&nbsp;&nbsp;
                                         <label class="radio-inline">
                                             <input type="radio" name="water_sports" value="yes" {{ ($hotels->water_sports == 'yes') ? 'checked' : '' }}>Yes
                                         </label>
@@ -205,7 +313,7 @@ display: inline;
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Do you offer Diving as a guest activity?</label>&nbsp;&nbsp;&nbsp;
+                                        <label class="bmd-label-floating">Do you offer Diving as a guest activity</label>&nbsp;&nbsp;&nbsp;
                                         <label class="radio-inline">
                                             <input type="radio" name="diving" value="yes" {{ ($hotels->diving == 'yes') ? 'checked' : '' }}>Yes
                                         </label>
@@ -217,8 +325,8 @@ display: inline;
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="form-group text-center">
-                                        <label class="bmd-label-floating">Amenities Services & Features</label>
+                                    <div class="form-group text-left">
+                                        <h3>Amenities Services & Features</h3>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -243,51 +351,6 @@ display: inline;
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Key & Most Attractive Features offered by your property</label>
                                         <textarea class="form-control ckeditor" id="additional_information" name="additional_information">{{ $hotels->additional_information }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Do you have a Spa on site?</label>
-                                        <select class="form-control" name="spa_availability" id="spa_availability">
-                                            <option value="1" {{ ($hotels->spa_availability == '1') ? 'selected' : '' }}>Yes</option>
-                                            <option value="0" {{ ($hotels->spa_availability == '0') ? 'selected' : '' }}>No</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 spaDiv {{ ($hotels->spa_availability == '0') ? 'hide' : '' }}">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Spa Type</label>
-                                        <select class="form-control" name="spa_type">
-                                            <option value="Spa" {{ ($hotels->spa_type == 'Spa') ? 'selected' : '' }}>Spa</option>
-                                            <option value="In-room spa services" {{ ($hotels->spa_type == 'In-room spa services') ? 'selected' : '' }}>In-room spa services</option>
-                                            <option value="In-room Massage services" {{ ($hotels->spa_type == 'In-room Massage services') ? 'selected' : '' }}>In-room Massage services</option>
-                                            <option value="In-room beauty treatments" {{ ($hotels->spa_type == 'In-room beauty treatments') ? 'selected' : '' }}>In-room beauty treatments</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Do you have a Pool on site?</label>
-                                        <select class="form-control" name="pool" id="pool">
-                                            <option value="yes" {{ ($hotels->pool == 'yes') ? 'selected' : '' }}>Yes</option>
-                                            <option value="no" {{ ($hotels->pool == 'no') ? 'selected' : '' }}>No</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 poolDiv {{ ($hotels->pool == 'no') ? 'hide' : '' }}">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Pool Type</label>
-                                        <select class="form-control" name="pool_type" id="pool_type">
-                                            <option value="Pool" {{ ($hotels->pool_type == 'Pool') ? 'selected' : '' }}>Pool</option>
-                                            <option value="Pools" {{ ($hotels->pool_type == 'Pools') ? 'selected' : '' }}>(number) Pools</option>
-                                            <option value="Pools with separate children’s pool" {{ ($hotels->pool_type == 'Pools with separate children’s pool') ? 'selected' : '' }}>(number) Pools with separate children’s pool</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 poolDiv {{ ($hotels->pool == 'no') ? 'hide' : '' }}">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Number of Pools</label>
-                                        <input type="text" id="no_of_pools" name="no_of_pools" class="form-control isNumber" value="{{ $hotels->no_of_pools }}">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -362,25 +425,26 @@ display: inline;
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Activities </label>
+                                        <label class="bmd-label-floating">Activities <em style="font-size: 12px;color: #3fa7f1;">List activities provided to guests (including children’s activity programs), separated by commas</em></label>
                                         <textarea class="form-control ckeditor" name="activities" id="activities">{{ $hotels->activities }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Tours & External Activities </label>
+                                        <label class="bmd-label-floating">Tours & External Activities <em style="font-size: 12px;color: #3fa7f1;">List tours and external activities arranged by your concierge for guests, separated by commas</em> </label>
                                         <textarea class="form-control ckeditor" name="tours" id="tours">{{ $hotels->tours }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Dining </label>
+                                        <label class="bmd-label-floating">Dining <em style="font-size: 12px;color: #3fa7f1;">(must be written in the Third Person – do not use
+                                        terms such as “we” “us” “our” etc. )</em></label>
                                         <textarea class="form-control ckeditor" name="dining" id="dining">{{ $hotels->dining }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Setting </label>
+                                        <label class="bmd-label-floating">Setting  <em style="font-size: 12px;color: #3fa7f1;">(must be written in the Third Person – do not use terms such as “we” “us” “our” etc. )</em></label>
                                         <textarea class="form-control ckeditor" name="highlights" id="highlights">{{ $hotels->highlights }}</textarea>
                                     </div>
                                 </div>
@@ -389,7 +453,7 @@ display: inline;
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <div class="form-group text-center">
-                                            <label class="bmd-label-floating">Nearby Attractions</label>
+                                            <label class="bmd-label-floating">Nearby Attractions <em style="font-size: 12px;color: #3fa7f1;">List nearby attractions with travel distances from your property to each attraction</em></label>
                                         </div>
                                     </div>
                                     <?php
@@ -436,13 +500,13 @@ display: inline;
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="form-group text-center">
-                                        <label class="bmd-label-floating">Fishing</label>
+                                    <div class="form-group text-left">
+                                        <h3>Fishing</h3>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Description</label>
+                                        <label class="bmd-label-floating">Description <em style="font-size: 12px;color: #3fa7f1;">(must be written in the Third Person – do not use terms such as “we” “us” “our” etc. )</em></label>
                                         <textarea class="form-control" name="hotelfishing" rows="10">{{ $hotels->hotelfishing }}</textarea>
                                     </div>
                                 </div>
@@ -487,13 +551,13 @@ display: inline;
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="form-group text-center">
-                                        <label class="bmd-label-floating">Important Information</label>
+                                    <div class="form-group text-left">
+                                        <h3>Important Information</h3>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Hotel Policy </label>
+                                        <label class="bmd-label-floating">Policy </label>
                                         <textarea class="form-control ckeditor" name="hotel_policy" id="hotel_policy">{{ $hotels->hotel_policy }}</textarea>
                                     </div>
                                 </div>
@@ -517,8 +581,8 @@ display: inline;
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <input type="submit" class="btn btn-primary" name="update" value="Update">
+                                <div class="col-sm-12 text-center">
+                                    <input type="submit" class="btn btn-success" name="update" value="Update">
                                 </div>
                             </div>
                         </form>
@@ -546,11 +610,12 @@ display: inline;
                                 <?php
                                 $image_gallery  = (!empty($hotels->image_gallery) || $hotels->image_gallery != NULL) ? json_decode($hotels->image_gallery, true) : array();
                                 $image_alt      = (!empty($hotels->image_alt) || $hotels->image_alt != NULL) ? json_decode($hotels->image_alt, true) : array();
+                                $image_seq      = (!empty($hotels->image_sequence) || $hotels->image_sequence != NULL) ? json_decode($hotels->image_sequence, true) : array();
                                 if(!empty($image_gallery)) :
                                     foreach($image_gallery as $rgKey => $rg):
                                         if(!empty($rg)):
                                 ?>
-                                <div class="col-sm-5 roomImg<?=$rgKey?>" style="height: 150px; max-height: 150px;">
+                                <div class="col-sm-3 roomImg<?=$rgKey?>" style="height: 150px; max-height: 150px;">
                                     <div class="form-group">
                                         <label>Hotel Gallery Image </label>
                                         <br />
@@ -559,9 +624,18 @@ display: inline;
                                         <input type="hidden" name="old_gallery_image[]" value="{{$rg}}">
                                     </div>
                                 </div>
-                                <div class="col-sm-5 roomImg<?=$rgKey?>" style="height: 150px; max-height: 150px;">
+                                <div class="col-sm-3 roomImg<?=$rgKey?>" style="height: 150px; max-height: 150px;">
                                     <div class="form-group">
-                                        <label>Image Alt Text</label>
+                                        <label>Image Location in Sequence <em style="font-size: 12px;color: #3fa7f1;">(Use numeral 1 for 
+                                            first, 2 for second etc)</em></label>
+                                        <input type="text" name="old_gallery_image_seq[]" class="form-control isNumber"
+                                        value="{{$image_seq[$rgKey] }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 roomImg<?=$rgKey?>" style="height: 150px; max-height: 150px;">
+                                    <div class="form-group">
+                                        <label>Image Alt Text <em style="font-size: 12px;color: #3fa7f1;">Property Name followed by brief 
+                                            text describing the image ” (max 50 characters )</em></label>
                                         <textarea name="old_gallery_image_alt[]" class="form-control imageAlt"
                                             rows="3">{{$image_alt[$rgKey] }}</textarea>
                                     </div>
@@ -588,8 +662,8 @@ display: inline;
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <input type="submit" class="btn btn-primary" name="update" value="Update">
+                                <div class="col-sm-12 text-center">
+                                    <input type="submit" class="btn btn-success" name="update" value="Update">
                                 </div>
                             </div>
                         </form>
@@ -615,19 +689,28 @@ $(document).on('click', '.addMrImgBtn', function() {
     let key = parseInt($('#imgCnt').val()) + parseInt(1);
     $('#imgCnt').val(key);
     $('.hotelImageDiv').append('\
-                                <div class="col-sm-5 roomImg'+key+'">\
+                                <div class="col-sm-3 roomImg'+key+'" style="height: 150px; max-height: 150px;">\
                                     <div class="form-group">\
-                                        <label>Hotel Gallery Image </label>\
+                                        <label>Hotel Gallery Image <em style="font-size: 12px;color: #3fa7f1;">Your images should all \
+                                        be high quality (from min"150px to max:150px)</em></label>\
                                         <input type="file" name="gallery_image[]" class="form-control">\
                                     </div>\
                                 </div>\
-                                <div class="col-sm-5 roomImg'+key+'">\
+                                <div class="col-sm-3 roomImg'+key+'" style="height: 150px; max-height: 150px;">\
                                     <div class="form-group">\
-                                        <label>Image Alt Text</label>\
+                                        <label>Image Location in Sequence <em style="font-size: 12px;color: #3fa7f1;">(Use numeral 1 for \
+                                            first, 2 for second etc)</em></label>\
+                                        <input type="text" name="gallery_image_seq[]" class="form-control isNumber">\
+                                    </div>\
+                                </div>\
+                                <div class="col-sm-4 roomImg'+key+'" style="height: 150px; max-height: 150px;">\
+                                    <div class="form-group">\
+                                        <label>Image Alt Text <em style="font-size: 12px;color: #3fa7f1;">Property Name followed by brief \
+                                        text describing the image ” (max 50 characters )</em>\
                                         <textarea name="gallery_image_alt[]" class="form-control imageAlt" rows="3"></textarea>\
                                     </div>\
                                 </div>\
-                                <div class="col-md-2 roomImg'+key+'">\
+                                <div class="col-md-2 roomImg'+key+'" style="height: 150px; max-height: 150px;">\
                                     <div class="form-group">\
                                         <label class="bmd-label-floating">Action</label><br/>\
                                         <input type="button" class="btn btn-danger deleteMrImgBtn" data-key="'+key+'" value="Remove">\
@@ -670,7 +753,8 @@ $(document).on('click', '.deleteMrImgBtn', function() {
 });
 $(document).on('submit', '#tabThreeEditHotel', function(e) {
     e.preventDefault();
-    let flag            = commonFormChecking(true);
+    //let flag            = commonFormChecking(true);
+    let flag            = true;
     if (flag) {
         if($(".imageAlt").length){
             $('.imageAlt').each(function () {
@@ -700,6 +784,30 @@ $(document).on('submit', '#tabThreeEditHotel', function(e) {
                 },
             });
         }
+    }
+});
+$(document).on('submit', '#tabTwoEditHotel', function(e) {
+    e.preventDefault();
+    let flag            = commonFormChecking(true, 'requiredCheckTwo');
+    if (flag) {
+        let formData    = new FormData(this);
+        let redirect    = "{{ route('user.hotels.edit', ['id' => $hotels->id]) }}";
+        $.ajax({
+            type        : "POST",
+            url         : "{{ route('user.hotels.update.new', ['id' => $hotels->id]) }}",
+            data        : formData,
+            cache       : false,
+            contentType : false,
+            processData : false,
+            beforeSend  : function () {
+                $("#tabTwoEditHotel").loading();
+            },
+            success     : function (res) {
+                $("#tabTwoEditHotel").loading("stop");
+                swalAlert('Hotel Details Updated Successfully !!!', 'success', 5000);
+                //swalAlertThenRedirect('Hotel Details Updated Successfully !!!', 'success', redirect);
+            },
+        });
     }
 });
 $(document).on('submit', '#tabOneEditHotel', function(e) {
@@ -803,37 +911,6 @@ $(function () {
         format: 'LT'
     });
 });
-$(document).on('ready', function() {
-    $('#add_award_btn').on('click', function(){
-        $('#add_award_field').append('<div class="form-group"><div class="row"><div class="col-sm-9"><input type="text" name="awards[]" class="form-control" placeholder="Award Title"></div><div class="col-sm-3"><a href="javascript:void(0);" class="btn btn-danger remove_award_field"><i class="fa fa-trash"> Remove</a></div></div></div>');
-});
-$('#add_award_field').on('click', ".remove_award_field", function(e){
-if(confirm('Are you sure, You want to delete this?')){
-e.preventDefault();
-$(this).parent('div').parent('div').parent('div').remove();
-}else{
-e.preventDefault();
-}
-});
-@if(isset($key))
-var i = {{ $key }};
-@else
-var i = 0;
-@endif
-$('#add_food_btn').on('click', function(){
-i++;
-$('.food_drink_bdy').append('<tr><td><input type="text" name="food_title_'+i+'" class="form-control" placeholder="Title"></td><td><input type="text" name="cusine_type_'+i+'" class="form-control" placeholder="Cuisine Type"></td><td><div class="checkbox"><label><input type="checkbox" name="meal_served_'+i+'[]" value="Breakfast">Breakfast</label></div><div class="checkbox"><label><input type="checkbox" name="meal_served_'+i+'[]" value="Lunch">Lunch</label></div><div class="checkbox"><label><input type="checkbox" name="meal_served_'+i+'[]" value="Dinner">Dinner</label></div></td><td><textarea class="form-control" name="food_drink_descp_'+i+'" placeholder="Description"></textarea></td><td><a href="javascript:void(0);" class="remove_food_btn btn btn-danger"><i class="fa fa-trash"> Remove</i></a></td></tr>');
-$('#tot_food').val(i+1);
-});
-$('.food_drink_bdy').on('click', ".remove_food_btn", function(e){
-if(confirm('Are you sure, You want to delete this?')){
-e.preventDefault();
-$(this).parent('td').parent('tr').remove();
-}else{
-e.preventDefault();
-}
-});
-});
 var componentForm = {
     street_number: 'long_name',
     route: 'long_name',
@@ -934,4 +1011,9 @@ function initMap() {
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK4rMTf9bUlqpg1g8SF2zUnV4HQmatsVo&libraries=places&callback=initMap"
 async defer></script>
+<script>
+    $(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
 @endsection
