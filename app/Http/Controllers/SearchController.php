@@ -30,116 +30,93 @@ use App\Rooms;
 use App\FoodDrink;
 use App\Review;
 use App\Fisherman;
+use App\HotelNewEntry;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Session;
-
-class SearchController extends Controller
-{
-  /**
-   * Create a new controller instance.
-   *
-   * @return void
-   */
-  public function __construct()
-  {
+class SearchController extends Controller{
+  public function __construct(){
       //$this->middleware('auth');
   }
-  /**
-   * Show the application dashboard.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index(Request $request)
-  {   
-      $filter = new Filter;
-      if($request->keywords)
-      {
-        $hotels=$filter->parce_kayword($request->keywords);
-
-        if(!empty($hotels)){
-        //var_dump($hotels);
-            foreach ($hotels as $key => $hotel) {
-                  $hotel->address = HotelAddress::where('hotel_id', '=' , $hotel->id)->get()->first();
-                  if($hotel->address==""){
-                    $hotel->address = HotelAddress::where('hotel_id', '=' , $hotel->hotel_id)->get()->first();
-                  } 
-                  $hotel->galleries= HotelGallery::where('hotel_id', '=' , $hotel->id)->get()->all();
-                  $hotel->price = Rooms::where('hotel_id', '=' , $hotel->id)->min('base_price');
-                  $hotel->review = Review::where('hotel_id', '=' , $hotel->id)->where('status', '=' , 1)->get()->all();
-                  $hotel->features = KeyFeature::join('hotel_features_relations', 'key_features.id', '=', 'hotel_features_relations.features_id')
-            ->where('hotel_features_relations.hotel_id', '=', $hotel->id)
-            ->get()->all();
-
-                  $hotel->fishing_data = Fisherman::where('hotel_id', '=' , $hotel->id)->get()->first();
-                  if(empty($hotel->fishing_data)){
-                      $hotel->fishing_data = Fisherman::where('hotel_id', '=' , $hotel->hotel_id)->get()->first();
-                  }
-                
-            }
-          return view('frontend.hotels.search', compact('hotels', 'hotels'));
-        }else{
-              return view('frontend.hotels.empty');
-        }
-      }
-    }
-
-  public function hotelDetails($slug){
-    $hotel = Hotels::whereTranslation('hotels_slug', $slug)->first();
-    // echo "<pre>";
-    // print_r($hotel);
-    // die;
-    if($hotel){
-      $hotel->features = KeyFeature::join('hotel_features_relations', 'key_features.id', '=', 'hotel_features_relations.features_id')
+  public function index(Request $request){   
+    $filter = new Filter;
+    if($request->keywords):
+      $hotels=$filter->parce_kayword($request->keywords);
+      if(!empty($hotels)):
+        foreach ($hotels as $key => $hotel) {
+              $hotel->address = HotelAddress::where('hotel_id', '=' , $hotel->id)->first();
+              if($hotel->address==""){
+                $hotel->address = HotelAddress::where('hotel_id', '=' , $hotel->hotel_id)->first();
+              } 
+              $hotel->galleries= HotelGallery::where('hotel_id', '=' , $hotel->id)->get();
+              $hotel->price = Rooms::where('hotel_id', '=' , $hotel->id)->min('base_price');
+              $hotel->review = Review::where('hotel_id', '=' , $hotel->id)->where('status', '=' , 1)->get();
+              $hotel->features = KeyFeature::join('hotel_features_relations', 'key_features.id', '=', 'hotel_features_relations.features_id')
         ->where('hotel_features_relations.hotel_id', '=', $hotel->id)
-        ->get()->all();
-      $hotel->servicefacilities = ServiceFacility::join('service_facilities_translations', 'service_facilities.id', '=', 'service_facilities_translations.service_facilities_id')
-        ->where('service_facilities_translations.hotel_id', '=', $hotel->id)
-        ->get()->all();
-      $hotel->roomfacilities = RoomFacility::join('room_facilities_translations', 'room_facilities.id', '=', 'room_facilities_translations.room_facilities_id')
-        ->where('room_facilities_translations.hotel_id', '=', $hotel->id)
-        ->get()->all();
-      $hotel->recreations = Recreation::join('recreation_translations', 'recreations.id', '=', 'recreation_translations.recreation_id')
-        ->where('recreation_translations.hotel_id', '=', $hotel->id)
-        ->get()->all();
-      $hotel->rooms = Rooms::where('hotel_id', '=', $hotel->id)
-        ->get()->all();
-      $hotel->food_drinks = FoodDrink::where('hotel_id', '=', $hotel->id)
-        ->get()->all();
-      $hotel->galleries = HotelGallery::where('hotel_id', '=' , $hotel->id)->get();
-      $hotel->hotelcontact = HotelContact::where('hotel_id', '=' , $hotel->id)->get()->first();
-      $hotel->hoteladdress = HotelAddress::where('hotel_id', '=' , $hotel->id)->get()->first();
-      $hotel->hotelawards = HotelAward::where('hotel_id', '=' , $hotel->id)->get();
-      $hotel->hotelreview = Review::where('hotel_id', '=' , $hotel->id)->where('status', '=' , 1)->get();
-      $hotel->inspiration = DB::table('inspirations_translations')
-                              ->select('inspirations_translations.inspirations_id','inspirations_translations.inspirations_name')
-                              ->join('hotel_inspirations_relations', 'hotel_inspirations_relations.inspirations_id', '=', 'inspirations_translations.inspirations_id')
-                              ->where('hotel_inspirations_relations.hotel_id', '=', $hotel->id)->get();
-                              
-      $hotel->experience = DB::table('experiences_translations')
-                              ->select('experiences_translations.experiences_id','experiences_translations.experiences_name')
-                              ->join('hotel_experiences_relations', 'hotel_experiences_relations.experiences_id', '=', 'experiences_translations.experiences_id')
-                              ->where('hotel_experiences_relations.hotel_id', '=', $hotel->id)->get();                       
-                              
-                              
-      $hotel->accomodation = DB::table('accommodations_translations')
-                              ->select('accommodations_translations.accommodations_name')
-                              ->join('hotel_accommodation_relations', 'hotel_accommodation_relations.accommodation_id', '=', 'accommodations_translations.accommodations_id')
-                              ->where('hotel_accommodation_relations.hotel_id', '=', $hotel->id)->get();
-      if(!empty($hotel->stuba_id)):
-        $hotel->images    = DB::table('hotel_images_xml')->select('*')->where('hotel_images_xml.hotel_id', $hotel->stuba_id)->get();
-        $hotel->hotelDesc = DB::table('hotel_description_xml')->where('hotel_id', $hotel->stuba_id)->get();
-        $hotel->stubaDet  = DB::table('hotel_master_xml')->select('stars')->where('hotel_master_xml.id', $hotel->stuba_id)->get()->first();
-        $stuba            = TRUE;
+        ->get();
+
+          $hotel->fishing_data = Fisherman::where('hotel_id', '=' , $hotel->id)->first();
+          if(empty($hotel->fishing_data)){
+              $hotel->fishing_data = Fisherman::where('hotel_id', '=' , $hotel->hotel_id)->first();
+          }
+        }
+        return view('frontend.hotels.search', compact('hotels', 'hotels'));
       else:
-        $hotel->images    = DB::table('hotel_galleries')->select('image')->where('hotel_galleries.hotel_id', $hotel->id)->orderBy('id','ASC')->get();
-        $hotel->hotelDesc = array();
-        $hotel->stubaDet  = array();
-        $stuba            = FALSE;
+        return view('frontend.hotels.empty');
       endif;
-    }    
-    return view('frontend.hotels.details', compact('hotel', 'stuba'));
+    endif;
+  }
+  public function hotelDetails($slug){
+    $hotel                      = Hotels::whereTranslation('hotels_slug', $slug)->first();
+    $hotelNewEntry              = array();
+    if($hotel):
+      $hotelNewEntry            = HotelNewEntry::where('hotel_token',  $hotel->hotel_token)->first();
+      $hotel->features          = KeyFeature::join('hotel_features_relations', 'key_features.id', '=', 'hotel_features_relations.features_id')
+        ->where('hotel_features_relations.hotel_id', $hotel->id)
+        ->get();
+      $hotel->servicefacilities = ServiceFacility::join('service_facilities_translations', 'service_facilities.id', '=', 'service_facilities_translations.service_facilities_id')
+        ->where('service_facilities_translations.hotel_id', $hotel->id)
+        ->get();
+      $hotel->roomfacilities    = RoomFacility::join('room_facilities_translations', 'room_facilities.id', '=', 'room_facilities_translations.room_facilities_id')
+        ->where('room_facilities_translations.hotel_id', $hotel->id)
+        ->get();
+      $hotel->recreations       = Recreation::join('recreation_translations', 'recreations.id', '=', 'recreation_translations.recreation_id')
+        ->where('recreation_translations.hotel_id', $hotel->id)
+        ->get();
+      $hotel->rooms             = Rooms::where('hotel_token',  $hotel->hotel_token)
+        ->get();
+      $hotel->food_drinks       = FoodDrink::where('hotel_id', $hotel->id)
+        ->get();
+      $hotel->galleries         = HotelGallery::where('hotel_id', $hotel->id)->get();
+      $hotel->hotelcontact      = HotelContact::where('hotel_id', $hotel->id)->first();
+      $hotel->hoteladdress      = HotelAddress::where('hotel_id', $hotel->id)->first();
+      $hotel->hotelawards       = HotelAward::where('hotel_id', $hotel->id)->get();
+      $hotel->hotelreview       = Review::where('hotel_id', $hotel->id)->where('status', 1)->orderBy('id', 'DESC')->get();
+      $hotel->inspiration       = DB::table('inspirations_translations')
+                                  ->select('inspirations_translations.inspirations_id','inspirations_translations.inspirations_name')
+                                  ->join('hotel_inspirations_relations', 'hotel_inspirations_relations.inspirations_id', '=', 'inspirations_translations.inspirations_id')
+                                  ->where('hotel_inspirations_relations.hotel_id', $hotel->id)->get();
+      $hotel->experience        = DB::table('experiences_translations')
+                                  ->select('experiences_translations.experiences_id','experiences_translations.experiences_name')
+                                  ->join('hotel_experiences_relations', 'hotel_experiences_relations.experiences_id', '=', 'experiences_translations.experiences_id')
+                                  ->where('hotel_experiences_relations.hotel_id', $hotel->id)->get();                       
+      $hotel->accomodation      = DB::table('accommodations_translations')
+                                  ->select('accommodations_translations.accommodations_name')
+                                  ->join('hotel_accommodation_relations', 'hotel_accommodation_relations.accommodation_id', '=', 'accommodations_translations.accommodations_id')
+                                  ->where('hotel_accommodation_relations.hotel_id', $hotel->id)->get();
+      $hotel->images            = array();
+      $hotel->hotelDesc         = array();
+      $hotel->stubaDet          = array();
+      $stuba                    = FALSE;
+      if(!empty($hotel->stuba_id)):
+        $hotel->images          = DB::table('hotel_images_xml')->select('*')->where('hotel_images_xml.hotel_id', $hotel->stuba_id)->get();
+        $hotel->hotelDesc       = DB::table('hotel_description_xml')->where('hotel_id', $hotel->stuba_id)->get();
+        $hotel->stubaDet        = DB::table('hotel_master_xml')->select('stars')->where('hotel_master_xml.id', $hotel->stuba_id)->first();
+        $stuba                  = TRUE;
+      endif;
+    endif;
+    return view('frontend.hotels.details', compact('hotel', 'stuba', 'hotelNewEntry'));
   }
   public function xmlhotelDetails(Request $request, $id){
     ini_set('memory_limit', '-1');
@@ -154,21 +131,21 @@ class SearchController extends Controller
     $t_start            = $request->t_start;
     $pageNo             = $request->pageNo;
     $hotelid            = $id;
-    $hotel              = DB::table('hotel_master_xml')->where('hotel_master_xml.id', $hotelid)->get()->first();
+    $hotel              = DB::table('hotel_master_xml')->where('hotel_master_xml.id', $hotelid)->first();
     $hotelDesc          = DB::table('hotel_description_xml')->where('hotel_id', $hotelid)->get();
     $images             = DB::table('hotel_images_xml')->select('*')->where('hotel_images_xml.hotel_id', $hotelid)->get();
     $amenity            = DB::table('hotel_amenity_xml')->select('Text')->where('hotel_amenity_xml.hotel_id', $hotelid)->get();
-    $address            = DB::table('hotel_address_xml')->select('*')->where('hotel_address_xml.hotel_id', $hotelid)->get()->first();
+    $address            = DB::table('hotel_address_xml')->select('*')->where('hotel_address_xml.hotel_id', $hotelid)->first();
     $hotelreview        = DB::table('hotel_reviews')->select('*')->where('hotel_id', $hotelid)->where('status', 1)->orderBy('id', 'DESC')->get();
     $dataArray          = array('hotels' => $hotel, 'images' => $images, 'amenity' => $amenity, 'hotelDesc' => $hotelDesc, 'address' => $address);
     return view('frontend.hotels.xmldetails', compact('dataArray', 'quantity_adults', 'quantity_childs', 'quantity_rooms', 'hotelId', 'regionId', 'keyword', 'totalNight', 't_end', 't_start', 'pageNo', 'hotelreview'));
   }
   public function byDestination()
   {
-      $accommodation_search = DB::table('regions_translations')->select('*', 'hotels.id as hotel_id')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_accommodation_relations', 'hotels.id', '=', 'hotel_accommodation_relations.hotel_id')->groupBy('hotels.region_id')->get()->all();
-      $experience_search = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_experiences_relations', 'hotels.id', '=', 'hotel_experiences_relations.hotel_id')->groupBy('hotels.region_id')->get()->all();
-      $inspiration_search = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_inspirations_relations', 'hotels.id', '=', 'hotel_inspirations_relations.hotel_id')->groupBy('hotels.region_id')->get()->all();
-      $species_search = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_species_relations', 'hotels.id', '=', 'hotel_species_relations.hotel_id')->groupBy('hotels.region_id')->get()->all();
+      $accommodation_search = DB::table('regions_translations')->select('*', 'hotels.id as hotel_id')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_accommodation_relations', 'hotels.id', '=', 'hotel_accommodation_relations.hotel_id')->groupBy('hotels.region_id')->get();
+      $experience_search = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_experiences_relations', 'hotels.id', '=', 'hotel_experiences_relations.hotel_id')->groupBy('hotels.region_id')->get();
+      $inspiration_search = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_inspirations_relations', 'hotels.id', '=', 'hotel_inspirations_relations.hotel_id')->groupBy('hotels.region_id')->get();
+      $species_search = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_species_relations', 'hotels.id', '=', 'hotel_species_relations.hotel_id')->groupBy('hotels.region_id')->get();
       return view('frontend.hotels.destinations', compact('accommodation_search', 'experience_search', 'inspiration_search', 'species_search'));
   }
   public function get_rg_type_data(Request $request){
@@ -179,16 +156,16 @@ class SearchController extends Controller
     session(['SubReferenceId'   => $data_id]);
     switch ($type) {
         case 'accommodation':
-          $search_data = DB::table('regions_translations')->select('*', 'hotels.id as hotel_id')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_accommodation_relations', 'hotels.id', '=', 'hotel_accommodation_relations.hotel_id')->where('hotel_accommodation_relations.accommodation_id', '=', $data_id)->groupBy('hotels.region_id')->get()->all();
+          $search_data = DB::table('regions_translations')->select('*', 'hotels.id as hotel_id')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_accommodation_relations', 'hotels.id', '=', 'hotel_accommodation_relations.hotel_id')->where('hotel_accommodation_relations.accommodation_id', '=', $data_id)->groupBy('hotels.region_id')->get();
         break;
       case 'experience':
-          $search_data = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_experiences_relations', 'hotels.id', '=', 'hotel_experiences_relations.hotel_id')->where('hotel_experiences_relations.experiences_id', '=', $data_id)->groupBy('hotels.region_id')->get()->all();
+          $search_data = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_experiences_relations', 'hotels.id', '=', 'hotel_experiences_relations.hotel_id')->where('hotel_experiences_relations.experiences_id', '=', $data_id)->groupBy('hotels.region_id')->get();
         break;
       case 'inspiration':
-          $search_data = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_inspirations_relations', 'hotels.id', '=', 'hotel_inspirations_relations.hotel_id')->where('hotel_inspirations_relations.inspirations_id', '=', $data_id)->groupBy('hotels.region_id')->get()->all();
+          $search_data = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_inspirations_relations', 'hotels.id', '=', 'hotel_inspirations_relations.hotel_id')->where('hotel_inspirations_relations.inspirations_id', '=', $data_id)->groupBy('hotels.region_id')->get();
         break;
       case 'species':
-          $search_data = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_species_relations', 'hotels.id', '=', 'hotel_species_relations.hotel_id')->where('hotel_species_relations.species_id', '=', $data_id)->groupBy('hotels.region_id')->get()->all();
+          $search_data = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_species_relations', 'hotels.id', '=', 'hotel_species_relations.hotel_id')->where('hotel_species_relations.species_id', '=', $data_id)->groupBy('hotels.region_id')->get();
         break;
     }
     if(!empty($search_data)){
@@ -276,32 +253,32 @@ class SearchController extends Controller
     $star     = array();
     $directHotels = array();
     if($fromFishing == 'yes'):
-      $dirHotels = Hotels::where('town', '=', $request->keywords)->orderBy('curator_rating', 'DESC')->get()->all();
+      $dirHotels = Hotels::where('town', '=', $request->keywords)->orderBy('curator_rating', 'DESC')->get();
       if($dirHotels):
         foreach($dirHotels as $keyy => $directHotel):
           $directHotels[$keyy]['hotelImagesId']     = (!empty($directHotel->stuba_id)) ? $directHotel->stuba_id : $directHotel->hotel_token;
           $hotelImagesId[]                          = (!empty($directHotel->stuba_id)) ? $directHotel->stuba_id : $directHotel->hotel_token;
           $directHotels[$keyy]['details']           = $directHotel;
-          $directHotels[$keyy]['translation']       = DB::table('hotels_translations')->select('hotels_name', 'hotels_slug', 'hotels_desc')->where('hotels_id', $directHotel->id)->get()->first();
+          $directHotels[$keyy]['translation']       = DB::table('hotels_translations')->select('hotels_name', 'hotels_slug', 'hotels_desc')->where('hotels_id', $directHotel->id)->first();
           $directHotels[$keyy]['features']          = KeyFeature::join('hotel_features_relations', 'key_features.id', '=', 'hotel_features_relations.features_id')
                                                           ->where('hotel_features_relations.hotel_id', '=', $directHotel->id)
-                                                          ->get()->all();
+                                                          ->get();
           $directHotels[$keyy]['servicefacilities'] = ServiceFacility::join('service_facilities_translations', 'service_facilities.id', '=', 'service_facilities_translations.service_facilities_id')
                                                             ->where('service_facilities_translations.hotel_id', '=', $directHotel->id)
-                                                            ->get()->all();
+                                                            ->get();
           $directHotels[$keyy]['roomfacilities']    = RoomFacility::join('room_facilities_translations', 'room_facilities.id', '=', 'room_facilities_translations.room_facilities_id')
                                                           ->where('room_facilities_translations.hotel_id', '=', $directHotel->id)
-                                                          ->get()->all();
+                                                          ->get();
           $directHotels[$keyy]['recreations']       = Recreation::join('recreation_translations', 'recreations.id', '=', 'recreation_translations.recreation_id')
                                                           ->where('recreation_translations.hotel_id', '=', $directHotel->id)
-                                                          ->get()->all();
+                                                          ->get();
           $directHotels[$keyy]['rooms']             = Rooms::where('hotel_id', '=', $directHotel->id)
-                                                          ->get()->all();
+                                                          ->get();
           $directHotels[$keyy]['food_drinks']       = FoodDrink::where('hotel_id', '=', $directHotel->id)
-                                                          ->get()->all();
+                                                          ->get();
           $directHotels[$keyy]['galleries']         = HotelGallery::where('hotel_id', '=' , $directHotel->id)->get();
-          $directHotels[$keyy]['hotelcontact']      = HotelContact::where('hotel_id', '=' , $directHotel->id)->get()->first();
-          $directHotels[$keyy]['hoteladdress']      = HotelAddress::where('hotel_id', '=' , $directHotel->id)->get()->first();
+          $directHotels[$keyy]['hotelcontact']      = HotelContact::where('hotel_id', '=' , $directHotel->id)->first();
+          $directHotels[$keyy]['hoteladdress']      = HotelAddress::where('hotel_id', '=' , $directHotel->id)->first();
           $directHotels[$keyy]['hotelawards']       = HotelAward::where('hotel_id', '=' , $directHotel->id)->get();
           $directHotels[$keyy]['hotelreview']       = Review::where('hotel_id', '=' , $directHotel->id)->where('status', '=' , 1)->get();
           if(!empty($directHotels[$keyy]['rooms'])) :

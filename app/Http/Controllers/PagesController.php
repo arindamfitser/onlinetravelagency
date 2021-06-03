@@ -52,19 +52,19 @@ class PagesController extends Controller
     public function pageData($slug){
         switch ($slug) {
             case 'accommodation-types':
-                $accommodation_types = Accommodations::where('status', '=', 1)->get()->all();
+                $accommodation_types = Accommodations::where('status', '=', 1)->get();
                 return view('frontend.pages.'.$slug, compact('accommodation_types'));
                 break;
              case 'experiences':
-                $experiences = Experiences::where('status', '=', 1)->get()->all();
+                $experiences = Experiences::where('status', '=', 1)->get();
                 return view('frontend.pages.'.$slug, compact('experiences'));
                 break;
              case 'inspirations':
-                $inspirations = Inspirations::where('status', '=', 1)->get()->all();
+                $inspirations = Inspirations::where('status', '=', 1)->get();
                 return view('frontend.pages.'.$slug, compact('inspirations'));
                 break;
              case 'target-species':
-                $species = Species::where('status', '=', 1)->get()->all();
+                $species = Species::where('status', '=', 1)->get();
                 return view('frontend.pages.'.$slug, compact('species'));
                 break;
             case 'hotels':
@@ -79,11 +79,11 @@ class PagesController extends Controller
                 return view('frontend.pages.'.$slug, compact('image'));
                 break; 
             case 'partners':
-                $partners = Partner::where('status', '=', 1)->get()->all();
+                $partners = Partner::where('status', '=', 1)->get();
                   return view('frontend.pages.'.$slug, compact('partners'));
                 break;  
             case 'testimonial':
-                $testimonials = DB::table('testimonials')->select('*')->join('testimonials_translations', 'testimonials.id', '=', 'testimonials_translations.testimonials_id')->where('status', '=', 1)->orderBy('c_order', 'ASC')->get()->all();
+                $testimonials = DB::table('testimonials')->select('*')->join('testimonials_translations', 'testimonials.id', '=', 'testimonials_translations.testimonials_id')->where('status', '=', 1)->orderBy('c_order', 'ASC')->get();
                   return view('frontend.pages.'.$slug, compact('testimonials'));
                 break; 
             case 'my_bookings':

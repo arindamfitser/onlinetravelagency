@@ -31,10 +31,10 @@ class CalenderController extends Controller
     {
         $user = auth('web')->user();
         if($user->role=='1'){
-            $hotels = Hotels::where('user_id', '=', $user->id)->get()->All();
+            $hotels = Hotels::where('user_id', '=', $user->id)->get();
             $room = new \StdClass();
             $room->hotel_id = Hotels::where('user_id', '=', $user->id)->get()->first()->id;
-            $room->rooms = Rooms::where('hotel_id', '=',Hotels::where('user_id', '=', $user->id)->get()->first()->id)->get()->all();
+            $room->rooms = Rooms::where('hotel_id', '=',Hotels::where('user_id', '=', $user->id)->get()->first()->id)->get();
             return view('frontend.hotelier.calender', compact('room', 'hotels'));
         }else{
             return view('frontend.customer.calender');

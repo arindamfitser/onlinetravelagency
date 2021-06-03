@@ -118,7 +118,7 @@
                                         placeholder="Exclusions Description of Exclusions"></textarea>
                                 </div>
                             </div>
-                            <div class="row moreCancPolDiv"></div>
+                            <div class="row moreCancPolDiv"><h1 class="text-center">Cancellation Policy</h1></div>
                             <div class="row">
                                 <input type="hidden" id="cancCnt" value="0">
                                 <div class="col-sm-12 text-center">

@@ -24,9 +24,9 @@
         </center>
         <li class="{{ Request::is('users/dashboard*') ? 'active' : '' }}" ><a href="{{route('user.dashboard')}}"><i class="fa fa-th-large" aria-hidden="true"></i>My Dashboard</a></li>
         <li class="{{ Request::is('users/profile*') ? 'active' : '' }}"><a href="{{route('user.profile')}}"><i class="fa fa-user" aria-hidden="true"></i> My Profile</a></li>
-        <li class="{{ Request::is('customer/booking*') ? 'active' : '' }}"><a href="{{ route('customer.booking') }}"><i class="fa fa-hotel" aria-hidden="true"></i>My Booking</a></li>                 
-        <li class="{{ Request::is('customer/testimonial*') ? 'active' : '' }}"><a href="{{ route('customer.testimonial') }}"><i class="fa fa-newspaper-o" aria-hidden="true"></i>My Testimonials</a></li>
-        <li class="{{ Request::is('customer/dashboard*') ? 'active' : '' }}"><a href="javascript:void(0);"><i class="fa fa-newspaper-o" aria-hidden="true"></i>My Journal</a></li>
+        <li class="{{ Request::is('customer/booking*') ? 'active' : '' }}"><a href="{{ route('customer.booking') }}"><i class="fa fa-list" aria-hidden="true"></i>My Booking</a></li>                 
+        <li class="{{ Request::is('customer/testimonial*') ? 'active' : '' }}"><a href="{{ route('customer.testimonial') }}"><i class="fa fa-comments" aria-hidden="true"></i>My Testimonials</a></li>
+        <li class="{{ Request::is('customer/journal*') ? 'active' : '' }}"><a href="javascript:void(0);"><i class="fa fa-newspaper-o" aria-hidden="true"></i>My Journal</a></li>
           {{-- <li class="{{ Request::is('customer/wishlist*') ? 'active' : '' }}"><a href="{{ route('customer.wishlist') }}"><i
               class="fa fa-heart" aria-hidden="true"></i>My Wishlist</a></li> --}}
           {{-- <li><a href="{{ route('customer.membership') }}"><i class="fa fa-address-card-o" aria-hidden="true"></i>My

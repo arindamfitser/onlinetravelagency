@@ -245,8 +245,9 @@ class XmlController extends Controller{
   }
 
   public function getBookingReqNew(Request $request){
-    $bookingArray           = json_decode($request->bookingArray, true);
-    $bookingArray['roomId'] = $request->roomId;
+    $bookingArray                     = json_decode($request->bookingArray, true);
+    $bookingArray['roomId']           = $request->roomId;
+    $bookingArray['selectedRoomType'] = $request->selectedRoomType;
     return view('frontend.hotels.hotel-booking', compact('bookingArray'));
   }
   public function getBookingSummeryNew(Request $request){
@@ -323,10 +324,11 @@ class XmlController extends Controller{
       'hotel_id	'       => $bookingArray['hotelDetails']['id'],
       'hotel_token'     => $bookingArray['hotelToken'],
       'room_id'         => $bookingArray['roomId'],
+      'room_type'       => $bookingArray['selectedRoomType'],
       'start_date'      => $bookingArray['startDate'],
       'end_date'        => $bookingArray['endDate'],
       'nights'          => $bookingArray['totalNight'],
-      'carttotal'       => $bookingArray['roomDetails']['base_price'] * $bookingArray['totalNight'] * $bookingArray['quantityRooms'],
+      'carttotal'       => $request->totalSellingPrice,
       'currency'        => getCurrency(),
       'booking_comment' => $request->booking_comment,
       'status'          => 1,
@@ -343,11 +345,12 @@ class XmlController extends Controller{
         'hotel_id	'       => $bookingArray['hotelDetails']['id'],
         'hotel_token'     => $bookingArray['hotelToken'],
         'room_id'         => $bookingArray['roomId'],
+        'room_type'       => $bookingArray['selectedRoomType'],
         'user_id'         => $userId,
-        'base_price'      => $bookingArray['roomDetails']['base_price'],
-        'price'           => $bookingArray['roomDetails']['base_price'],
+        'base_price'      => $request->nightCost,
+        'price'           => $request->nightCost,
         'discount'        => '0',
-        'total_price'     => ($bookingArray['quantityRooms'] * $bookingArray['roomDetails']['base_price']),
+        'total_price'     => ($bookingArray['quantityRooms'] * $request->nightCost),
         'nights'          => 1,
         'room_details_id' => $bookingArray['roomId'],
         'check_in'        => $strt,

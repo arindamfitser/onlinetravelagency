@@ -33,8 +33,19 @@
 	$HotelName 			= $bookingArray['hotelDetails']->hotels_name;
 	$ArrivalDate 		= $bookingArray['startDate'];
 	$Nights 			= $bookingArray['totalNight'];
-	$nightcost 			= $bookingArray['roomDetails']->base_price;
-	$totalprice 		= $bookingArray['roomDetails']->base_price * $bookingArray['totalNight'] * $bookingArray['quantityRooms'];
+	$showRTyp			= ($bookingArray['selectedRoomType'] != 'Room Only') ? ' - ' . $bookingArray['selectedRoomType'] : '';;
+  	if($bookingArray['selectedRoomType'] == 'Room Only'):
+  		$nightcost 		= $bookingArray['roomDetails']->base_price;
+	else:
+  		$morePrice 		= json_decode($bookingArray['roomDetails']->more_price, true);
+  		foreach($morePrice as $mrp => $mrpText):
+			if($mrpText == $bookingArray['selectedRoomType']):
+				$nightcost = $mrp;
+				break;
+			endif;
+		endforeach;
+	endif;
+	$totalprice 		= $nightcost * $bookingArray['totalNight'] * $bookingArray['quantityRooms'];
 	$totalsellingprice 	= number_format((float) $totalprice, 2);
 	$Cancelpolicy 		= array();
 ?>
@@ -46,6 +57,8 @@
 					<form id="cartform">
 						{{ csrf_field() }}
 						<input type="hidden" name="bookingArray" value="{{ json_encode($bookingArray) }}">
+						<input type="hidden" name="totalSellingPrice" value="{{ $totalsellingprice }}">
+						<input type="hidden" name="nightCost" value="{{ $nightcost }}">
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 								<div class="row">
@@ -182,7 +195,7 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td>{{ $bookingArray['roomDetails']->name }} - {{$bookingArray['totalNight']}} Night(s) X {{ $bookingArray['quantityRooms'] }} Room(s)</td>
+											<td>{{ $bookingArray['roomDetails']->name . $showRTyp }} - {{$bookingArray['totalNight']}} Night(s) X {{ $bookingArray['quantityRooms'] }} Room(s)</td>
 											<td style="text-align: right;">{{ getCurrency() }} {{ number_format(((float)$bookingArray['roomDetails']->base_price), 2) }}</td>
 										</tr>
 										<tr>

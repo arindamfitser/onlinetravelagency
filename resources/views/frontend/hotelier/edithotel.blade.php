@@ -426,13 +426,13 @@ display: inline;
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Activities <em style="font-size: 12px;color: #3fa7f1;">List activities provided to guests (including children’s activity programs), separated by commas</em></label>
-                                        <textarea class="form-control ckeditor" name="activities" id="activities">{{ $hotels->activities }}</textarea>
+                                        <textarea class="form-control" name="activities" id="activities">{{ $hotels->activities }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Tours & External Activities <em style="font-size: 12px;color: #3fa7f1;">List tours and external activities arranged by your concierge for guests, separated by commas</em> </label>
-                                        <textarea class="form-control ckeditor" name="tours" id="tours">{{ $hotels->tours }}</textarea>
+                                        <textarea class="form-control" name="tours" id="tours">{{ $hotels->tours }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

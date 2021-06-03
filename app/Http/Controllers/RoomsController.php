@@ -242,8 +242,8 @@ class RoomsController extends Controller{
             RoomDetail::create($data);
         }
         $get_data = RoomDetail::where('room_id', '=', $request->room_id)->get()->first();
-        $roomavailability = RoomAvailability::where('room_id', '=', $request->room_id)->get()->all();
-        $room_details = RoomDetail::where('room_id', '=', $request->room_id)->get()->all();
+        $roomavailability = RoomAvailability::where('room_id', '=', $request->room_id)->get();
+        $room_details = RoomDetail::where('room_id', '=', $request->room_id)->get();
         if(!empty($roomavailability)){
             foreach($roomavailability as $rk => $ra){
                 foreach($room_details as $rdk => $rdV){

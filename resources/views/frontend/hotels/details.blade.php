@@ -5,32 +5,31 @@
 <link rel="stylesheet" href="{{ asset('frontend/css/prettyPhoto.css') }}" type="text/css" />
 <!--new-->
 <style type="text/css">
-    .booking_cancel{
-        display: none;
-    }
-	.header_search_area{display: none;}
-	.customBack {
-        background: #e84b02 none repeat scroll 0 0;
-        border: 1px solid #e84b02;
-        border-radius: 0;
-        color: #fefefe;
-        display: block;
-        float: right;
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 36px;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-        text-decoration: none;
-        transition: all .5s ease 0s;
-        width: 74px;
-        float:left;
-    }
-    div#myNavbar {width: 100%;float: left;}
-    
-    .main-slide-view .flex-viewport ul li {
-    height: 547px;
+.booking_cancel{
+	display: none;
+}
+.header_search_area{display: none;}
+.customBack {
+	background: #e84b02 none repeat scroll 0 0;
+	border: 1px solid #e84b02;
+	border-radius: 0;
+	color: #fefefe;
+	display: block;
+	float: right;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 36px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	text-decoration: none;
+	transition: all .5s ease 0s;
+	width: 74px;
+	float:left;
+}
+div#myNavbar {width: 100%;float: left;}
+.main-slide-view .flex-viewport ul li {
+	height: 547px;
 }
 .main-slide-view .flex-viewport ul li img {
     height: 100% !important;
@@ -40,11 +39,7 @@
 @endsection
 @section('content')
 <?php
-// echo "<pre>";
-// print_r($hotel); die;
 $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
-// echo "<pre>";
-// print_r($hotelDesc); die;
 ?>
 <section class="innerbannersection"></section>
 <section class="hotelsection tab-box" id="header_fixed">
@@ -78,7 +73,7 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 									</ul>
 								</div>
 								@if(!empty($hotel->rooms))
-									<div class="-cta-container pull-right">
+									{{-- <div class="-cta-container pull-right">
 										<form id="gotcarform" action="{{ route('hotel.cart') }}" method="post">
 											<input type="hidden" name="_token" value="{{ csrf_token() }}">
 											<input type="hidden" id="hotel_id" name="hotel_id" value="">
@@ -90,7 +85,7 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 												<span id="loadSpin"><i class="fa fa-spinner fa-spin"></i></span>  Book now
 											</button>
 										</form>
-									</div>
+									</div> --}}
 								@endif
 							</div>
 						</div>
@@ -104,7 +99,8 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 						<br/>
 						<?=(count($hotelDesc) > 0) ? ( (count($hotelDesc) == 1) ? $hotelDesc['Text'] : $hotelDesc[0]['Text']) : ''?>
 						<div class="lakesidebox">
-							<?php echo $hotel->highlights; ?>
+							<?=$hotel->highlights?>
+							<?=(!$stuba)? ((!empty($hotelNewEntry->highlights)) ?'<br/>' . $hotelNewEntry->highlights : '') : ''?>
 						</div>
 						<div class="hotel-detail-stats">
 							<ul>
@@ -141,8 +137,6 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
             			endif;
 				        $inspiration = json_decode(json_encode($hotel->inspiration), true);
         				if(count($inspiration) > 0) :
-        				    //echo "<pre>";
-        				    //print_r($inspiration); die;
             				foreach($inspiration as $ip):
             				    if($ip['inspirations_id'] != '6' && $ip['inspirations_id'] != '7'):
             				        $html .= '<li>' . $ip['inspirations_name'] . '</li>';
@@ -180,7 +174,7 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 					<div class="container-fluid2">
 						<h1>Photos</h1>
 						<?php
-						if(count($hotel->images) > 0) :
+						if(count($hotel->galleries) > 0) :
 							if($stuba):
 						?>
 								<div class="slider-view">
@@ -205,20 +199,48 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 								<div class="slider-view">
 									<div id="slider" class="flexslider main-slide-view">
 										<ul class="slides">
-											@foreach($hotel->images as $img)
+											<?php foreach($hotel->galleries as $img): ?>
 											<li>
 												<a href="{{url('public/uploads/' . $img->image)}}" rel="prettyPhoto[pp_gal]">
 													<img src="{{url('public/uploads/' . $img->image)}}" alt="{{ $hotel->hotels_name }}">
 												</a>
 											</li>
-											@endforeach
+											<?php 
+											endforeach;
+											$imgGal = json_decode($hotelNewEntry->image_gallery, true);
+											if(!empty($imgGal)):
+												$imgAlt = json_decode($hotelNewEntry->image_alt, true);
+												$imgSeq = json_decode($hotelNewEntry->image_sequence, true);
+												foreach($imgSeq as $ik => $ikv):
+											?>
+													<li>
+														<a href="{{url('public/uploads/' . $imgGal[$ik])}}" rel="prettyPhoto[pp_gal]">
+															<img src="{{url('public/uploads/' . $imgGal[$ik])}}" alt="{{ $imgAlt[$ik] }}">
+														</a>
+													</li>
+											<?php
+												endforeach;
+											endif;
+											?>
 										</ul>
 									</div>
 									<div class="carousel flexslider thumble-slide-view">
 										<ul class="slides">
-											@foreach($hotel->images as $img)
-											<li> <img src="{{url('public/uploads/' . $img->image)}}" alt="{{ $hotel->hotels_name }}"></li>
-											@endforeach
+											<?php foreach($hotel->galleries as $img): ?>
+											<li><img src="{{url('public/uploads/' . $img->image)}}" alt="{{ $hotel->hotels_name }}"></li>
+											<?php
+											endforeach;
+											$imgGal = json_decode($hotelNewEntry->image_gallery, true);
+											if(!empty($imgGal)):
+												$imgAlt = json_decode($hotelNewEntry->image_alt, true);
+												$imgSeq = json_decode($hotelNewEntry->image_sequence, true);
+												foreach($imgSeq as $ik => $ikv):
+											?>
+													<li><img src="{{url('public/uploads/' . $imgGal[$ik])}}" alt="{{ $imgAlt[$ik] }}"></li>
+											<?php
+												endforeach;
+											endif;
+											?>
 										</ul>
 									</div>
 								</div>
@@ -228,22 +250,28 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 						?>
 					</div>
 				</div>
+				<!-- ===============Amenities Services  & Features======================= -->
 				<div id="section99" class="sect-tab">
 					<div class="container-fluid2">
 						<h1>Amenities Services  & Features</h1>
 					    <?php
+						$am 	= array();
 					    if(!empty($hotel->services_amenities)):
-					        print '<ul>';
 					        $am = explode(',', $hotel->services_amenities);
 					        foreach($am as $a):
-					            //print '<i class="fa fa-check-circle" aria-hidden="true"></i> <li>'. $a .'</li>';
-					            print '<li>'. $a .'</li>';
+					            print '<i class="fa fa-check-circle" aria-hidden="true"></i> '. $a .'<br/>';
 					        endforeach;
 					    endif;
-					    ?>
-					    <br/>
-					    <?php
+						if(!empty($hotelNewEntry->services_amenities)):
+							$amTwo = explode(',', $hotelNewEntry->services_amenities);
+							foreach($amTwo as $a):
+								if(!in_array($a, $am)):
+									print '<i class="fa fa-check-circle" aria-hidden="true"></i> '. $a .'<br />';
+								endif;
+							endforeach;
+						endif;
 					    if(count($hotelDesc) > 0) :
+							print '<br/>';
         				    $chk = 0;
             				foreach($hotelDesc as $hd):
             				    if($hd['Type'] == 'PropertyInformation' && $chk == 0):
@@ -255,35 +283,49 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
             			?>
 					</div>
 				</div>
+				<!-- ===============Activities======================= -->
 				<div id="section98" class="sect-tab">
 					<div class="container-fluid2">
 						<h1>Activities</h1>
 					    <?php
+						$am = array();
 					    if(!empty($hotel->activities)):
-					        print '<ul>';
 					        $am = explode(',', $hotel->activities);
 					        foreach($am as $a):
-					            //print '<i class="fa fa-check-circle" aria-hidden="true"></i> <li>'. $a .'</li>';
-					            print '<li>'. $a .'</li>';
+					            print '<i class="fa fa-check-circle" aria-hidden="true"></i> '. $a .'<br/>';
 					        endforeach;
 					    endif;
+						if(!empty($hotelNewEntry->activities)):
+							$amTwo = explode(',', $hotelNewEntry->activities);
+							foreach($amTwo as $a):
+								if(!in_array($a, $am)):
+									print '<i class="fa fa-check-circle" aria-hidden="true"></i> '. $a .'<br />';
+								endif;
+							endforeach;
+						endif;
 					    ?>
 					</div>
 				</div>
+				<!-- ===============Tours & External Activities======================= -->
 				<div id="section97" class="sect-tab">
 					<div class="container-fluid2">
 						<h1>Tours & External Activities</h1>
 					    <?php
+						$am = array();
 					    if(!empty($hotel->tours)):
-					        print '<ul>';
 					        $am = explode(',', $hotel->tours);
 					        foreach($am as $a):
-					            if($a != ''):
-					            //print '<i class="fa fa-check-circle" aria-hidden="true"></i> <li>'. $a .'</li>';
-					                print '<li>'. $a .'</li>';
-					           endif;
+					            print '<i class="fa fa-check-circle" aria-hidden="true"></i> '. $a .'<br/>';
 					        endforeach;
 					    endif;
+						if(!empty($hotelNewEntry->tours)):
+							$amTwo = explode(',', $hotelNewEntry->tours);
+							foreach($amTwo as $a):
+								if(!in_array($a, $am)):
+									print '<i class="fa fa-check-circle" aria-hidden="true"></i> '. $a .'<br />';
+								endif;
+							endforeach;
+						endif;
 					    ?>
 					</div>
 				</div>
@@ -307,12 +349,13 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 				<div id="section7" class="sect-tab">
 					<div class="container-fluid2">
 						<h1>Fishing</h1>
-						<p><?php echo $hotel->fishing; ?></p>
-						<p><strong>SPECIES</strong> – <?php echo $hotel->species; ?></p>
-						<p><strong>FISHING SEASON</strong> – <?php echo $hotel->activity_season; ?>
-						</p>
+						<p><?=$hotel->fishing?></p>
+						<p><?=(!$stuba && !empty($hotelNewEntry->fishing)) ? '<p>'.$hotelNewEntry->fishing.'</p>' : ''?></p>
+						<?=!(empty($hotel->species)) ? '<p><strong>SPECIES</strong>' . $hotel->species . '</p>' : ''?>
+						<?=!(empty($hotel->activity_season)) ? '<p><strong>FISHING SEASON</strong>' . $hotel->activity_season . '</p>' : ''?>
 					</div>
 				</div>
+				<!-- =============Fishing Categories============= -->
 				<div id="section96" class="sect-tab">
 					<div class="container-fluid2">
 						<h1>Fishing Categories</h1>
@@ -360,7 +403,6 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 						</div>
 						<div class="faqbox">
 							<div class="panel-group" id="accordion">
-								<!-- /.panel -->
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false">Check In / Check Out</a> </h4>
@@ -390,85 +432,115 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 										</div>
 									</div>
 								</div>
-								<!-- /.panel -->
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"> Services & Facilities </a> </h4>
 									</div>
 									<div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false">
 										<div class="panel-body">
-											<?php //print_r($hotel->servicefacilities); ?>
-												@if(!empty($hotel->servicefacilities))
-													<ul class="feature-accordion__list">
-														@foreach($hotel->servicefacilities as $servicefacilities)
-														<li><span>{{ $servicefacilities->name }}</span></li>
-														@endforeach
-													</ul>
-												  @else
-						      						{{ 'No record found' }}
-												 @endif
+											<ul class="feature-accordion__list">
+											<?php
+											$am = array();
+											if(count($hotel->servicefacilities) > 0):
+												foreach($hotel->servicefacilities as $servicefacilities):
+													array_push($am, $servicefacilities->name);
+											?>
+													<li><span>{{ $servicefacilities->name }}</span></li>
+											<?php
+												endforeach;
+											endif;
+											$amTwo = json_decode($hotelNewEntry->service_facility, true);
+											if(!empty($amTwo)):
+												foreach($amTwo as $a):
+													if(!in_array($a, $am)):
+														print '<li><span>'.$a.'</span></li>';
+													endif;
+												endforeach;
+											endif;
+											?>
+											</ul>
 										</div>
 									</div>
 								</div>
-								<!-- /.panel -->
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false">Room Facilities</a> </h4>
 									</div>
 									<div id="collapseThree" class="panel-collapse collapse" aria-expanded="false">
 										<div class="panel-body">
-											@if(!empty($hotel->roomfacilities))
 											<ul class="feature-accordion__list">
-												@foreach($hotel->roomfacilities as $roomfacilities)
-												<li><span>{{ $roomfacilities->name }}</span></li>
-												@endforeach
+												<?php
+												$am = array();
+												if(count($hotel->roomfacilities) > 0):
+													foreach($hotel->roomfacilities as $roomfacilities):
+														array_push($am, $roomfacilities->name);
+												?>
+														<li><span>{{ $roomfacilities->name }}</span></li>
+												<?php
+													endforeach;
+												endif;
+												$amTwo = json_decode($hotelNewEntry->room_facility, true);
+												if(!empty($amTwo)):
+													foreach($amTwo as $a):
+														if(!in_array($a, $am)):
+															print '<li><span>'.$a.'</span></li>';
+														endif;
+													endforeach;
+												endif;
+												?>
 											</ul>
-											@else
-						      					{{ 'No record found' }}
-											@endif
 										</div>
 									</div>
 								</div>
-								<!-- /.panel -->
+								<?php if(count($hotel->recreations) > 0) : ?>
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false">Recreation</a> </h4>
 									</div>
 									<div id="collapseFour" class="panel-collapse collapse" aria-expanded="false">
 										<div class="panel-body">
-											@if(!empty($hotel->recreations))
 											<ul class="feature-accordion__list">
-												@foreach($hotel->recreations as $recreation)
-												<li><span>{{ $recreation->name }}</span></li>
-												@endforeach
+												<?php
+												$am = array();
+												if(!empty($hotel->recreations)):
+													foreach($hotel->recreations as $recreations):
+														array_push($am, $recreations->name);
+												?>
+															<li><span>{{ $recreations->name }}</span></li>
+												<?php
+													endforeach;
+												endif;
+												?>
 											</ul>
-											@else
-						      						{{ 'No record found' }}
-											@endif
 										</div>
 									</div>
 								</div>
-								<!-- /.panel -->
+								<?php endif; ?>
+								<?php if(count($hotel->hotelawards) > 0) : ?>
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false"> Awards </a> </h4>
 									</div>
 									<div id="collapseFive" class="panel-collapse collapse" aria-expanded="false">
 										<div class="panel-body">
-											@if(!empty($hotel->hotelawards))
-											<p>This hotel has been awarded:</p>
-											<ul>
-												@foreach($hotel->hotelawards as $award)
-												<li><strong>{{ $award->award_title }}</strong></li>
-												@endforeach
+											<p>This hotel has been awarded :</p>
+											<ul class="feature-accordion__list">
+												<?php
+												$am = array();
+												if(!empty($hotel->hotelawards)):
+													foreach($hotel->hotelawards as $award):
+														array_push($am, $award->award_title);
+												?>
+															<li><span>{{ $award->award_title }}</span></li>
+												<?php
+													endforeach;
+												endif;
+												?>
 											</ul>
-											@else
-						      						{{ 'No record found' }}
-											@endif
 										</div>
 									</div>
 								</div>
-								<!-- /.panel -->
+								<?php endif; ?>
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false">Food and Drink</a> </h4>
@@ -476,22 +548,24 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 									<div id="collapseSix" class="panel-collapse collapse" aria-expanded="false">
 										<div class="panel-body">
 											<div class="feature-accordion__main" style="display: block;">
-											<?php echo $hotel->food_drink; ?>
-												@if(!empty($hotel->food_drinks))
-													@foreach($hotel->food_drinks as $food_drink)
-													<h5>{{ $food_drink->food_title }}</h5>
-													<p><strong>Cuisine type: </strong>{{ $food_drink->cusine_type }}</p>
-													<p><strong>Meals served: </strong>{{ $food_drink->meal_served }}</p>
-													<p>{{ $food_drink->food_drink_descp }}</p>
-													@endforeach
-												@else
-						      						{{ 'No record found' }}
-											@endif
+												<?=(!empty($hotel->food_drink)) ? $hotel->food_drink : ''?>
+												<?=(!empty($hotelNewEntry->food_drink)) ? '<br/>'.$hotelNewEntry->food_drink : ''?>
+												<?php
+												if(count($hotel->food_drinks) > 0):
+													foreach($hotel->food_drinks as $food_drink):
+												?>
+														<h5>{{ $food_drink->food_title }}</h5>
+														<p><strong>Cuisine type: </strong>{{ $food_drink->cusine_type }}</p>
+														<p><strong>Meals served: </strong>{{ $food_drink->meal_served }}</p>
+														<p>{{ $food_drink->food_drink_descp }}</p>
+												<?php
+													endforeach;
+												endif;
+												?>
 											</div>
 										</div>
 									</div>
 								</div>
-								<!-- /.panel -->
 							</div>
 						</div>
 					</div>
@@ -508,8 +582,7 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 						</div>
 					</div>
 				</div>
-				
-				
+				<!-- ==============Setting===================== -->
 				<?php
 				if(count($hotelDesc) > 0) :
 				    $chk = 0;
@@ -524,9 +597,17 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
         					$chk++;
     				    endif;
     				endforeach;
+				else:
+					if(!$stuba):
+						print '<div class="sect-tab">
+							<div class="container-fluid2">
+								<h1>Setting</h1>
+								' . $hotelNewEntry->highlights . '
+							</div>
+						</div>';
+					endif;
     			endif;
 				?>
-				<!-- =================GUIDES OR CHARTERS================ -->
 				<!-- ==============Location===================== -->
 				<div id="section5" class="sect-tab">
 					<div class="container-fluid2">
@@ -579,7 +660,7 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 						</div>
 					</div>
 				</div>
-				
+				<!-- ==============Nearby Attractions===================== -->
 				<?php
 				if(count($hotelDesc) > 0) :
     				$chk = 0;
@@ -594,16 +675,59 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
         					$chk++;
     				    endif;
     				endforeach;
+				else:
+					if(!$stuba):
+						$nearby_attraction	= json_decode($hotelNewEntry->nearby_attraction, true);
+						if(!empty($nearby_attraction)):
+							$distance = json_decode($hotelNewEntry->distance, true);
+							print '<div class="sect-tab">
+									<div class="container-fluid2">
+										<h1>Nearby Attractions</h1>
+										<div class="faqbox">
+											<div class="panel-group" id="accordion">';
+							foreach($nearby_attraction as $naKey => $na):
+								print '	<div class="panel panel-default">
+											<div class="panel-heading">
+												<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+														href="#collapseNa'.$naKey.'" aria-expanded="false">'. $na .'</a></h4>
+											</div>
+											<div id="collapseNa'.$naKey.'" class="panel-collapse collapse" aria-expanded="false">
+												<div class="panel-body">
+													<div class="feature-accordion__main" style="display: block;">
+														'. $distance[$naKey] .'
+													</div>
+												</div>
+											</div>
+										</div>';
+							endforeach;
+							print '</div></div></div></div>';
+						endif;
+					endif;
     			endif;
 				?>
-				
 				<!-- ===========Important Informaton============ -->
 				<div id="section8">
 					<div class="container-fluid2">
 						<h1>Important Informaton</h1>
 						<div class="faqbox">
 							<div class="panel-group" id="accordion">
-								@if($hotel->deposit_policy !="")
+								<?php if(!empty($hotel->hotel_policy) || (!$stuba &&!empty($hotelNewEntry->hotel_policy))) : ?>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+												href="#collapseHP" aria-expanded="false">Hotel Policy</a> </h4>
+									</div>
+									<div id="collapseHP" class="panel-collapse collapse" aria-expanded="false">
+										<div class="panel-body">
+											<div class="feature-accordion__main" style="display: block;">
+												<?=$hotel->hotel_policy?>
+												<?=(!$stuba) ? $hotelNewEntry->hotel_policy : ''?>
+											</div>
+										</div>
+									</div>
+								</div>
+								<?php endif; ?>
+								<?php if(!empty($hotel->deposit_policy)) : ?>
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseDeposit" aria-expanded="false">Deposit Policy</a> </h4>
@@ -611,13 +735,13 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 									<div id="collapseDeposit" class="panel-collapse collapse" aria-expanded="false">
 										<div class="panel-body">
 											<div class="feature-accordion__main" style="display: block;">
-												<?php echo $hotel->deposit_policy; ?>
+												<?=$hotel->deposit_policy?>
 											</div>
 										</div>
 									</div>
 								</div>
-								@endif
-								@if($hotel->cancellation_policy !="")
+								<?php endif; ?>
+								<?php if(!empty($hotel->cancellation_policy)): ?>
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseCancellation" aria-expanded="false">Cancellation Policy</a> </h4>
@@ -625,12 +749,28 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 									<div id="collapseCancellation" class="panel-collapse collapse" aria-expanded="false">
 										<div class="panel-body">
 											<div class="feature-accordion__main" style="display: block;">
-												<?php echo $hotel->cancellation_policy; ?>
+												<?=$hotel->cancellation_policy?>
 											</div>
 										</div>
 									</div>
 								</div>
-								@endif
+								<?php endif; ?>
+								<?php if(!empty($hotel->need_to_know) || (!$stuba &&!empty($hotelNewEntry->need_to_know))) : ?>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+												href="#collapseNTK" aria-expanded="false">Need To Know</a> </h4>
+									</div>
+									<div id="collapseNTK" class="panel-collapse collapse" aria-expanded="false">
+										<div class="panel-body">
+											<div class="feature-accordion__main" style="display: block;">
+												<?=$hotel->need_to_know?>
+												<?=(!$stuba) ? $hotelNewEntry->need_to_know : ''?>
+											</div>
+										</div>
+									</div>
+								</div>
+								<?php endif; ?>
 							</div>
 						</div>
 					</div>
@@ -639,135 +779,131 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 				<div id="section9" class="sect-tab">
 					<div  class="container-fluid2">
 						<h1>Travellers Reviews</h1>
-					
-							<div class="row">
-								<div class="col-sm-7">
-									<div class="col-sm-6">
-										<div class="rating-block">
-											<?php
-											$numberOfReviews = 0;
-											$totalStars = 0;
-											if(!empty($hotel->hotelreview)):
-												foreach($hotel->hotelreview as $review):
-													$numberOfReviews++;
-													$totalStars += $review->rating;
-												endforeach;
-											endif;
-											if($numberOfReviews != 0){
-												$average = $totalStars/$numberOfReviews;
-											}else{
-												$average = 0;
-											}
-											$average    = round($average);
-											$stubaDet   = json_decode(json_encode($hotel->stubaDet), true);
-											$sr         = (!empty($stubaDet)) ? ($stubaDet['stars'] != '' ? $stubaDet['stars'] : '0') : $average;
-											?>
-											<h4>Average Traveller Rating</h4>
-											<h2 class="bold padding-bottom-7"><?php echo $sr; ?> <small>/ 5</small></h2>
-											<?php
-                                            for($s = 1; $s <= 5; $s++){
-                                                if($s <= $sr){
-                                                print ' <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
-        													<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-        												</button>';
-                                                }else{
-                                                print ' <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
-        													<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-        												</button>';
-                                                }
-                                            } ?>
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<h4>Rating breakdown</h4>
-										<div class="pull-left">
-											<div class="pull-left" style="width:35px; line-height:1;">
-												<div style="height:9px; margin:5px 0;">5 <span class="glyphicon glyphicon-star"></span></div>
-											</div>
-											<div class="pull-left" style="width:180px;">
-												<div class="progress" style="height:9px; margin:8px 0;">
-													<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: 100%">
-														<span class="sr-only">80% Complete (danger)</span>
-													</div>
-												</div>
-											</div>
-											<div class="pull-right" style="margin-left:10px;"><?php echo get_rating_count($hotel->id, 5); ?></div>
-										</div>
-										<div class="pull-left">
-											<div class="pull-left" style="width:35px; line-height:1;">
-												<div style="height:9px; margin:5px 0;">4 <span class="glyphicon glyphicon-star"></span></div>
-											</div>
-											<div class="pull-left" style="width:180px;">
-												<div class="progress" style="height:9px; margin:8px 0;">
-													<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: 80%">
-														<span class="sr-only">80% Complete (danger)</span>
-													</div>
-												</div>
-											</div>
-											<div class="pull-right" style="margin-left:10px;"><?php echo get_rating_count($hotel->id, 4); ?></div>
-										</div>
-										<div class="pull-left">
-											<div class="pull-left" style="width:35px; line-height:1;">
-												<div style="height:9px; margin:5px 0;">3 <span class="glyphicon glyphicon-star"></span></div>
-											</div>
-											<div class="pull-left" style="width:180px;">
-												<div class="progress" style="height:9px; margin:8px 0;">
-													<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: 60%">
-														<span class="sr-only">80% Complete (danger)</span>
-													</div>
-												</div>
-											</div>
-											<div class="pull-right" style="margin-left:10px;"><?php echo get_rating_count($hotel->id, 3); ?></div>
-										</div>
-										<div class="pull-left">
-											<div class="pull-left" style="width:35px; line-height:1;">
-												<div style="height:9px; margin:5px 0;">2 <span class="glyphicon glyphicon-star"></span></div>
-											</div>
-											<div class="pull-left" style="width:180px;">
-												<div class="progress" style="height:9px; margin:8px 0;">
-													<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: 40%">
-														<span class="sr-only">80% Complete (danger)</span>
-													</div>
-												</div>
-											</div>
-											<div class="pull-right" style="margin-left:10px;"><?php echo get_rating_count($hotel->id, 2); ?></div>
-										</div>
-										<div class="pull-left">
-											<div class="pull-left" style="width:35px; line-height:1;">
-												<div style="height:9px; margin:5px 0;">1 <span class="glyphicon glyphicon-star"></span></div>
-											</div>
-											<div class="pull-left" style="width:180px;">
-												<div class="progress" style="height:9px; margin:8px 0;">
-													<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: 20%">
-														<span class="sr-only">80% Complete (danger)</span>
-													</div>
-												</div>
-											</div>
-											<div class="pull-right" style="margin-left:10px;"><?php echo get_rating_count($hotel->id, 1); ?></div>
-										</div>
-									</div>
-								    <div class="col-sm-12">
-								        <div class="review-block">
-									    <?php
-									    if(count($hotel->hotelreview) > 0):
-    										foreach($hotel->hotelreview as $hotelreview) :
-										        $user_data = get_user_details($hotelreview->user_id);
+						<div class="row">
+							<div class="col-sm-7">
+								<div class="col-sm-6">
+									<div class="rating-block">
+										<?php
+										$numberOfReviews = 0;
+										$totalStars = 0;
+										if(!empty($hotel->hotelreview)):
+											foreach($hotel->hotelreview as $review):
+												$numberOfReviews++;
+												$totalStars += $review->rating;
+											endforeach;
+										endif;
+										if($numberOfReviews != 0):
+											$average = $totalStars/$numberOfReviews;
+										else:
+											$average = 0;
+										endif;
+										$average    = round($average);
+										$stubaDet   = json_decode(json_encode($hotel->stubaDet), true);
+										$sr         = (!empty($stubaDet)) ? ($stubaDet['stars'] != '' ? $stubaDet['stars'] : '0') : $average;
 										?>
+										<h4>Average Traveller Rating</h4>
+										<h2 class="bold padding-bottom-7"><?php echo $sr; ?> <small>/ 5</small></h2>
+										<?php
+										for($s = 1; $s <= 5; $s++):
+											if($s <= $sr):
+											print ' <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+														<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+													</button>';
+											else:
+											print ' <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+														<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+													</button>';
+											endif;
+										endfor;
+										?>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<h4>Rating breakdown</h4>
+									<div class="pull-left">
+										<div class="pull-left" style="width:35px; line-height:1;">
+											<div style="height:9px; margin:5px 0;">5 <span class="glyphicon glyphicon-star"></span></div>
+										</div>
+										<div class="pull-left" style="width:180px;">
+											<div class="progress" style="height:9px; margin:8px 0;">
+												<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: 100%">
+													<span class="sr-only">80% Complete (danger)</span>
+												</div>
+											</div>
+										</div>
+										<div class="pull-right" style="margin-left:10px;"><?php echo get_rating_count($hotel->id, 5); ?></div>
+									</div>
+									<div class="pull-left">
+										<div class="pull-left" style="width:35px; line-height:1;">
+											<div style="height:9px; margin:5px 0;">4 <span class="glyphicon glyphicon-star"></span></div>
+										</div>
+										<div class="pull-left" style="width:180px;">
+											<div class="progress" style="height:9px; margin:8px 0;">
+												<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: 80%">
+													<span class="sr-only">80% Complete (danger)</span>
+												</div>
+											</div>
+										</div>
+										<div class="pull-right" style="margin-left:10px;"><?php echo get_rating_count($hotel->id, 4); ?></div>
+									</div>
+									<div class="pull-left">
+										<div class="pull-left" style="width:35px; line-height:1;">
+											<div style="height:9px; margin:5px 0;">3 <span class="glyphicon glyphicon-star"></span></div>
+										</div>
+										<div class="pull-left" style="width:180px;">
+											<div class="progress" style="height:9px; margin:8px 0;">
+												<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: 60%">
+													<span class="sr-only">80% Complete (danger)</span>
+												</div>
+											</div>
+										</div>
+										<div class="pull-right" style="margin-left:10px;"><?php echo get_rating_count($hotel->id, 3); ?></div>
+									</div>
+									<div class="pull-left">
+										<div class="pull-left" style="width:35px; line-height:1;">
+											<div style="height:9px; margin:5px 0;">2 <span class="glyphicon glyphicon-star"></span></div>
+										</div>
+										<div class="pull-left" style="width:180px;">
+											<div class="progress" style="height:9px; margin:8px 0;">
+												<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: 40%">
+													<span class="sr-only">80% Complete (danger)</span>
+												</div>
+											</div>
+										</div>
+										<div class="pull-right" style="margin-left:10px;"><?php echo get_rating_count($hotel->id, 2); ?></div>
+									</div>
+									<div class="pull-left">
+										<div class="pull-left" style="width:35px; line-height:1;">
+											<div style="height:9px; margin:5px 0;">1 <span class="glyphicon glyphicon-star"></span></div>
+										</div>
+										<div class="pull-left" style="width:180px;">
+											<div class="progress" style="height:9px; margin:8px 0;">
+												<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: 20%">
+													<span class="sr-only">80% Complete (danger)</span>
+												</div>
+											</div>
+										</div>
+										<div class="pull-right" style="margin-left:10px;"><?php echo get_rating_count($hotel->id, 1); ?></div>
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="review-block">
 										<div class="appendReview">
-											<div class="col-sm-3">
-												<?php if($user_data->profile_image!=""){ ?>
-													@if(file_exists(Storage::disk('local')->url($user_data->profile_image)))
-														<img src="{{ Storage::disk('local')->url($user_data->profile_image) }}" alt="{{ $hotelreview->name }}" class="img-rounded" width="60" height="60"/>
-													@else
-														<img src="{{ URL::to('/').'/public/frontend/images/timthumb.jpg' }}" alt="{{ $hotelreview->name }}" class="img-rounded" width="60" height="60"/>
-													@endif
-												<?php }else{ ?>
-													<img src="{{ URL::to('/').'/public/frontend/images/timthumb.jpg' }}" alt="{{ $hotelreview->name }}" class="img-rounded" width="60" height="60"/>
-												<?php } ?>
+									<?php
+									if(count($hotel->hotelreview) > 0):
+										foreach($hotel->hotelreview as $hotelreview) :
+											$user_data = get_user_details($hotelreview->user_id);
+									?>
+											<div class="col-sm-3" style="min-height: 150px;">
+												<?php
+												$img    = (!empty($user_data->profile_image)) ? url('public/storage/uploads/profile/' . $user_data->profile_image) : url('/public/frontend/images/timthumb.jpg');
+												?>
+												<img src="{{ $img }}" alt="{{ $hotelreview->name }}" class="img-rounded"
+														width="60" height="60" />
 												<div class="review-block-name">{{ $user_data->first_name }} {{ $user_data->last_name }}</div>
 												<div class="review-block-date">{{ date('d F, Y', strtotime($hotelreview->created_at)) }}</div>
 											</div>
-											<div class="col-sm-9">
+											<div class="col-sm-9" style="min-height: 150px;">
 												<div class="review-block-rate">
 													<?php for($a=0; $a < $hotelreview->rating; $a++ ){ ?>
 													<button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
@@ -783,57 +919,58 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 												<div class="review-block-title">{{ $hotelreview->subjects }}</div>
 												<div class="review-block-description">{{ $hotelreview->comments }}</div>
 											</div>
+											<hr/>
+									<?php
+										endforeach; 
+									else: ?>
+										<p>No reviews yet.</p>
+									<?php endif; ?>
 										</div>
-										<hr/>
-										<?php endforeach; else: ?>
-										<div class="appendReview"><p>No reviews yet.</p></div>
-									    <?php endif; ?>
-									</div>
-								    </div>
-									
-								</div>
-								<div class="col-sm-5">
-									<div class="row" style="margin-top:40px;">
-										@if(get_loggedin_id() != 0)
-										<?php if(!review_exits($hotel->id)){ ?>
-											<div class="col-md-11">
-												<div class="well well-sm">
-													<div class="row" id="post-review-box" style="display:block;">
-													<div class="form-group">
-														<span id="review_success"></span>
-													</div>
-														<div class="col-md-12" id="reviewform">
-															<form accept-charset="UTF-8" id="review_form">
-																{{ csrf_field() }}
-																<div class="form-group">
-																	<input type="text" name="subjects" id="subjects" class="form-control" placeholder="Subject">
-																</div>
-																<div class="form-group">
-																	<textarea class="form-control animated" cols="50" id="comment" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
-																</div>
-																<div class="form-group">
-																	<div class="text-right">
-																		<div class="stars starrr" data-rating="0"></div>
-																		<input id="ratings-hidden" name="rating" type="hidden">
-																	</div>
-																</div>
-																<div class="form-group">
-																	<button class="btn btn-primary pull-right" type="submit">Submit</button>
-																</div>
-																
-															</form>
-														</div>
-													</div>
-												</div>
-											</div>
-										<?php } ?>
-										@else
-										<p>Please login to send your review. <a href="{{ route('login') }}">Login</a></p>
-										@endif
 									</div>
 								</div>
 							</div>
-					
+							<div class="col-sm-5">
+								<div class="row" style="margin-top:40px;">
+									<?php if(get_loggedin_id() != 0) : ?>
+									<?php if(!review_exits($hotel->id)): ?>
+										<div class="col-md-11">
+											<div class="well well-sm">
+												<div class="row" id="post-review-box" style="display:block;">
+													<div class="form-group">
+														<span id="review_success"></span>
+													</div>
+													<div class="col-md-12" id="reviewform">
+														<form accept-charset="UTF-8" id="review_form">
+															{{ csrf_field() }}
+															<div class="form-group">
+																<input type="text" name="subjects" id="subjects" class="form-control" placeholder="Subject">
+															</div>
+															<div class="form-group">
+																<textarea class="form-control animated" cols="50" id="comment" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
+															</div>
+															<div class="form-group">
+																<div class="text-right">
+																	<div class="stars starrr" data-rating="0"></div>
+																	<input id="ratings-hidden" name="rating" type="hidden">
+																</div>
+															</div>
+															<div class="form-group">
+																<button class="btn btn-primary pull-right" type="submit">Submit</button>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									<?php
+										endif;
+									else:
+									?>
+										<p>Please login to send your review. <a href="{{ route('login') }}">Login</a></p>
+									<?php endif; ?>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -909,10 +1046,8 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 	  	</div>
 	</div>
 	<input type="hidden" id="hotelAddress" value="<?=($hotel->hoteladdress->location) ? $hotel->hoteladdress->location : ''?>">
-	<!--/////////////////////////////////////////-->
 	@endsection
 	@section('script')
-	<!--new-->
 	<script defer src="{{ asset('frontend/js/jquery.flexslider.js') }}"></script>
 	<script defer src="{{ asset('frontend/js/script.flexslider.js') }}"></script>
 	<script src="{{ asset('frontend/js/jquery.prettyPhoto.js') }}"></script>
@@ -944,9 +1079,6 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
             }
         }
 	});
-	</script>
-	
-	<script>
 	$(function() {
 		// $('#roomSearchFromDate').datepicker({
 		// 	dateFormat: 'yy-mm-dd',
@@ -1095,10 +1227,6 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 		$("a[rel^='prettyPhoto']").prettyPhoto();
 	});
 	</script>
-	
-	
-	
-	
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 	<script type="text/javascript">
 		$('#goCart').on('click', function(){

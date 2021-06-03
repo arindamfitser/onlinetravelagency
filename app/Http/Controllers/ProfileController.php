@@ -19,13 +19,13 @@ class ProfileController extends Controller{
     public function index(Request $request){
         $user = auth('web')->user();
         if($user->role == '1'):
-            //$hotels = Hotels::where('user_id', '=', $user->id)->get()->All();
+            //$hotels = Hotels::where('user_id', '=', $user->id)->get();
             $hotel                  = Hotels::where('user_id', '=', $user->id)->first();
             if (!empty($hotel)) :
                 $room               = new \StdClass();
                 $room->hotel_id     = $hotel->id;
                 $room->hotel_token  = $hotel->hotel_token;
-                $room->rooms        = Rooms::where('hotel_token', $hotel->hotel_token)->get()->all();
+                $room->rooms        = Rooms::where('hotel_token', $hotel->hotel_token)->get();
             else :
                 $room = new \StdClass();
             endif;
@@ -76,7 +76,7 @@ class ProfileController extends Controller{
                         ->where('bookings.status', 1)
                         ->where('bookings.start_date', '>=', $start)
                         ->where('bookings.start_date', '<=', $end)
-                        ->orderBy('bookings.id', 'ASC')->get()->all();
+                        ->orderBy('bookings.id', 'ASC')->get();
             if (!empty($booking)) :
                 foreach ($booking as $key => $book) :
                     $data                   = array();
@@ -118,7 +118,7 @@ class ProfileController extends Controller{
         //     $strt   = date('Y-m-d', strtotime($cIn. ' + '. $d .' days'));
         //     $end    = date('Y-m-d', strtotime($cIn. ' + '. ($d+1) .' days'));
         //     $chk    = DB::table('booking_items')->select('id', 'quantity_room')->where('room_id', $request->roomType)->where('status', 1)
-        //             ->where('check_in', '>=', $strt)->where('check_out', '<=', $end)->get()->all();
+        //             ->where('check_in', '>=', $strt)->where('check_out', '<=', $end)->get();
         //     $r          = Rooms::find($request->roomType);
         //     $rc         = RoomCount::where('room_id', $request->roomType)->where('dt', $strt)->first();
         //     $booked     = 0;
@@ -155,14 +155,14 @@ class ProfileController extends Controller{
         $strt   = date_format(date_create($request->start), 'Y-m-d');
         $end    = date('Y-m-d', strtotime($strt. ' + 1 days'));
         $html   = '';
-        $rooms  = Rooms::where('availability', 1)->where('hotel_token', $request->hotel_token)->get()->all();
+        $rooms  = Rooms::where('availability', 1)->where('hotel_token', $request->hotel_token)->get();
         if(!empty($rooms)):
             foreach($rooms as $r):
                 $rc         = RoomCount::where('room_id', $r->id)->where('dt', $strt)->first();
                 $booked     = 0;
                 $avlbl      = (!empty($rc)) ? $rc->count : $r->room_capacity;
                 $chk        = DB::table('booking_items')->select('id', 'quantity_room')->where('room_id', $r->id)->where('status', 1)
-                            ->where('check_in', $strt)->where('check_out', $end)->get()->all();
+                            ->where('check_in', $strt)->where('check_out', $end)->get();
                 if(!empty($chk)):
                     foreach($chk as $c):
                         $booked += $c->quantity_room;
@@ -185,7 +185,7 @@ class ProfileController extends Controller{
                         ->join('rooms', 'rooms.id', '=', 'booking_items.room_id')
                         ->where('booking_items.hotel_token', '=', $request->hotel_token)
                         ->where('booking_items.status', '=', 1)
-                        ->where('booking_items.start_date', '=', $strt)->get()->all();
+                        ->where('booking_items.start_date', '=', $strt)->get();
         if(!empty($bookings)):
             $html .='<br/>';
             foreach($bookings as $b):

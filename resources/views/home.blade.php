@@ -70,7 +70,7 @@ if(!empty($banners)){
                         </div>
                         <!--<h3>Castles, Chateaux & Luxury Manors</h3>-->
                         <h3>{{ $acc->accommodations_name }}</h3>
-                    </a>c
+                    </a>
                 </div>
                 @endforeach
             </div>

@@ -29,11 +29,11 @@ class CustomerController extends Controller{
         // ->join('hotels_translations', 'booking_items.hotel_id', '=', 'hotels_translations.hotels_id')
         // ->where('bookings.status', '!=', 4)
         // ->where('bookings.type', '=', 'site')
-        // ->where('bookings.user_id', '=', $user->id)->get()->all();
+        // ->where('bookings.user_id', '=', $user->id)->get();
         // $bookings2 = Booking::select('*', 'bookings.status as booked_status', 'bookings.id as booking_id')
         // ->where('bookings.status', '!=', 4)
         // ->where('bookings.type', '=', 'stuba')
-        // ->where('bookings.user_id', '=', $user->id)->get()->all();
+        // ->where('bookings.user_id', '=', $user->id)->get();
 
         $bookings   = Booking::select('bookings.*', 'hotels_translations.hotels_name', 'rooms.name')
                   ->join('hotels', 'bookings.hotel_token', '=', 'hotels.hotel_token')
@@ -41,7 +41,7 @@ class CustomerController extends Controller{
                   ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
                   ->where('bookings.status', '!=', 4)
                   ->where('bookings.user_id', $user->id)
-                  ->orderBy('bookings.id', 'DESC')->get()->all();
+                  ->orderBy('bookings.id', 'DESC')->get();
 
 
 
@@ -56,7 +56,7 @@ class CustomerController extends Controller{
     }
     public function CustomerTestimonial(){
       $user         = auth('web')->user();
-      $testimonials = Testimonials::where('user_id', $user->id)->where('status', '!=', 3)->orderBy('id', 'DESC')->get()->all();
+      $testimonials = Testimonials::where('user_id', $user->id)->where('status', '!=', 3)->orderBy('id', 'DESC')->get();
       return view('frontend.customer.testimonial', compact('testimonials'));
     }
     public function add_testimonial(Request $request){
@@ -91,7 +91,7 @@ class CustomerController extends Controller{
     public function CustomerWishlist(){
         $user = auth('web')->user();
         $wishlists = DB::table('wishlist')->select('*', 'wishlist.id as wish_id')->join('hotels', 'wishlist.hotel_id', '=', 'hotels.id')->join('hotels_translations', 'hotels.id', '=', 'hotels_translations.hotels_id')->join('hotel_addresses', 'hotels.id', '=', 'hotel_addresses.hotel_id')->where('wishlist.user_id', '=', $user->id)
-              ->get()->all();
+              ->get();
 
         return view('frontend.customer.wishlist', compact('wishlists'));
     }

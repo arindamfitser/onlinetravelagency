@@ -30,7 +30,7 @@ class BookingController extends Controller{
                   ->join('hotels_translations', 'hotels_translations.hotels_id', '=', 'hotels.id')
                   ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
                   ->where('bookings.hotel_token', $hotels->hotel_token)
-                  ->orderBy('bookings.id', 'DESC')->get()->all();
+                  ->orderBy('bookings.id', 'DESC')->get();
     endif;
     return view('frontend.hotelier.booking', compact('bookings', 'hotels'));
   }
@@ -45,9 +45,9 @@ class BookingController extends Controller{
     $gateway          = new \Braintree\Gateway($config);
     $clientToken      = $gateway->clientToken()->generate();
     $bookings         = new \StdClass();
-    //$bookings->hotels = HotelNewEntry::where('user_id', $user->id)->get()->all();
+    //$bookings->hotels = HotelNewEntry::where('user_id', $user->id)->get();
     $bookings->hotels = Hotels::where('user_id', $user->id)->first();
-    $bookings->users  = User::where('role', 2)->get()->all();
+    $bookings->users  = User::where('role', 2)->get();
     return view('frontend.hotelier.new-booking', compact('bookings','clientToken'));
   }
   public function checkRoomAvailable(Request $request){
@@ -56,7 +56,7 @@ class BookingController extends Controller{
     $cOut   = $request->checkOut;
     $diff   = date_diff(date_create($cIn), date_create($cOut));
     $days   = $diff->format("%a");
-    $rooms  = Rooms::where('availability', 1)->where('hotel_token', $request->hotelToken)->get()->all();
+    $rooms  = Rooms::where('availability', 1)->where('hotel_token', $request->hotelToken)->get();
     $html   = '<option value="">-- Select Room --</option>';
     if(!empty($rooms)):
       foreach($rooms as $r):
@@ -65,7 +65,7 @@ class BookingController extends Controller{
           $strt = date('Y-m-d', strtotime($cIn. ' + '. $d .' days'));
           $end  = date('Y-m-d', strtotime($cIn. ' + '. ($d+1) .' days'));
           $chk  = DB::table('booking_items')->select('id', 'quantity_room')->where('room_id', $r->id)->where('status', 1)
-                  ->where('check_in', '>=', $strt)->where('check_out', '<=', $end)->get()->all();
+                  ->where('check_in', '>=', $strt)->where('check_out', '<=', $end)->get();
           $rc   = RoomCount::where('room_id', $r->id)->where('dt', $strt)->first();
           $avlbl  = (!empty($rc)) ? $rc->count : $r->room_capacity;
           if(!empty($chk)):
@@ -186,7 +186,7 @@ class BookingController extends Controller{
   public function bookingCancelation(Request $request){
       $booking_id                   = $request->booking_id;
       $booking                      = Booking::find($booking_id);
-      $bookingItems	                = BookingItem::where('booking_id', '=', $booking_id)->get()->all();
+      $bookingItems	                = BookingItem::where('booking_id', '=', $booking_id)->get();
       $carttotal                    = $booking->carttotal;
       $user_id                      = $booking->user_id;
       $cancelation                  = new Cancelation;
@@ -268,7 +268,7 @@ class BookingController extends Controller{
            print_r($room[0]['id']);
            echo '</pre>';*/
             if(count($room) == $nights){
-                $available_rooms = RoomAllocation::join('room_details', 'room_details.id', '=', 'room_allocations.room_details_id')->where('room_allocations.availability_id', '=', $room[0]['id'])->where('room_allocations.status', 1)->get()->all();
+                $available_rooms = RoomAllocation::join('room_details', 'room_details.id', '=', 'room_allocations.room_details_id')->where('room_allocations.availability_id', '=', $room[0]['id'])->where('room_allocations.status', 1)->get();
                 if(!empty($available_rooms)){
                 $html .= '<input type="hidden" name="nights" value="'.$nights.'" /><tr><td><label class="bookchk"><input type="checkbox" name="room_id" value="'.$room[0]['room_id'].'"><span class="checkmark"></span></label></td><td>'.$room[0]['name'].'</td><td>Avialable</td><td><input type="hidden" name="price" id="price_'.$room[0]['room_id'].'" value="'.$room[0]['price'].'" />'.getPrice($room[0]['price']).'</td><td><select class="form-control" name="room_no" id="room_no_'.$room[0]['room_id'].'">';
                     $availability_id = '';    
@@ -345,7 +345,7 @@ class BookingController extends Controller{
         $html .= '<tr><td>'.$room->name.'</td><td><span class="highlight_data">'.$roomdetail->room_no.'</span></td><td>'.getPrice($cart->price).'</td><td><a href="javascript:void(0);" title="Delete" onclick="delete_room('.$cart->id.')" class="room_delete"><i class="fa fa-times" aria-hidden="true"></i></a></td></tr>';
         //echo $html;
         $c_html = '';
-        $cart_data = Cart::where('user_id', '=', $client_id)->get()->all();
+        $cart_data = Cart::where('user_id', '=', $client_id)->get();
         $c_html .= '<h3>Invoice</h3>
                 <div class="bookingtable">
                   <table class="table table-bordered table-responsive">
@@ -395,18 +395,18 @@ class BookingController extends Controller{
 
     public function booking_payment_process(Request $request){
         $user_id = $request->user_id;
-        $carts = Cart::where('user_id', '=', $user_id)->get()->all();
+        $carts = Cart::where('user_id', '=', $user_id)->get();
         print_r($carts);
 
     }
 
     public function invoice_list(){
         $user = auth('web')->user();
-        $hotels = Hotels::where('user_id', $user->id)->get()->all();
+        $hotels = Hotels::where('user_id', $user->id)->get();
         if(!empty($hotels)){
             foreach($hotels as $hkey => $hdata){
                 $bookings[] = Booking::select('*', 'bookings.user_id as booked_user', 'bookings.status as booked_status')->join('booking_items', 'bookings.id', '=', 'booking_items.booking_id')->join('rooms', 'booking_items.room_id', '=', 'rooms.id')->join('hotels_translations', 'bookings.hotel_id', '=', 'hotels_translations.hotels_id')->where('bookings.hotel_id', '=', $hdata->id)
-              ->get()->all();
+              ->get();
             }
             return view('frontend.hotelier.invoice', compact('bookings'));
         }else{
@@ -437,7 +437,7 @@ class BookingController extends Controller{
              $roomallocation->save(); 
         }
         Cart::where('id', $request->cart_id)->delete();
-        $cart_data = Cart::where('user_id', '=', $request->client_id)->get()->all();
+        $cart_data = Cart::where('user_id', '=', $request->client_id)->get();
         $c_html = '';
         $html = '';
         if(!empty($cart_data)){

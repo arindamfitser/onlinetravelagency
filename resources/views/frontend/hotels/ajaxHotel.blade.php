@@ -492,6 +492,7 @@ elseif(isset($finalSearchRooms)) :
                                             {{ csrf_field() }}
                                             <input type="hidden" name="roomId" value="{{ $room->id }}">
                                             <input type="hidden" name="bookingArray" value="{{ json_encode($bookingArray) }}">
+                                            <input type="hidden" name="selectedRoomType" value="Room Only">
                                             <button type="submit" class="btn btn-primary">Book Now</button>
                                         </form>
                                     </div>
@@ -503,6 +504,44 @@ elseif(isset($finalSearchRooms)) :
                 </div>
             </div>
 <?php
+            $morePrice  = json_decode($room->more_price, true);
+            if(!empty($morePrice)):
+                foreach($morePrice as $mrp => $mrpText):
+            ?>
+                    <div class=" col-sm-6 roompage_container">
+                        <div class="roombox">
+                            <div class="row clearfix">
+                                <div class="col-md-12">
+                                    <div class="room_details">
+                                        <h2>{{ $room->name . ' - ' . $mrpText }}</h2>
+                                        <div class="profile_bannertext2">
+                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                <h5>Price Options</h5>
+                                                <div class="pullbox">
+                                                    <div class="rate-price">$ <?=number_format((float) $mrp, 2)?></div>
+                                                    <p>Per Night</p>
+                                                    <p>Taxes included</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                <form id="gotcarform" action="{{ route('hotel.book') }}" method="post">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="roomId" value="{{ $room->id }}">
+                                                    <input type="hidden" name="bookingArray" value="{{ json_encode($bookingArray) }}">
+                                                    <input type="hidden" name="selectedRoomType" value="{{ $mrpText }}">
+                                                    <button type="submit" class="btn btn-primary">Book Now</button>
+                                                </form>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <?php
+                endforeach;
+            endif;
         endforeach;
     endif;
 ?>
