@@ -29,7 +29,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Name</th>
-                                <th scope="col">Price</th>
+                                <th scope="col">Wholesale Rate Per Night *</th>
                                 <th scope="col">Total No. of Room</th>
                                 <th scope="col">Image</th>
                                 <th scope="col">Action</th>
@@ -83,6 +83,7 @@
                 </div>
             </div>
         </div>
+        <p>* Wholesale rate must include all local Government Taxes.</p>
     </div>
 </section>
 <div class="clearfix"></div>

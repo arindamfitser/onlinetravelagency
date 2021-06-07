@@ -233,20 +233,36 @@
         </item>
     @endif
 @endforeach
-<?php elseif(isset($directHotels)) : 
-    // echo "<pre>";
-    // print_r($directHotels);
-    // die;
-?>
+<?php elseif(isset($directHotels)) : ?>
 @foreach($directHotels as $key => $hotel)
     @if(!empty($hotel))
+        <?php
+        $address    = '';
+        $lat        = '';
+        $lng        = '';
+        if(empty($hotel['hotelNewEntry'])):
+            if((isset($hotel['hoteladdress']->location) && $hotel['hoteladdress']->location != '') &&
+            $hotel['hoteladdress']->latitude != '' && $hotel['hoteladdress']->longitude != ''):
+                $address    = $hotel['hoteladdress']->location;
+                $lat        = $hotel['hoteladdress']->latitude;
+                $lng        = $hotel['hoteladdress']->longitude;
+            endif;
+        else:
+            if(!empty($hotel['hotelNewEntry']->address) && !empty($hotel['hotelNewEntry']->latitude) &&
+            !empty($hotel['hotelNewEntry']->longitude)):
+                $address    = $hotel['hotelNewEntry']->address;
+                $lat        = $hotel['hotelNewEntry']->latitude;
+                $lng        = $hotel['hotelNewEntry']->longitude;
+            endif;
+        endif;
+        ?>
         <item class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="holidaysection">
                 <div class="holidayimg">
                     <div class="holidaybox">
-                        <?php if((isset($hotel['hoteladdress']->location) && $hotel['hoteladdress']->location != '') && $hotel['hoteladdress']->latitude != '' && $hotel['hoteladdress']->longitude != ''): ?>
+                        <?php if(!empty($address) && !empty($lat) && !empty($lng)): ?>
                         <div class="mapbox">
-                            <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="modal_cls" data-address="<?=isset($hotel['hoteladdress']->location) ? $hotel['hoteladdress']->location : ''?>" data-lat="<?=$hotel['hoteladdress']->latitude?>" data-lng="<?=$hotel['hoteladdress']->longitude?>">
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="modal_cls" data-address="<?=$address?>" data-lat="<?=$lat?>" data-lng="<?=$lng?>">
                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                             </a>
                         </div>
@@ -261,22 +277,46 @@
                 <div class="holidaytex">
                     <div class="Travellerbox1">
                         <h2>{{ @$hotel['translation']->hotels_name }} </h2>
-                        <?php if(isset($hotel['hoteladdress']->location) && $hotel['hoteladdress']->location != '') : ?>
+                        <?php if(!empty($address)) : ?>
                         <p>
                             <span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                            {{ $hotel['hoteladdress']->location }}
+                            {{ $address }}
                         </p>
                         <?php endif; ?>
-                        <p>{{ strip_tags($hotel['details']->brief_descp).'...' }} <a href="<?=URL::to('/').'/hotel/'.$hotel['translation']->hotels_slug?>">more</a></p>
-                        <?php if(!empty($hotel['details']->services_amenities)) :
-                            $aminities = explode(', ', $hotel['details']->services_amenities);
-                        ?>
-                        <ul>
-                            <?php foreach($aminities as $akey => $am) : if($akey < 5 && $am != '') :?>
-                                <li><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; {{ $am }}</li>
-                            <?php endif; endforeach; ?>
-                        </ul>
+                        <?php if(empty($hotel['hotelNewEntry'])) : ?>
+                            <p>
+                                <?=strip_tags($hotel['details']->brief_descp)?>
+                                <a href="<?=URL::to('/').'/hotel/'.$hotel['translation']->hotels_slug?>">more</a>
+                            </p>
+                        <?php else: ?>
+                            <?=$hotel['hotelNewEntry']->brief_descp?>
+                            <a href="<?=URL::to('/').'/hotel/'.$hotel['translation']->hotels_slug?>">more</a>
                         <?php endif; ?>
+                        <?php 
+                        if(empty($hotel['hotelNewEntry'])) :
+                            if(!empty($hotel['details']->services_amenities)) :
+                                $aminities = explode(', ', $hotel['details']->services_amenities);
+                                print '<ul>';
+                                foreach($aminities as $akey => $am) :
+                                    if($akey < 5 && $am != '') :
+                                        print '<li><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; '. $am .'</li>';
+                                    endif;
+                                endforeach;
+                                print '</ul>';
+                            endif;
+                        else:
+                            if(!empty($hotel['hotelNewEntry']->services_amenities)) :
+                                $aminities = explode(', ', $hotel['hotelNewEntry']->services_amenities);
+                                print '<ul>';
+                                foreach($aminities as $akey => $am) :
+                                    if($akey < 5 && $am !='' ) :
+                                        print '<li><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; ' . $am .'</li>'; 
+                                    endif;
+                                endforeach;
+                                print '</ul>' ;
+                            endif;
+                        endif;
+                        ?>
                     </div>
                     <div class="Travellerbox2">
                         <div class="starbox">
@@ -504,9 +544,47 @@ elseif(isset($finalSearchRooms)) :
                 </div>
             </div>
 <?php
-            $morePrice  = json_decode($room->more_price, true);
-            if(!empty($morePrice)):
-                foreach($morePrice as $mrp => $mrpText):
+            $mealDetails = json_decode($room->meal_details, true);
+            if(!empty($mealDetails)):
+                foreach($mealDetails as $mrp => $mrpText):
+            ?>
+                    <div class=" col-sm-6 roompage_container">
+                        <div class="roombox">
+                            <div class="row clearfix">
+                                <div class="col-md-12">
+                                    <div class="room_details">
+                                        <h2>{{ $room->name . ' - ' . $mrpText }}</h2>
+                                        <div class="profile_bannertext2">
+                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                <h5>Price Options</h5>
+                                                <div class="pullbox">
+                                                    <div class="rate-price">$ <?=number_format((float) $mrp, 2)?></div>
+                                                    <p>Per Night</p>
+                                                    <p>Taxes included</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                <form id="gotcarform" action="{{ route('hotel.book') }}" method="post">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="roomId" value="{{ $room->id }}">
+                                                    <input type="hidden" name="bookingArray" value="{{ json_encode($bookingArray) }}">
+                                                    <input type="hidden" name="selectedRoomType" value="{{ $mrpText }}">
+                                                    <button type="submit" class="btn btn-primary">Book Now</button>
+                                                </form>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <?php
+                endforeach;
+            endif;
+            $packageDetails = json_decode($room->package_details, true);
+            if(!empty($packageDetails)):
+                foreach($packageDetails as $mrp => $mrpText):
             ?>
                     <div class=" col-sm-6 roompage_container">
                         <div class="roombox">

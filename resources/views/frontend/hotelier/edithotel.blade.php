@@ -195,14 +195,15 @@ display: inline;
                             {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-md-12">
+
                                     <div class="form-group">
-                                        <label class="bmd-label-floating" data-toggle="tooltip" data-placement="bottom" title="Please note that we provide a very brief property description which precedes your description.  We suggest that you view the finished display on our website and if required edit your description to avoid repetition, to improve flow and to ensure that your property is described truthfully in its best light)">Property Description <span class="required">*</span><em style="font-size: 12px;color: #3fa7f1;">(must be written in the Third Person – do not use terms such as “we” “us” “our” etc. )</em></label>
+                                        <label class="bmd-label-floating" >Property Description <i data-toggle="tooltip" data-placement="bottom" title="Please note that we provide a very brief property description which precedes your description.  We suggest that you view the finished display on our website and if required edit your description to avoid repetition, to improve flow and to ensure that your property is described truthfully in its best light)" class="fa fa-info-circle" aria-hidden="true"></i> <span class="required">*</span><em style="font-size: 12px;color: #3fa7f1;">(must be written in the Third Person – do not use terms such as “we” “us” “our” etc. )</em></label>
                                         <textarea class="form-control ckeditor requiredCheckTwo" data-check="Property Description" name="hotels_desc" id="hotels_desc">{{ $hotels->hotels_desc }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Brief Description</label>
+                                        <label class="bmd-label-floating">Brief Description </label>
                                         <textarea class="form-control ckeditor" name="brief_descp" id="brief_descp">{{ $hotels->brief_descp }}</textarea>
                                     </div>
                                 </div>
@@ -322,6 +323,20 @@ display: inline;
                                         </label>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Select one of the following</label>&nbsp;&nbsp;&nbsp;
+                                        <label class="radio-inline">
+                                            <input type="radio" name="catg" >Adults Only
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="catg">Family-friendly
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="catg">Children over 5 years
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -345,6 +360,72 @@ display: inline;
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Number of Floors</label>
                                         <input type="text" id="no_of_floor" name="no_of_floor" class="form-control isNumber" value="{{ $hotels->no_of_floor }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Select as applicable</label>&nbsp;&nbsp;&nbsp;
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Lagoon Pool
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Lazy River Pool
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Gym
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Sauna
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Steam Room
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Hammam
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Guest Lounge
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Library
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Bar
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Helipad
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Golf course
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Tennis court
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Equestrian centre
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Kids Club
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Butler Service
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Personal trainers
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> Babysitting
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> House bikes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="appli"> E-bikes
+                                        </label>
+                                        <div class="form-group">
+                                            <input type="checkbox" name="appli"> Other
+                                            <input type="text" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -444,7 +525,9 @@ display: inline;
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Setting  <em style="font-size: 12px;color: #3fa7f1;">(must be written in the Third Person – do not use terms such as “we” “us” “our” etc. )</em></label>
+                                        <label class="bmd-label-floating">Setting <i data-toggle="tooltip" data-placement="bottom"
+                                            title="Describe the setting within which your property sits including natural landscapeor urban features, local special attractions enjoyed by guests and benefits consequent to your setting, location or proximity to nearby features or activities(must be written in the Third Person – do not use terms such as “we” “us” “our” etc. )"
+                                            class="fa fa-info-circle" aria-hidden="true"></i> <em style="font-size: 12px;color: #3fa7f1;">(must be written in the Third Person – do not use terms such as “we” “us” “our” etc. )</em></label>
                                         <textarea class="form-control ckeditor" name="highlights" id="highlights">{{ $hotels->highlights }}</textarea>
                                     </div>
                                 </div>
@@ -506,7 +589,15 @@ display: inline;
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Description <em style="font-size: 12px;color: #3fa7f1;">(must be written in the Third Person – do not use terms such as “we” “us” “our” etc. )</em></label>
+                                        <label class="bmd-label-floating">Description <i data-toggle="tooltip" data-placement="bottom"
+                                            title="We provide a brief description of fishing in your area, based on our experience & research. 
+                                              Following this description we provide our specific notes under the headings “Fishing Season” 
+                                              and “Target Species” relevant to your area.  This information is presented on your Hotel page
+                                              under the heading FISHING.Below our text is a field available to you to insert text and images 
+                                              in order to enhance our description, to provide more information relevant to fishing in your 
+                                              location and to add specific fishing information relevant to your property and the services you 
+                                              provide"
+                                            class="fa fa-info-circle" aria-hidden="true"></i> <em style="font-size: 12px;color: #3fa7f1;">(must be written in the Third Person – do not use terms such as “we” “us” “our” etc. )</em></label>
                                         <textarea class="form-control" name="hotelfishing" rows="10">{{ $hotels->hotelfishing }}</textarea>
                                     </div>
                                 </div>
@@ -557,7 +648,12 @@ display: inline;
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Policy </label>
+                                        <label class="bmd-label-floating">Policy <i data-toggle="tooltip" data-placement="bottom" title="In cases where selected properties are located in near proximity to good fishing 
+                                            options, but do not offer unrestricted fishing experiences as an internal or external tour activity, 
+                                            we provide contact details from our curated list of local Fishing Guides or local Fishing Charter 
+                                            Operators as a free service to assist our customers.    This information is given privately to our 
+                                            customers at no cost and has no impact on your ability to arrange similar external activities for these guests.
+                                               Please email us if you have any comments, preferences, recommendations or objections concerning this service" class="fa fa-info-circle" aria-hidden="true"></i></label>
                                         <textarea class="form-control ckeditor" name="hotel_policy" id="hotel_policy">{{ $hotels->hotel_policy }}</textarea>
                                     </div>
                                 </div>
@@ -575,7 +671,11 @@ display: inline;
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Need To Know</label>
+                                        <label class="bmd-label-floating">Need To Know <i data-toggle="tooltip" data-placement="bottom"
+                                            title="Briefly describe other important Information under separate headings (eg “How to get to the Property”, 
+                                            “Current COVID conditions & procedures in-place”, “Seasonal Operations”, “Special travel arrangements” etc) 
+                                            Must be written in the Third Person – do not use terms such as “we” “us” “our” etc."
+                                            class="fa fa-info-circle" aria-hidden="true"></i></label>
                                         <textarea class="form-control ckeditor" id="need_to_know" name="need_to_know">{{ $hotels->need_to_know }}</textarea>
                                     </div>
                                 </div>
@@ -594,7 +694,16 @@ display: inline;
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label>Featured Image </label>
+                                        <label>Featured Image <i data-toggle="tooltip" data-placement="bottom"
+                                            title="Your  Roomimages should all be high quality (from min???? to max ????) and should be sized from Min. AAA wide x BBB high  to Max .CCC wide x DDD high
+
+You may upload up to 12 images for each Room Type (minimum 4 images) 
+
+For each Room Type, RoomImage No.1  (Best Leading Image) will be your Lead Room Image presented first on the relevant Room Availability page.  You should therefore choose this image carefully & offer the most outstanding high quality image that best depicts the attraction of your room.   Immersive images that allow the customer to sense desirability & pleasure being in the room and to see the view from the room are recommended. 
+
+Room Images No.2 to 12 (your best selection of diverse images depicting the room attractions) will be displayed (by scrolling) in the numerical sequence chosen here.   
+You should therefore select the sequence of images you upload carefully." class="fa fa-info-circle"
+                                            aria-hidden="true"></i></label>
                                         <br />
                                         <input type="hidden" name="old_featured_image" value="{{$hotels->featured_image}}">
                                         <?php if($hotels->featured_image != NULL || !empty($hotels->featured_image)): ?>
@@ -634,7 +743,12 @@ display: inline;
                                 </div>
                                 <div class="col-sm-4 roomImg<?=$rgKey?>" style="height: 150px; max-height: 150px;">
                                     <div class="form-group">
-                                        <label>Image Alt Text <em style="font-size: 12px;color: #3fa7f1;">Property Name followed by brief 
+                                        <label>Image Alt Text <i data-toggle="tooltip" data-placement="bottom"
+                                            title="You must include an ALT TEXTtag for each room image.  This is a brief record of what is displayed in the image, 
+                                            preceded by your room type (e.g. Pool Suite king bed with sea view at night). 
+                                             Each Alt Text cannot exceed 50 characters.  Alt Texts are very important for visually 
+                                             impaired customers." class="fa fa-info-circle"
+                                            aria-hidden="true"></i> <em style="font-size: 12px;color: #3fa7f1;">Property Name followed by brief 
                                             text describing the image ” (max 50 characters )</em></label>
                                         <textarea name="old_gallery_image_alt[]" class="form-control imageAlt"
                                             rows="3">{{$image_alt[$rgKey] }}</textarea>
@@ -1011,6 +1125,7 @@ function initMap() {
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK4rMTf9bUlqpg1g8SF2zUnV4HQmatsVo&libraries=places&callback=initMap"
 async defer></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();   

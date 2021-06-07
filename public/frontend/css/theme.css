@@ -4067,5 +4067,9 @@ div#myNavbar {width: 100%;float: left;}
 
 
 
-
+.ui-widget-shadow {
+    background: #333 !important;
+    color: #fff !important;
+	opacity: 1 !important;
+}
 

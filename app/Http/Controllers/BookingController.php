@@ -56,21 +56,20 @@ class BookingController extends Controller{
     $cOut   = $request->checkOut;
     $diff   = date_diff(date_create($cIn), date_create($cOut));
     $days   = $diff->format("%a");
-    $rooms  = Rooms::where('availability', 1)->where('hotel_token', $request->hotelToken)->get();
+    $rooms  = Rooms::select('id', 'name', 'room_capacity')->where('availability', 1)->where('hotel_token', $request->hotelToken)->get();
     $html   = '<option value="">-- Select Room --</option>';
     if(!empty($rooms)):
       foreach($rooms as $r):
         $max = '';
         for($d = 0; $d < $days; $d++):
-          $strt = date('Y-m-d', strtotime($cIn. ' + '. $d .' days'));
-          $end  = date('Y-m-d', strtotime($cIn. ' + '. ($d+1) .' days'));
-          $chk  = DB::table('booking_items')->select('id', 'quantity_room')->where('room_id', $r->id)->where('status', 1)
-                  ->where('check_in', '>=', $strt)->where('check_out', '<=', $end)->get();
-          $rc   = RoomCount::where('room_id', $r->id)->where('dt', $strt)->first();
+          $strt   = date('Y-m-d', strtotime($cIn. ' + '. $d .' days'));
+          $end    = date('Y-m-d', strtotime($cIn. ' + '. ($d+1) .' days'));
+          $chk    = DB::table('booking_items')->select('id', 'quantity_room')->where('room_id', $r->id)->where('status', 1)
+                    ->where('check_in', '>=', $strt)->where('check_out', '<=', $end)->get();
+          $rc     = RoomCount::where('room_id', $r->id)->where('dt', $strt)->first();
           $avlbl  = (!empty($rc)) ? $rc->count : $r->room_capacity;
           if(!empty($chk)):
             $booked = 0;
-            $avlbl  = 0;
             foreach($chk as $c):
               $booked += $c->quantity_room;
             endforeach;
@@ -97,15 +96,22 @@ class BookingController extends Controller{
     print json_encode(array('success' => TRUE, 'html' => $html, 'nights' => $days));
   }
   public function getRoomPrice(Request $request){
-    $user       = auth('web')->user();
-    $room       = Rooms::where('id', $request->roomId)->first();
-    $morePrice  = json_decode($room->more_price, true);
-    $html       = '';
-    if(!empty($morePrice)):
-      $html     .= '<input type="radio" checked value="'.$room->base_price.'" name="radioRoomType" class="roomType" data-name="Room Only">
-                    <label>Room Only</label><br>';
-      foreach($morePrice as $mrpKey => $mrp):
-        $html   .= '<input type="radio" value="'.$mrpKey.'" name="radioRoomType" class="roomType" data-name="'.$mrp.'">
+    $user           = auth('web')->user();
+    $room           = Rooms::where('id', $request->roomId)->first();
+    $mealDetails    = json_decode($room->meal_details, true);
+    $packageDetails = json_decode($room->package_details, true);
+    $html           = '';
+    $html           .= '<input type="radio" checked value="'.$room->base_price.'" name="radioRoomType" class="roomType" data-name="Room Only">
+                        <label>Room Only</label><br>';
+    if(!empty($mealDetails)):
+      foreach($mealDetails as $mrpKey => $mrp):
+        $html       .= '<input type="radio" value="'.$mrpKey.'" name="radioRoomType" class="roomType" data-name="'.$mrp.'">
+                    <label>'.$mrp.'</label><br>';
+      endforeach;
+    endif;
+    if(!empty($packageDetails)):
+      foreach($packageDetails as $mrpKey => $mrp):
+        $html       .= '<input type="radio" value="'.$mrpKey.'" name="radioRoomType" class="roomType" data-name="'.$mrp.'">
                     <label>'.$mrp.'</label><br>';
       endforeach;
     endif;

@@ -92,46 +92,129 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Base Price <span class="required">*</span></label>
+                                    <label>Room Only Wholesale Rate <span class="required">*</span></label>
                                     <input type="text" name="base_price" class="form-control allowNumberDot requiredCheck" data-check="Base Price"
-                                        value="{{ $rooms->base_price }}" placeholder="Base Price">
+                                        value="{{ $rooms->base_price }}" placeholder="Room Only Wholesale Rate">
                                 </div>
                             </div>
                         </div>
-                        <div class="row morePriceDiv">
+                        <div class="row moreMealDiv">
+                            <h2 class="text-center">Add Meal Plan</h2>
                             <?php
-                            $morePrice          = json_decode($rooms->more_price, true);
-                            if(!empty($morePrice)) :
-                                foreach($morePrice as $mrpKey => $mrp):
+                            $cntt   = 0;
+                            $cnttt  = 0;
+                            $mealDetails          = json_decode($rooms->meal_details, true);
+                            if(!empty($mealDetails)) :
+                                foreach($mealDetails as $mrpKey => $mrp):
                             ?>
-                                    <div class="col-sm-5 roomPrc{{ $mrpKey }}">
+                                    <div class="col-sm-5 roomPrc{{ $cntt }}">
                                         <div class="form-group">
-                                            <label>Room Price Text <span class="required">*</span></label>
-                                            <input type="text" name="priceText[]" class="form-control requiredCheck" value="{{$mrp}}" autocomplete="off">
+                                            <label>Meal Plan </label>
+                                            <input type="text" name="mealText[]" class="form-control" data-check="Meal Plan" autocomplete="off"
+                                            value="{{$mrp}}">
                                         </div>
                                     </div>
-                                    <div class="col-sm-5 roomPrc{{ $mrpKey }}">
+                                    <div class="col-sm-5 roomPrc{{ $cntt }}">
                                         <div class="form-group">
-                                            <label>Room Price <span class="required">*</span></label>
-                                            <input type="text" name="priceValue[]" class="form-control allowNumberDot requiredCheck" value="{{$mrpKey}}" autocomplete="off">
+                                            <label>Meal Price</label>
+                                            <input type="text" name="mealValue[]" class="form-control allowNumberDot" data-check="Meal Price"
+                                                autocomplete="off" value="{{$mrpKey}}">
                                         </div>
                                     </div>
-                                    <div class="col-md-2 roomPrc{{ $mrpKey }}">
+                                    <?php if($cntt != 0): ?>
+                                    <div class="col-md-2 roomPrc{{ $cntt }}">
                                         <div class="form-group">
                                             <label class="bmd-label-floating">Action</label><br />
-                                            <input type="button" class="btn btn-danger deleteMrPriceBtn" data-key="{{ $mrpKey }}" value="Remove">
+                                            <input type="button" class="btn btn-danger deleteMrPriceBtn" data-key="{{ $cntt }}" value="Remove">
                                         </div>
                                     </div>
+                                    <?php endif; ?>
                             <?php
+                                $cntt++;
                                 endforeach;
+                            else:
+                            ?>
+                                <div class="col-sm-5 roomPrc">
+                                    <div class="form-group">
+                                        <label>Meal Plan </label>
+                                        <input type="text" name="mealText[]" class="form-control" data-check="Meal Plan" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="col-sm-5 roomPrc">
+                                    <div class="form-group">
+                                        <label>Meal Price</label>
+                                        <input type="text" name="mealValue[]" class="form-control allowNumberDot" data-check="Meal Price"
+                                            autocomplete="off">
+                                    </div>
+                                </div>
+                            <?php
                             endif;
                             ?>
                         </div>
                         <div class="row">
-                            <input type="hidden" id="prcCnt" value="{{ count($morePrice) }}">
                             <div class="col-sm-12 text-center">
                                 <div class="form-group text-center">
-                                    <input type="button" class="btn btn-info addMrPriceBtn" value="+ Add Price">
+                                    <input type="button" class="btn btn-info addMealBtn" value="+ Add Meal">
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="row morePackageDiv">
+                            <?php
+                            $packageDetails          = json_decode($rooms->package_details, true);
+                            if(!empty($packageDetails)) :
+                                foreach($packageDetails as $mrpKey => $mrp):
+                            ?>
+                                    <div class="col-sm-5 roomPrc{{ $cntt }}">
+                                        <div class="form-group">
+                                            <label>Package Name </label>
+                                            <input type="text" name="packageText[]" class="form-control" data-check="Package Name" autocomplete="off"
+                                            value="{{$mrp}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5 roomPrc{{ $cntt }}">
+                                        <div class="form-group">
+                                            <label>Package Price</label>
+                                            <input type="text" name="packageValue[]" class="form-control allowNumberDot" data-check="Package Price"
+                                                value="{{$mrpKey}}" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <?php if($cnttt != 0): ?>
+                                    <div class="col-md-2 roomPrc{{ $cntt }}">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Action</label><br />
+                                            <input type="button" class="btn btn-danger deleteMrPriceBtn" data-key="{{ $cntt }}" value="Remove">
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
+                            <?php
+                                $cntt++;
+                                $cnttt++;
+                                endforeach;
+                            else:
+                            ?>
+                                <div class="col-sm-5 roomPrc">
+                                    <div class="form-group">
+                                        <label>Package Name </label>
+                                        <input type="text" name="packageText[]" class="form-control" data-check="Package Name" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="col-sm-5 roomPrc">
+                                    <div class="form-group">
+                                        <label>Package Price</label>
+                                        <input type="text" name="packageValue[]" class="form-control allowNumberDot" data-check="Package Price"
+                                            autocomplete="off">
+                                    </div>
+                                </div>
+                            <?php
+                            endif;
+                            ?>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <div class="form-group text-center">
+                                    <input type="hidden" id="prcCnt" value="{{ $cntt }}">
+                                    <input type="button" class="btn btn-info addPackageBtn" value="+ Add Package">
                                 </div>
                             </div>
                         </div>
@@ -207,7 +290,15 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Featured Image </label>
+                                    <label>Featured Image <i data-toggle="tooltip" data-placement="bottom" title="Your  Roomimages should all be high quality (from min???? to max ????) and should be sized from Min. AAA wide x BBB high  to Max .CCC wide x DDD high
+                                    
+                                    You may upload up to 12 images for each Room Type (minimum 4 images) 
+                                    
+                                    For each Room Type, RoomImage No.1  (Best Leading Image) will be your Lead Room Image presented first on the relevant Room Availability page.  You should therefore choose this image carefully & offer the most outstanding high quality image that best depicts the attraction of your room.   Immersive images that allow the customer to sense desirability & pleasure being in the room and to see the view from the room are recommended. 
+                                    
+                                    Room Images No.2 to 12 (your best selection of diverse images depicting the room attractions) will be displayed (by scrolling) in the numerical sequence chosen here.   
+                                    You should therefore select the sequence of images you upload carefully." class="fa fa-info-circle"
+                                        aria-hidden="true"></i></label>
                                     <br/>
                                     <input type="hidden" name="old_featured_image" value="{{$rooms->featured_image}}">
                                     <img src="{{ url('public/uploads/' . $rooms->featured_image)}}" alt="{{ $rooms->name }}" style="height: 150px; width:auto;">
@@ -232,7 +323,10 @@
                                     </div>
                                     <div class="col-sm-5 roomImg<?=$rgKey?>" style="height: 150px; max-height: 150px;">
                                         <div class="form-group">
-                                            <label>Image Alt Text</label>
+                                            <label>Image Alt Text <i data-toggle="tooltip" data-placement="bottom" title="You must include an ALT TEXTtag for each room image.  This is a brief record of what is displayed in the image, 
+                                                                                        preceded by your room type (e.g. Pool Suite king bed with sea view at night). 
+                                                                                         Each Alt Text cannot exceed 50 characters.  Alt Texts are very important for visually 
+                                                                                         impaired customers." class="fa fa-info-circle" aria-hidden="true"></i></label>
                                             <textarea name="old_gallery_image_alt[]" class="form-control imageAlt" rows="3">{{$rg->image_alt}}</textarea>
                                         </div>
                                     </div>
@@ -308,28 +402,53 @@
                                         </div>\
                                     </div>');
     });
-    $(document).on('click', '.addMrPriceBtn', function() {
+    $(document).on('click', '.addMealBtn', function() {
         let key = parseInt($('#prcCnt').val()) + parseInt(1);
         $('#prcCnt').val(key);
-        $('.morePriceDiv').append('\
-                                    <div class="col-sm-5 roomPrc'+key+'">\
-                                        <div class="form-group">\
-                                            <label>Room Price Text <span class="required">*</span></label>\
-                                            <input type="text" name="priceText[]" class="form-control requiredCheck" data-check="Room Price Text" autocomplete="off">\
-                                        </div>\
-                                    </div>\
-                                    <div class="col-sm-5 roomPrc'+key+'">\
-                                        <div class="form-group">\
-                                            <label>Room Price <span class="required">*</span></label>\
-                                            <input type="text" name="priceValue[]" class="form-control allowNumberDot requiredCheck" data-check="Room Price" autocomplete="off">\
-                                        </div>\
-                                    </div>\
-                                    <div class="col-md-2 roomPrc'+key+'">\
-                                        <div class="form-group">\
-                                            <label class="bmd-label-floating">Action</label><br />\
-                                            <input type="button" class="btn btn-danger deleteMrPriceBtn" data-key="'+key+'" value="Remove">\
-                                        </div>\
-                                    </div>');
+        $('.moreMealDiv').append('\
+        <div class="col-sm-5 roomPrc'+key+'">\
+            <div class="form-group">\
+                <label>Meal Plan </label>\
+                <input type="text" name="mealText[]" class="form-control" data-check="Meal Plan" autocomplete="off">\
+            </div>\
+        </div>\
+        <div class="col-sm-5 roomPrc'+key+'">\
+            <div class="form-group">\
+                <label>Meal Price</label>\
+                <input type="text" name="mealValue[]" class="form-control allowNumberDot" data-check="Meal Price" \
+                    autocomplete="off">\
+            </div>\
+        </div>\
+        <div class="col-md-2 roomPrc'+key+'">\
+            <div class="form-group">\
+                <label class="bmd-label-floating">Action</label><br />\
+                <input type="button" class="btn btn-danger deleteMrPriceBtn" data-key="'+key+'" value="Remove">\
+            </div>\
+        </div>');
+    });
+    $(document).on('click', '.addPackageBtn', function() {
+        let key = parseInt($('#prcCnt').val()) + parseInt(1);
+        $('#prcCnt').val(key);
+        $('.morePackageDiv').append('\
+        <div class="col-sm-5 roomPrc'+key+'">\
+            <div class="form-group">\
+                <label>Package Name </label>\
+                <input type="text" name="packageText[]" class="form-control" data-check="Package Name" autocomplete="off">\
+            </div>\
+        </div>\
+        <div class="col-sm-5 roomPrc'+key+'">\
+            <div class="form-group">\
+                <label>Package Price</label>\
+                <input type="text" name="packageValue[]" class="form-control allowNumberDot" data-check="Package Price" \
+                    autocomplete="off">\
+            </div>\
+        </div>\
+        <div class="col-md-2 roomPrc'+key+'">\
+            <div class="form-group">\
+                <label class="bmd-label-floating">Action</label><br />\
+                <input type="button" class="btn btn-danger deleteMrPriceBtn" data-key="'+key+'" value="Remove">\
+            </div>\
+        </div>');
     });
     $(document).on('click', '.addMrCancBtn', function() {
         let key = parseInt($('#cancCnt').val()) + parseInt(1);
@@ -421,5 +540,11 @@
             });
         }
     });
+</script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
 </script>
 @endsection

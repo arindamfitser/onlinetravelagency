@@ -57,15 +57,28 @@ class RoomsController extends Controller{
         $rooms->descp               = $request->descp;
         $rooms->availability        = $request->availability;
         $rooms->base_price          = $request->base_price;
-        $morePrice                  = array();
-        if($request->priceText):
-            if(!empty($request->priceText)):
-                foreach($request->priceText as $mpk => $mpkVal):
-                    $morePrice[$request->priceValue[$mpk]] = $mpkVal;
+        $mealDetails                = array();
+        if($request->mealText):
+            if(!empty($request->mealText)):
+                foreach($request->mealText as $mpk => $mpkVal):
+                    if(!empty($mpkVal) && !empty($request->mealValue[$mpk])):
+                        $mealDetails[$request->mealValue[$mpk]] = $mpkVal;
+                    endif;
                 endforeach;
             endif;
         endif;
-        $rooms->more_price          = json_encode($morePrice);
+        $rooms->meal_details        = json_encode($mealDetails);
+        $packageDetails             = array();
+        if($request->packageText):
+            if(!empty($request->packageText)):
+                foreach($request->packageText as $mpk => $mpkVal):
+                    if(!empty($mpkVal) && !empty($request->packageValue[$mpk])):
+                        $packageDetails[$request->packageValue[$mpk]] = $mpkVal;
+                    endif;
+                endforeach;
+            endif;
+        endif;
+        $rooms->package_details     = json_encode($packageDetails);
         $rooms->min_stay_policy     = $request->min_stay_policy;
         $rooms->inclusions          = $request->inclusions;
         $rooms->exclusions          = $request->exclusions;
@@ -103,7 +116,7 @@ class RoomsController extends Controller{
                 endfor;
             endif;
         endif;
-        print json_encode(array('success' => true, 'message'=> 'Room Added successfully !!!', 'swal' => 'success'));
+        print json_encode(array('success' => true, 'message'=> 'Room Added Successfully !!!', 'swal' => 'success'));
     }
     public function rooms_edit($id){
         $rooms          = Rooms::where('id', '=', $id)->get()->first();
@@ -137,15 +150,28 @@ class RoomsController extends Controller{
         $rooms->descp               = $request->descp;
         $rooms->availability        = $request->availability;
         $rooms->base_price          = $request->base_price;
-        $morePrice                  = array();
-        if($request->priceText):
-            if(!empty($request->priceText)):
-                foreach($request->priceText as $mpk => $mpkVal):
-                    $morePrice[$request->priceValue[$mpk]] = $mpkVal;
+        $mealDetails                = array();
+        if($request->mealText):
+            if(!empty($request->mealText)):
+                foreach($request->mealText as $mpk => $mpkVal):
+                    if(!empty($mpkVal) && !empty($request->mealValue[$mpk])):
+                        $mealDetails[$request->mealValue[$mpk]] = $mpkVal;
+                    endif;
                 endforeach;
             endif;
         endif;
-        $rooms->more_price          = json_encode($morePrice);
+        $rooms->meal_details        = json_encode($mealDetails);
+        $packageDetails             = array();
+        if($request->packageText):
+            if(!empty($request->packageText)):
+                foreach($request->packageText as $mpk => $mpkVal):
+                    if(!empty($mpkVal) && !empty($request->packageValue[$mpk])):
+                        $packageDetails[$request->packageValue[$mpk]] = $mpkVal;
+                    endif;
+                endforeach;
+            endif;
+        endif;
+        $rooms->package_details     = json_encode($packageDetails);
         $rooms->min_stay_policy     = $request->min_stay_policy;
         $rooms->inclusions          = $request->inclusions;
         $rooms->exclusions          = $request->exclusions;
@@ -192,7 +218,7 @@ class RoomsController extends Controller{
                 endfor;
             endif;
         endif;
-        print json_encode(array('success' => true, 'message'=> 'Room Details Updated successfully !!!', 'swal' => 'success'));
+        print json_encode(array('success' => true, 'message'=> 'Room Details Updated Successfully !!!', 'swal' => 'success'));
     }
     
     

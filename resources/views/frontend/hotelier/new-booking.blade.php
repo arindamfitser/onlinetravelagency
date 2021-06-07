@@ -130,7 +130,7 @@
                                     <button type="button" class="btn btn-danger">Cancel</button>
                                 </a>
                             </li>
-                            <li><button type="button" class="btn btn-info bookHotelButton">Book Hotel</button></li>
+                            <li><button type="button" class="btn btn-success bookHotelButton">Book Hotel</button></li>
                         </ul>
                     </form>
                 </div>

@@ -37,13 +37,9 @@
   	if($bookingArray['selectedRoomType'] == 'Room Only'):
   		$nightcost 		= $bookingArray['roomDetails']->base_price;
 	else:
-  		$morePrice 		= json_decode($bookingArray['roomDetails']->more_price, true);
-  		foreach($morePrice as $mrp => $mrpText):
-			if($mrpText == $bookingArray['selectedRoomType']):
-				$nightcost = $mrp;
-				break;
-			endif;
-		endforeach;
+		$mealDetails 	= json_decode($bookingArray['roomDetails']->meal_details, true);
+		$packageDetails = json_decode($bookingArray['roomDetails']->package_details, true);
+  		$nightcost 		= (in_array($bookingArray['selectedRoomType'], $mealDetails)) ? array_search($bookingArray['selectedRoomType'], $mealDetails) : array_search($bookingArray['selectedRoomType'], $packageDetails);
 	endif;
 	$totalprice 		= $nightcost * $bookingArray['totalNight'] * $bookingArray['quantityRooms'];
 	$totalsellingprice 	= number_format((float) $totalprice, 2);
@@ -196,7 +192,7 @@
 									<tbody>
 										<tr>
 											<td>{{ $bookingArray['roomDetails']->name . $showRTyp }} - {{$bookingArray['totalNight']}} Night(s) X {{ $bookingArray['quantityRooms'] }} Room(s)</td>
-											<td style="text-align: right;">{{ getCurrency() }} {{ number_format(((float)$bookingArray['roomDetails']->base_price), 2) }}</td>
+											<td style="text-align: right;">{{ getCurrency() }} {{ number_format(((float)$nightcost), 2) }}</td>
 										</tr>
 										<tr>
 											<td><span>Sub Total : </span></td>

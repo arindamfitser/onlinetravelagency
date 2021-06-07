@@ -202,6 +202,17 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 										<?php
 											endforeach;
 										endif;
+										if(count($hotel->galleries) > 0):
+											foreach($hotel->galleries as $img):
+										?>
+												<li>
+													<a href="{{url('public/uploads/' . $img->image)}}" rel="prettyPhoto[pp_gal]">
+														<img src="{{url('public/uploads/' . $img->image)}}" alt="{{ $hotel->hotels_name }}">
+													</a>
+												</li>
+										<?php
+											endforeach;
+										endif;
 										?>
 									</ul>
 								</div>
@@ -216,6 +227,13 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 											foreach($imgSeq as $ik => $ikv):
 										?>
 												<li><img src="{{url('public/uploads/' . $imgGal[$ik])}}" alt="{{ $imgAlt[$ik] }}"></li>
+										<?php
+											endforeach;
+										endif;
+										if(count($hotel->galleries) > 0):
+											foreach($hotel->galleries as $img):
+										?>
+												<li><img src="{{url('public/uploads/' . $img->image)}}" alt="{{ $hotel->hotels_name }}"></li>
 										<?php
 											endforeach;
 										endif;
@@ -606,10 +624,7 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 									$transfers = explode(", ", $hotel->transfers_mode);
 									?>
 									<ul>
-										<li>
-											<img src="{{ asset('frontend') }}/images/Road.png" alt="">
-											<?=($stuba) ? ((!empty($hotel->transfers_mode)) ? $hotel->transfers_mode : ' - ') : ((!empty($hotelNewEntry->transfers_mode)) ? $hotelNewEntry->transfers_mode : ' - ') ?>
-										</li>
+										<li><img src="{{ asset('frontend') }}/images/Road.png" alt=""><?php echo $hotel->transfers_mode; ?> </li>
 										<!-- @for ($i = 0; $i < count($transfers) ; $i++)
 										@switch($transfers[$i])
 										@case('Road')
@@ -630,19 +645,13 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 								<div class="box1">
 									<h2>Nearest airport</h2>
 									<ul>
-										<li>
-											<img src="{{ asset('frontend') }}/images/Butte.png" alt="">
-											<?=($stuba) ? ((!empty($hotel->nearest_airport)) ? $hotel->nearest_airport : ' - ') : ((!empty($hotelNewEntry->nearest_airport)) ? $hotelNewEntry->nearest_airport : ' - ') ?>
-										</li>
+										<li><img src="{{ asset('frontend') }}/images/Butte.png" alt=""> @if(isset($hotel->nearest_airport)){{ $hotel->nearest_airport }}@else {{ 'None' }}@endif</li>
 									</ul>
 								</div>
 								<div class="box1">
 									<h2>Distance</h2>
 									<ul>
-										<li>
-											<img src="{{ asset('frontend') }}/images/kMS.png" alt="">
-											<?=($stuba) ? ((!empty($hotel->distance_airport)) ? $hotel->distance_airport : ' - ') : ((!empty($hotelNewEntry->distance_airport)) ? $hotelNewEntry->distance_airport : ' - ') ?>
-										</li>
+										<li><img src="{{ asset('frontend') }}/images/kMS.png" alt=""> @if(isset($hotel->distance_airport)){{ $hotel->distance_airport }}@else {{ ' - ' }}@endif</li>
 									</ul>
 								</div>
 								<div class="clearfix"> </div>
@@ -653,46 +662,46 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 				</div>
 				<!-- ==============Nearby Attractions===================== -->
 				<?php
-				if($stuba):
-					if(count($hotelDesc) > 0) :
-						$chk = 0;
-						foreach($hotelDesc as $hd):
-							if($hd['Type'] == 'AreaActivities' && $chk == 0):
-								print '<div class="sect-tab">
-										<div class="container-fluid2">
-											<h1>Nearby Attractions</h1>
-											' . $hd['Text'] . '
-										</div>
-									</div>';
-								$chk++;
-							endif;
-						endforeach;
-					endif;
+				if(count($hotelDesc) > 0) :
+    				$chk = 0;
+    				foreach($hotelDesc as $hd):
+    				    if($hd['Type'] == 'AreaActivities' && $chk == 0):
+    				        print '<div class="sect-tab">
+        							<div class="container-fluid2">
+        								<h1>Nearby Attractions</h1>
+        								' . $hd['Text'] . '
+        							</div>
+        						</div>';
+        					$chk++;
+    				    endif;
+    				endforeach;
 				else:
-					$nearby_attraction	= json_decode($hotelNewEntry->nearby_attraction, true);
-					if(!empty($nearby_attraction)):
-						$distance = json_decode($hotelNewEntry->distance, true);
-						print '<div class="sect-tab">
-								<div class="container-fluid2">
-									<h1>Nearby Attractions</h1>
-									<div class="faqbox">
-										<div class="panel-group" id="accordion">';
-						foreach($nearby_attraction as $naKey => $na):
-							print '	<div class="panel panel-default">
-										<div class="panel-heading">
-											<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-													href="#collapseNa'.$naKey.'" aria-expanded="false">'. $na .'</a></h4>
-										</div>
-										<div id="collapseNa'.$naKey.'" class="panel-collapse collapse" aria-expanded="false">
-											<div class="panel-body">
-												<div class="feature-accordion__main" style="display: block;">
-													'. $distance[$naKey] .'
+					if(!$stuba):
+						$nearby_attraction	= json_decode($hotelNewEntry->nearby_attraction, true);
+						if(!empty($nearby_attraction)):
+							$distance = json_decode($hotelNewEntry->distance, true);
+							print '<div class="sect-tab">
+									<div class="container-fluid2">
+										<h1>Nearby Attractions</h1>
+										<div class="faqbox">
+											<div class="panel-group" id="accordion">';
+							foreach($nearby_attraction as $naKey => $na):
+								print '	<div class="panel panel-default">
+											<div class="panel-heading">
+												<h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+														href="#collapseNa'.$naKey.'" aria-expanded="false">'. $na .'</a></h4>
+											</div>
+											<div id="collapseNa'.$naKey.'" class="panel-collapse collapse" aria-expanded="false">
+												<div class="panel-body">
+													<div class="feature-accordion__main" style="display: block;">
+														'. $distance[$naKey] .'
+													</div>
 												</div>
 											</div>
-										</div>
-									</div>';
-						endforeach;
-						print '</div></div></div></div>';
+										</div>';
+							endforeach;
+							print '</div></div></div></div>';
+						endif;
 					endif;
     			endif;
 				?>
@@ -711,7 +720,8 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 									<div id="collapseHP" class="panel-collapse collapse" aria-expanded="false">
 										<div class="panel-body">
 											<div class="feature-accordion__main" style="display: block;">
-												<?=($stuba) ? $hotel->hotel_policy : $hotelNewEntry->hotel_policy?>
+												<?=$hotel->hotel_policy?>
+												<?=(!$stuba) ? $hotelNewEntry->hotel_policy : ''?>
 											</div>
 										</div>
 									</div>
@@ -754,7 +764,8 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 									<div id="collapseNTK" class="panel-collapse collapse" aria-expanded="false">
 										<div class="panel-body">
 											<div class="feature-accordion__main" style="display: block;">
-												<?=($stuba) ? $hotel->need_to_know : $hotelNewEntry->need_to_know?>
+												<?=$hotel->need_to_know?>
+												<?=(!$stuba) ? $hotelNewEntry->need_to_know : ''?>
 											</div>
 										</div>
 									</div>
@@ -1034,8 +1045,7 @@ $hotelDesc = json_decode(json_encode($hotel->hotelDesc), true);
 			</div>
 	  	</div>
 	</div>
-	<?php $hotelAddress = ($stuba) ? (($hotel->hoteladdress->location) ? $hotel->hoteladdress->location : '') : $hotelNewEntry->address; ?>
-	<input type="hidden" id="hotelAddress" value="<?=$hotelAddress?>">
+	<input type="hidden" id="hotelAddress" value="<?=($hotel->hoteladdress->location) ? $hotel->hoteladdress->location : ''?>">
 	@endsection
 	@section('script')
 	<script defer src="{{ asset('frontend/js/jquery.flexslider.js') }}"></script>

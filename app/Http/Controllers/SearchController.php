@@ -71,7 +71,9 @@ class SearchController extends Controller{
     $hotel                      = Hotels::whereTranslation('hotels_slug', $slug)->first();
     $hotelNewEntry              = array();
     if($hotel):
-      $hotelNewEntry            = HotelNewEntry::where('hotel_token',  $hotel->hotel_token)->first();
+      if($hotel->hotel_token != NULL || !empty($hotel->hotel_token)):
+        $hotelNewEntry            = HotelNewEntry::where('hotel_token',  $hotel->hotel_token)->first();
+      endif;
       $hotel->features          = KeyFeature::join('hotel_features_relations', 'key_features.id', '=', 'hotel_features_relations.features_id')
         ->where('hotel_features_relations.hotel_id', $hotel->id)
         ->get();
@@ -109,7 +111,7 @@ class SearchController extends Controller{
       $hotel->hotelDesc         = array();
       $hotel->stubaDet          = array();
       $stuba                    = FALSE;
-      if(!empty($hotel->stuba_id)):
+      if($hotel->stuba_id != NULL || !empty($hotel->stuba_id)):
         $hotel->images          = DB::table('hotel_images_xml')->select('*')->where('hotel_images_xml.hotel_id', $hotel->stuba_id)->get();
         $hotel->hotelDesc       = DB::table('hotel_description_xml')->where('hotel_id', $hotel->stuba_id)->get();
         $hotel->stubaDet        = DB::table('hotel_master_xml')->select('stars')->where('hotel_master_xml.id', $hotel->stuba_id)->first();
@@ -136,12 +138,11 @@ class SearchController extends Controller{
     $images             = DB::table('hotel_images_xml')->select('*')->where('hotel_images_xml.hotel_id', $hotelid)->get();
     $amenity            = DB::table('hotel_amenity_xml')->select('Text')->where('hotel_amenity_xml.hotel_id', $hotelid)->get();
     $address            = DB::table('hotel_address_xml')->select('*')->where('hotel_address_xml.hotel_id', $hotelid)->first();
-    $hotelreview        = DB::table('hotel_reviews')->select('*')->where('hotel_id', $hotelid)->where('status', 1)->orderBy('id', 'DESC')->get();
+    $hotelreview        = DB::table('reviews')->select('*')->where('hotel_id', $hotelid)->where('status', 1)->orderBy('id', 'DESC')->get();
     $dataArray          = array('hotels' => $hotel, 'images' => $images, 'amenity' => $amenity, 'hotelDesc' => $hotelDesc, 'address' => $address);
     return view('frontend.hotels.xmldetails', compact('dataArray', 'quantity_adults', 'quantity_childs', 'quantity_rooms', 'hotelId', 'regionId', 'keyword', 'totalNight', 't_end', 't_start', 'pageNo', 'hotelreview'));
   }
-  public function byDestination()
-  {
+  public function byDestination(){
       $accommodation_search = DB::table('regions_translations')->select('*', 'hotels.id as hotel_id')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_accommodation_relations', 'hotels.id', '=', 'hotel_accommodation_relations.hotel_id')->groupBy('hotels.region_id')->get();
       $experience_search = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_experiences_relations', 'hotels.id', '=', 'hotel_experiences_relations.hotel_id')->groupBy('hotels.region_id')->get();
       $inspiration_search = DB::table('regions_translations')->join('hotels', 'regions_translations.regions_id', '=', 'hotels.region_id')->join('hotel_inspirations_relations', 'hotels.id', '=', 'hotel_inspirations_relations.hotel_id')->groupBy('hotels.region_id')->get();
@@ -253,9 +254,14 @@ class SearchController extends Controller{
     $star     = array();
     $directHotels = array();
     if($fromFishing == 'yes'):
-      $dirHotels = Hotels::where('town', '=', $request->keywords)->orderBy('curator_rating', 'DESC')->get();
+      $dirHotels      = Hotels::where('town', '=', $request->keywords)->orderBy('curator_rating', 'DESC')->get();
       if($dirHotels):
         foreach($dirHotels as $keyy => $directHotel):
+          if($directHotel->hotel_token != NULL || !empty($directHotel->hotel_token)):
+            $directHotels[$keyy]['hotelNewEntry']   = HotelNewEntry::where('hotel_token',  $directHotel->hotel_token)->first();
+          else:
+            $directHotels[$keyy]['hotelNewEntry']   = array();
+          endif;
           $directHotels[$keyy]['hotelImagesId']     = (!empty($directHotel->stuba_id)) ? $directHotel->stuba_id : $directHotel->hotel_token;
           $hotelImagesId[]                          = (!empty($directHotel->stuba_id)) ? $directHotel->stuba_id : $directHotel->hotel_token;
           $directHotels[$keyy]['details']           = $directHotel;

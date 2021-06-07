@@ -1,11 +1,7 @@
 @extends('admin.layouts.master')
-
 @section('th_head')
-
 @endsection
-
 @section('content')
-
 <div class="content">
     <div class="container-fluid">
         <div class="card">
@@ -29,32 +25,32 @@
                         </thead>
                         <tbody>
                             <?php $lang = @\Session::get('language');?>
-                            <?php foreach($states as $k=>$state) {
-                              //echo $state->status;
+                            <?php
+                            foreach($states as $k => $state) :
                             ?>
-                            <tr>
-                                <td><?php echo $state->states_name ?></td>
-                                <td><?php echo $state->countries_id ?></td>
+                                <tr>
+                                    <td><?php echo $state->states_name ?></td>
+                                    <td><?php echo $state->countries_id ?></td>
+                                    
+                                    <td class="text-primary">
+                                        <a href="<?php echo route('admin.states.edit', ['lang' => $state->locale, 'id' => $state->id]); ?> " title="Edit">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <?php if($state->status == 1) : ?>
+                                            <a href="<?php echo route('admin.states.edit', ['lang' => $state->locale, 'id' => $state->id]); ?>" style="color:#4caf50" title="Published">
+                                                <i  class="fa fa-toggle-on" aria-hidden="true"></i>
+                                            </a>
+                                        <?php else : ?>
+                                            <a href="<?php echo route('admin.states.edit', ['lang' => $state->locale, 'id' => $state->id]); ?>" style="color:red" title="Draft">
+                                                <i class="fa fa-toggle-off" aria-hidden="true"></i>
+                                            </a>
+                                        <?php endif; ?>
+                                    
+                                    </td>
+                                    
+                            </tr>
                                 
-                                <td class="text-primary">
-                                     <a href="<?php echo route('admin.states.edit', ['lang' => $state->locale, 'id' => $state->id]); ?> " title="Edit">
-                                        <i class="fa fa-edit"></i>
-                                     </a>
-                                 <?if($state->status==1) {?>
-                                     <a href="<?php echo route('admin.states.edit', ['lang' => $state->locale, 'id' => $state->id]); ?>" style="color:#4caf50" title="Published">
-                                         <i  class="fa fa-toggle-on" aria-hidden="true"></i>
-                                     </a>
-                                 <?php }else{ ?>
-                                     <a href="<?php echo route('admin.states.edit', ['lang' => $state->locale, 'id' => $state->id]); ?>" style="color:red" title="Draft">
-                                         <i class="fa fa-toggle-off" aria-hidden="true"></i>
-                                     </a>
-                                 <?php } ?>
-                                
-                        </td>
-                                
-                           </tr>
-                            
-                    <?php } ?>
+                        <?php endforeach; ?>
                 </tbody>
                 <tbody>
                 </tbody>

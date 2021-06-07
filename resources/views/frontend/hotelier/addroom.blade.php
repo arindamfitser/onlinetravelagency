@@ -80,18 +80,58 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Base Price <span class="required">*</span></label>
+                                    <label>Room Only Wholesale Rate <span class="required">*</span></label>
                                     <input type="text" name="base_price" class="form-control allowNumberDot requiredCheck"
-                                        data-check="Base Price" placeholder="Base Price">
+                                        data-check="Base Price" placeholder="Room Only Wholesale Rate">
                                 </div>
                             </div>
                         </div>
-                        <div class="row morePriceDiv"></div>
+                        <input type="hidden" id="prcCnt" value="0">
+                        <div class="row moreMealDiv">
+                            <h2 class="text-center">Add Meal Plan</h2>
+                            <div class="col-sm-5 roomPrc">
+                                <div class="form-group">
+                                    <label>Meal Plan </label>
+                                    <input type="text" name="mealText[]" class="form-control" data-check="Meal Plan"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-sm-5 roomPrc">
+                                <div class="form-group">
+                                    <label>Meal Price</label>
+                                    <input type="text" name="mealValue[]" class="form-control allowNumberDot" data-check="Meal Price"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
-                            <input type="hidden" id="prcCnt" value="0">
                             <div class="col-sm-12 text-center">
                                 <div class="form-group text-center">
-                                    <input type="button" class="btn btn-info addMrPriceBtn" value="+ Add Price">
+                                    <input type="button" class="btn btn-info addMealBtn" value="+ Add Meal">
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="row morePackageDiv">
+                            <h2 class="text-center">Add Package</h2>
+                            <div class="col-sm-5 roomPrc">
+                                <div class="form-group">
+                                    <label>Package Name </label>
+                                    <input type="text" name="packageText[]" class="form-control" data-check="Package Name" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-sm-5 roomPrc">
+                                <div class="form-group">
+                                    <label>Package Price</label>
+                                    <input type="text" name="packageValue[]" class="form-control allowNumberDot" data-check="Package Price"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <div class="form-group text-center">
+                                    <input type="button" class="btn btn-info addPackageBtn" value="+ Add Package">
                                 </div>
                             </div>
                         </div>
@@ -195,20 +235,45 @@
                                         </div>\
                                     </div>');
     });
-    $(document).on('click', '.addMrPriceBtn', function() {
+    $(document).on('click', '.addMealBtn', function() {
         let key = parseInt($('#prcCnt').val()) + parseInt(1);
         $('#prcCnt').val(key);
-        $('.morePriceDiv').append('\
+        $('.moreMealDiv').append('\
         <div class="col-sm-5 roomPrc'+key+'">\
             <div class="form-group">\
-                <label>Room Price Text <span class="required">*</span></label>\
-                <input type="text" name="priceText[]" class="form-control requiredCheck" data-check="Room Price Text" autocomplete="off">\
+                <label>Meal Plan </label>\
+                <input type="text" name="mealText[]" class="form-control" data-check="Meal Plan" autocomplete="off">\
             </div>\
         </div>\
         <div class="col-sm-5 roomPrc'+key+'">\
             <div class="form-group">\
-                <label>Room Price <span class="required">*</span></label>\
-                <input type="text" name="priceValue[]" class="form-control allowNumberDot requiredCheck" data-check="Room Price" autocomplete="off">\
+                <label>Meal Price</label>\
+                <input type="text" name="mealValue[]" class="form-control allowNumberDot" data-check="Meal Price"\
+                    autocomplete="off">\
+            </div>\
+        </div>\
+        <div class="col-md-2 roomPrc'+key+'">\
+            <div class="form-group">\
+                <label class="bmd-label-floating">Action</label><br />\
+                <input type="button" class="btn btn-danger deleteMrPriceBtn" data-key="'+key+'" value="Remove">\
+            </div>\
+        </div>');
+    });
+    $(document).on('click', '.addPackageBtn', function() {
+        let key = parseInt($('#prcCnt').val()) + parseInt(1);
+        $('#prcCnt').val(key);
+        $('.morePackageDiv').append('\
+        <div class="col-sm-5 roomPrc'+key+'">\
+            <div class="form-group">\
+                <label>Package Name </label>\
+                <input type="text" name="packageText[]" class="form-control" data-check="Package Name" autocomplete="off">\
+            </div>\
+        </div>\
+        <div class="col-sm-5 roomPrc'+key+'">\
+            <div class="form-group">\
+                <label>Package Price</label>\
+                <input type="text" name="packageValue[]" class="form-control allowNumberDot" data-check="Package Price"\
+                    autocomplete="off">\
             </div>\
         </div>\
         <div class="col-md-2 roomPrc'+key+'">\

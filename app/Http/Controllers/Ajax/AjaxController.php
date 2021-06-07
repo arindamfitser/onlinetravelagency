@@ -714,13 +714,21 @@ class AjaxController extends Controller{
         $filter                     = new Filter;
         $xml                        = $filter->AvailabilitySearchXML($request);
         $url                        = "http://api.stuba.com/RXLServices/ASMX/XmlService.asmx";
+
+        
+
         $data                       = $filter->fatchRoomsxml($url,$xml);
         $currency                   = 'AUD';
         $hotelForRoom               = array();
         $price                      = array();
         $result                     = array();
         $finalSearchHotel           = array();
-        //echo "<pre>"; print_r($data); die;
+
+
+
+
+
+        //pr($data);
         if($data["HotelAvailability"]):
           for ($i = 0; $i < count($data["HotelAvailability"]); $i++) :
             @$hotel_name = $data["HotelAvailability"][$i]["Hotel"]["@attributes"]["id"];

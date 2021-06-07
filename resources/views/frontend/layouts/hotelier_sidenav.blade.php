@@ -27,7 +27,7 @@
             <input type="file" id="file" style="display: none" />
             <input type="hidden" id="file_name" value="{{ Storage::disk('local')->url(get_avatar()) }}" />
         </center>
-        <li class="{{ Request::is('users/dashboard*') ? 'active' : '' }}"><a href="{{route('user.dashboard')}}"><i class="fa fa-th-large" aria-hidden="true"></i>Available Calendar</a></li>
+        <li class="{{ Request::is('users/dashboard*') ? 'active' : '' }}"><a href="{{route('user.dashboard')}}"><i class="fa fa-th-large" aria-hidden="true"></i>Availability Calendar</a></li>
         <li class="{{ Request::is('users/profile*') ? 'active' : '' }}"><a href="{{route('user.profile')}}"><i class="fa fa-user" aria-hidden="true"></i>{{ empty(Auth::user()->hotel_token) ? 'Profile' : 'User Profile'}}</a></li>
         <?php if(empty(Auth::user()->hotel_token)) : ?>
         <li class="{{ Request::is('users/hotels*') ? 'active' : '' }}">

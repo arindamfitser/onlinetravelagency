@@ -174,7 +174,7 @@ class ProfileController extends Controller{
                 $html .='<div class="bitems_head"><span>Room : </span><b>'. $r->name .'</b></div>';
                 //$html .='<div class="bitems_head"><span>Total : </span><b style="color:blue;">'. ($avlbl + $booked) .'</b></div>';
                 $html .='<div class="bitems_head"><span>Total : </span><b style="color:blue;">'. $r->room_capacity .'</b></div>';
-                $html .='<div class="bitems_head"><span>Available : </span><b style="color:green;">'. $avlbl .'</b></div>';
+                $html .='<div class="bitems_head"><span>No. of Available Rooms : </span><b style="color:green;">'. $avlbl .'</b></div>';
                 $html .='<div class="bitems_head"><span>Booked : </span><b style="color:red;">'. $booked .'</b></div>';
                 $html .='</div>';
                 $html .='</div>';
